@@ -1,0 +1,616 @@
+<!-- <section class="chc-center-section">
+    <div class="d-flex align-items-start">
+
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading"></h3>
+            </div>
+
+            <button class="nav-link active" [routerLink]="['/PHC-Registration']" id="v-pills-phc-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-phc" type="button" role="tab" aria-controls="v-pills-phc"
+                aria-selected="true">PHC Registration</button>
+            <button class="nav-link" [routerLink]="['/Doctor-Registration']" id="v-pills-Doctor-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Doctor" type="button" role="tab"
+                aria-controls="v-pills-Doctor" aria-selected="false">Doctor
+                Registration</button>
+            <button class="nav-link" [routerLink]="['/Patient-Queue-Management']" id="v-pills-Patient-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Patient" type="button" role="tab"
+                aria-controls="v-pills-Patient" aria-selected="false">Patient queue
+                management</button>
+
+
+            <button class="nav-link" [routerLink]="['/Holiday-Calendar']" id="v-pills-holiday-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-holiday" type="button" role="tab" aria-controls="v-pills-holiday"
+                aria-selected="false">Holiday Calendar</button>
+            <button class="nav-link" [routerLink]="['/Spoke-MAintenance']" id="v-pills-spoke-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-spoke" type="button" role="tab" aria-controls="v-pills-spoke"
+                aria-selected="false">Spoke Maintenance</button>
+            <button class="nav-link" [routerLink]="['/Employee-Training']" id="v-pills-employee-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-employee" type="button" role="tab"
+                aria-controls="v-pills-employee" aria-selected="false">Employee training
+            </button>
+            <button class="nav-link" [routerLink]="['/System-Health']" id="v-pills-system-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-system" type="button" role="tab" aria-controls="v-pills-system"
+                aria-selected="false">System health</button>
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                        <button class="btn width-btn" (click)="onSignOut()">logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent">
+            <div class="tab-pane " id="v-pills-Doctor" role="tabpanel" aria-labelledby="v-pills-Doctor-tab"
+                style="overflow-x:hidden ;"> -->
+<div>
+    <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+        primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' }"></ngx-loading>
+    <form [formGroup]="doctorregistration" autocomplete="off">
+
+        <div class="doctor-info">
+            <div>
+                <h2 class="Headersize" style="text-align: center;">Doctor Registration</h2>
+            </div>
+            <div class="row">
+
+                <div class="col-md-3 ">
+                    <!-- <div class="top-search-register"> -->
+                    <!-- <input class="nosubmit" type="search" placeholder="Search patients"
+                            (click)="searchname($event)"> -->
+
+                    <!-- </div> -->
+
+
+                </div>
+                <div class="col-md-3">
+                    <!-- <app-search-bar (onSelectedOption)="searchname($event)"></app-search-bar> -->
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="top-search-register">
+
+                        <!-- <input class="nosubmit" type="search"  placeholder="Search Doctor" (click)="searchname($event)"> -->
+                        <!-- <img height="20" style="margin-top: 0px;" src="../../../../assets/Images/smaill-icon/search-icon-white.png"
+                            class="backbutton"> -->
+                        <!-- <input class="nosubmit advance-search" type="search" placeholder="Advance Search" style="width:100%;"> -->
+                        <input type="search" class="nosubmit" placeholder="Search Doctor" #stateInput value=""
+                            formControlName="emailsearch" (input)="onSearchEmailValue()"(keydown.enter)="onEnterKey($event)" [matAutocomplete]="auto"
+                            [(ngModel)]="search">
+                        <!-- <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                (keyup)="onSearchEmailValue()" formControlName="emailsearch" [matAutocomplete]="auto"> -->
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                (onSelectionChange)="stateInput.value !=undefined && 
+                                onSelection($event)">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- <div class="top-search-register">
+                <input class="nosubmit" type="search" placeholder="Search patients">
+                <img height="20" style="margin-top: 0px;" src="../../../../assets/Images/smaill-icon/arrow.jpg"
+                    class="backbutton">
+                <input class="nosubmit advance-search" type="search" placeholder="Advance Search" style="width:100%;">
+
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>First
+                        Name:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter First Name" formControlName="firstname" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="onlyphabetkey($event)"
+                            [(ngModel)]="fname">
+
+                        <div *ngIf="doctorregistration.controls['firstname'].invalid && doctorregistration.controls['firstname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['firstname'].errors">
+                                First Name is Required
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>MCI Registration
+                        ID:</label>
+                </div>
+                <div class="col-md-3 ">
+
+                    <div>
+                        <input type="text" formControlName="mciregistrationid" class="form-control"
+                            *ngIf="isdoctorregistrationInput" readonly>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter MCI ID"
+                            formControlName="mciregistrationid" oninput="this.value = this.value.replace('  ',' ')"
+                            (keypress)="onlyphabetskey($event)" *ngIf="isdoctorregistrationselected">
+                        <div *ngIf="doctorregistration.controls['mciregistrationid'].invalid && doctorregistration.controls['mciregistrationid'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['mciregistrationid'].errors">
+                                MCI Registration ID is Required
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize">Middle
+                        Name:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Middle Name" formControlName="middlename" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="onlyphabetkey($event)">
+                        <div *ngIf="doctorregistration.controls['middlename'].invalid && doctorregistration.controls['middlename'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['middlename'].errors">
+                                Middle Name is Required
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Registered Phone
+                        Number:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+
+                        <input type="tel" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Mobile Number" formControlName="phonenumber" autocomplete="password"
+                            (keypress)="keyPress($event)" maxlength="10" [(ngModel)]="phone">
+                        <div *ngIf="doctorregistration.controls['phonenumber'].invalid && doctorregistration.controls['phonenumber'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['phonenumber'].errors">
+                                Phone Number is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Last
+                        Name:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Last Name" formControlName="lastname" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="onlyphabetkey($event)">
+                        <div *ngIf="doctorregistration.controls['lastname'].invalid && doctorregistration.controls['lastname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['lastname'].errors">
+                                Last Name is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Registered Email
+                        ID:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" formControlName="emailid" class="form-control"
+                            *ngIf="isdoctorregistrationInput" readonly>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" autocomplete="password"
+                            placeholder="Enter Email ID" formControlName="emailid" *ngIf="isdoctorregistrationselected"
+                            (keypress)="emailkey($event)">
+                        <div *ngIf="doctorregistration.controls['emailid'].invalid && doctorregistration.controls['emailid'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['emailid'].errors">
+                                Email ID is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+
+                    <label for="" class="lbltextsize"><span class="text-danger"></span>Date Of
+                        Birth</label>
+                </div>
+                <div class="col-md-3 ">
+                    <input type="text" formControlName="age" class="form-control" *ngIf="isdoctorregistrationInput"
+                        readonly>
+                    <!-- <mat-form-field class="padding-setcalendar">
+                        <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="age"
+                            class="form-control input-padding" readonly *ngIf="isdoctorregistrationselected">
+                        <mat-datepicker-toggle matSuffix [for]="picker" class="calendarbtn"
+                            *ngIf="isdoctorregistrationselected">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field> -->
+
+                    <input type="date"  class="form-control input-padding" formControlName="age"  *ngIf="isdoctorregistrationselected">
+
+                    <div *ngIf="doctorregistration.controls['age'].invalid && doctorregistration.controls['age'].touched"
+                        class="error text-danger small">
+                        <div *ngIf="doctorregistration.controls['age'].errors">
+                            Date Of Birth is Required
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Specialization:</label>
+
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <select class="form-control" id="exampleFormControlInput1" (change)="openDropdown($event)"
+                            formControlName="specialization">
+
+                            <option *ngFor="let c of ListSpecialization" [value]="c.id">{{
+                                c.specialization}}</option>
+
+                        </select>
+                        <div *ngIf="doctorregistration.controls['specialization'].invalid && doctorregistration.controls['specialization'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['specialization'].errors">
+                                Specialization is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-3">
+
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Sex:</label>
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" formControlName="sex" class="form-control" *ngIf="isdoctorregistrationInput"
+                            readonly>
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="sex"
+                            *ngIf="isdoctorregistrationselected">
+
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Others</option>
+
+                        </select>
+                        <!-- <div *ngIf="doctorregistration.controls['sex'].invalid && doctorregistration.controls['sex'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['sex'].errors">
+                                Sex is Required
+                            </div>
+                        </div> -->
+                    </div>
+
+
+                </div>
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Qualifications:</label>
+
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" formControlName="subspecialization" class="form-control" (click)="click()"
+                            *ngIf="isthisclickInput">
+
+                        <select class="form-control" id="exampleFormControlInput1" *ngIf="isthisselectedInput"
+                            (change)="openFirstDropdown($event)" formControlName="subspecialization">
+
+                            <option *ngFor="let c of subspecializationlist" [value]="c.id">{{
+                                c.subSpecialization}}</option>
+
+                        </select>
+
+                        <div *ngIf="doctorregistration.controls['subspecialization'].invalid && doctorregistration.controls['subspecialization'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['subspecialization'].errors">
+                                Qualification is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Address:</label>
+
+                </div>
+                <div class="col-md-3 ">
+                    <div>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" autocomplete="password"
+                            placeholder="Enter Address" formControlName="address" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="allcharkey($event)">
+                        <div *ngIf="doctorregistration.controls['address'].invalid && doctorregistration.controls['address'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['address'].errors">
+                                Address is Required
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3">
+                    <label for="" class="lbltextsize"><span class="text-danger"></span>Govt. ID
+                        Type:</label>
+
+                </div>
+                <div class="col-md-3 ">
+                    <select class="form-control" id="exampleFormControlInput1" formControlName="govtidtype"
+                        (change)="chnageGovernmentId($event)" (click)="onCancel()">
+                        <option *ngFor="let gvtID of govermentIdTypes[0]; let i = index;" [value]="gvtID.id">
+                            {{gvtID.idproofType}}
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- <div class="row">
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-3 ">
+
+
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-3 ">
+
+                                </div>
+
+
+
+                            </div> -->
+
+            <div class="row">
+                <div class="col-md-3">
+
+
+                </div>
+                <div class="col-md-3 ">
+
+
+                </div>
+                <div class="col-md-3">
+
+                    <div class="register-log" *ngIf="isdrivinglicense">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>Driving
+                            License </label>
+                    </div>
+                    <div class="register-log" *ngIf="isPanCard">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>PAN Card
+                        </label>
+                    </div>
+                    <div class="register-log" *ngIf="isPassport">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>Passport
+                        </label>
+                    </div>
+                    <div class="register-log" *ngIf="isElectionId">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>Election
+                            ID
+                        </label>
+                    </div>
+                    <div class="register-log" *ngIf="isOthers">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>Others
+                        </label>
+                    </div>
+                    <div class="register-log" *ngIf="isABHAID">
+                        <label for="" class="lbltextsize"><span class="text-danger"></span>ABHA ID
+                        </label>
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-3 ">
+
+                    <div class="register-log" *ngIf="isdrivinglicense">
+                        <!-- <label for=""><span class="text-danger"></span>Driving License </label> -->
+                        <input type="text" appGovtId class="form-control" formControlName="idnumber" [minlength]="18"
+                            [maxlength]="18" oninput="this.value = this.value.toUpperCase()">
+
+                    </div>
+                    <div class="register-log" *ngIf="isPanCard">
+                        <!-- <label for=""><span class="text-danger"></span>PAN Card </label> -->
+                        <input type="text" class="form-control" formControlName="idnumber" [minlength]="10"
+                            [maxlength]="10" oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div>
+                    <div class="register-log" *ngIf="isPassport">
+                        <!-- <label for=""><span class="text-danger"></span>Passport </label> -->
+                        <input type="text" class="form-control" formControlName="idnumber" [minlength]="8"
+                            [maxlength]="8" oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div>
+                    <div class="register-log" *ngIf="isElectionId">
+                        <!-- <label for=""><span class="text-danger"></span>Election ID </label> -->
+                        <input type="text" class="form-control" formControlName="idnumber" [minlength]="8"
+                            [maxlength]="16" oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div>
+                    <div class="register-log" *ngIf="isOthers">
+                        <!-- <label for=""><span class="text-danger"></span>Others </label> -->
+                        <input type="text" class="form-control" formControlName="idnumber" [minlength]="8"
+                            [maxlength]="20" oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div>
+                    <div class="register-log" *ngIf="isABHAID">
+                        <!-- <label for=""><span class="text-danger"></span>Others </label> -->
+                        <input type="text" class="form-control" formControlName="idnumber" [minlength]="8"
+                            [maxlength]="14" oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 ||  (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- <div class="form-group">
+                        <img [src]="url" height="150" *ngIf="isdoctorregistrationselected">
+                        <br>
+                        <img [src]="srcs" height="100" formControlName="profilePicture"
+                            *ngIf="isdoctorregistrationInput"><br>
+                        <input type="file" formControlName="profilePicture" class="form-control"
+                            id="exampleFormControlInput1" (change)="updateprofile($event)"
+                            *ngIf="isdoctorregistrationInput">
+                        <input type="file" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Upload Profle" formControlName="profilePicture" (change)="onselectfile($event)"
+                            *ngIf="isdoctorregistrationselected">
+                        <div *ngIf="doctorregistration.controls['profilePicture'].invalid && doctorregistration.controls['profilePicture'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['profilePicture'].errors">
+                                Profile Picture is Required
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                    <div *ngIf="isdoctorregistrationInput">
+                        <img [src]="srcs" height="100" formControlName="profilePicture"><br>
+                        <input type="file"  class="form-control"
+                            id="exampleFormControlInput1" (change)="updateprofile($event)">
+                    </div>
+                    <div *ngIf="isdoctorregistrationselected">
+                        <img [src]="url" height="150" >
+                        <input type="file" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Upload Profle" formControlName="profilePicture" (change)="onselectfile($event)"
+                       >
+                        <div *ngIf="doctorregistration.controls['profilePicture'].invalid && doctorregistration.controls['profilePicture'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['profilePicture'].errors">
+                                Profile Picture is Required
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3 ">
+                    <div *ngIf="isdoctorregistrationInput">
+                        <img [src]="src" height="100" formControlName="signature" *ngIf="isdoctorregistrationInput"><br>
+                        <input type="file"  class="form-control"
+                            id="exampleFormControlInput1" (change)="updatesignature($event)">
+                    </div>
+                    <div *ngIf="isdoctorregistrationselected">
+                        <img [src]="urls" height="100"><br>
+                        <!-- <input type="image" formControlName="subspecialization" class="form-control"
+                            *ngIf="isdoctorregistrationInput"> -->
+                        <!-- <img src="{{ imageUrl }}{{searchlist.digitalSignature}}"  height="100"formControlName="signature" 
+                    *ngIf="isdoctorregistrationInput"><br> -->
+                        <!-- <img style="height: 100"
+              src="{{ imageUrl }}{{searchlist.digitalSignature}}" alt="" /> -->
+                        <!-- <input type="file" formControlName="signature" class="form-control" id="exampleFormControlInput1" 
+                            *ngIf="isdoctorregistrationInput"(change)="updatesignature($event)"> -->
+                        <input type="file" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Upload Signature" formControlName="signature"
+                            (change)="onselectedfile($event)">
+                        <div *ngIf="doctorregistration.controls['signature'].invalid && doctorregistration.controls['signature'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="doctorregistration.controls['signature'].errors">
+                                Signature is Required
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+
+
+                    <div>
+                        <div class="set-web-service">
+                            <button class="btn bg-purple register-capt"
+                                (click)=" UpdateDoctorRegistration()">Save</button>&nbsp;
+                            <button class="btn bg-purple register-capt" (click)=" handleClear()">Clear</button>
+                        </div>
+
+                        <!-- <div class="set-web-service">
+                            <button class="btn bg-purple register-capt"
+                                (click)=" UpdateDoctorRegistration()">Clear</button>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="set-web-service">
+                        <button class="btn bg-purple register-capt" (click)=" DoctorRegistration()">Register New
+                            Doctor</button>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </form>
+</div>
+
+<!-- </div>
+        </div>
+    </div>
+</section> -->

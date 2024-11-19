@@ -1,0 +1,359 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="">
+        <div class="example-container">
+          <form [formGroup]="doctorForm" autocomplete="off">
+            <div class="mdMedgnrlMdcnWrp">
+              <span>{{ this.ReportName }}</span>
+              <label>From</label> :
+              <mat-form-field class="">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  class="Datecls"
+                  [max]="today"
+                  formControlName="fromdate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <label>To</label> :
+              <mat-form-field class="">
+                <input
+                  matInput
+                  [matDatepicker]="pickerto"
+                  class="Datecls"
+                  [max]="today"
+                  formControlName="todate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerto"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerto></mat-datepicker>
+              </mat-form-field>
+              <!-- <label>From</label> : <input type="date" formControlName="fromdate">
+              <label>To</label> : <input type="date" formControlName="todate"> -->
+              <input type="button" value="Search" (click)="submitdetails()" />
+            </div>
+            <div *ngIf="ShowErrorMessage" class="alert alert-danger">
+              {{ ValidationMessage }}
+            </div>
+          </form>
+          <div class="mat-elevation-z8 mt-3">
+            <form
+              style="display: inline"
+              class="form-group"
+              [formGroup]="formControl"
+              autocomplete="off"
+            >
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="cluster" />
+                <mat-placeholder>Cluster</mat-placeholder>
+              </mat-form-field>
+
+              <mat-form-field class="mx-1">
+                <input
+                  matInput
+                  class="form-control"
+                  formControlName="districtName"
+                  type="text"
+                />
+                <mat-placeholder>District</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="blockName" />
+                <mat-placeholder>Block</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="phcName" />
+                <mat-placeholder>PHC</mat-placeholder>
+              </mat-form-field>
+
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="phase" />
+                <mat-placeholder>Phase</mat-placeholder>
+              </mat-form-field>
+
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="dc" />
+                <mat-placeholder>MO </mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="date" />
+                <mat-placeholder>Date </mat-placeholder>
+              </mat-form-field>
+              <div>
+                <a routerLink="/main-dashboard" class="fa-pull-right"
+                  ><button class="btn btn-danger pull-right">
+                    <fa-icon [icon]="faClose"></fa-icon></button
+                ></a>
+                <button
+                  type="button"
+                  class="fa-pull-right btn btn-secondary"
+                  (click)="downloadPdf()"
+                >
+                  <fa-icon [icon]="faFilePdf"></fa-icon>
+                </button>
+                <button
+                  type="button"
+                  class="fa-pull-right btn btn-secondary"
+                  (click)="Download('Excel')"
+                >
+                  <fa-icon [icon]="faFileExcel"></fa-icon>
+                </button>
+                <button
+                  class="btn btn-secondary pull-right"
+                  type="button"
+                  (click)="bulkDownload()"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  <fa-icon [icon]="faDownload"></fa-icon>
+                </button>
+              </div>
+            </form>
+            <Div id="content" #content>
+              <!-- <table mat-table [dataSource]="dataSource"> -->
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8"
+                matSort
+                matSortDisableClear
+                matSortDirection="desc"
+              >
+                <!-- Position Column -->
+                <ng-container matColumnDef="srNo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    SL No.
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.srNo }}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="districtName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    District
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.districtName }}
+                  </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="blockName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Block
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.blockName }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="phcName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>PHC</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.phcName }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="phase">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Phase
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.phase }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cluster">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Cluster
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.cluster }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dc">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Name of MO
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.dc }}</td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Date
+                  </th>
+                  <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="DueDate">
+                  <th mat-header-cell *matHeaderCellDef>Due Date</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.duedate }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="filePath">
+                  <th mat-header-cell *matHeaderCellDef>File</th>
+
+                  <td mat-cell *matCellDef="let element">
+                    <!-- <a href="" target="_blank" download=""> -->
+                    <button
+                      class="btn btn-success pull-right"
+                      (click)="download(fileheader + element.filePath)"
+                    >
+                      <fa-icon [icon]="faDownload"></fa-icon>
+                    </button>
+                    <!-- </a>   -->
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+              <div
+                *ngIf="dataSource.data?.length === 0"
+                class="text-center mx-2 my-3"
+              >
+                No records found
+              </div>
+
+              <mat-paginator
+                [pageSizeOptions]="[10]"
+                showFirstLastButtons
+              ></mat-paginator>
+            </Div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="ShowPopup">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" *ngIf="ShowPopup">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Downloading Status</h5>
+       
+      </div>
+      <div class="modal-body">
+        Out of {{countOfFiles}} files, {{downloadedCout}}files are currently being downloaded
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancel</button>
+        <button type="button"  class="btn btn-primary"*ngIf="OkDisable" (click)="errorDisplay()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"  (click)="bulkDownload()" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div
+  #modal
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">
+          <b>Downloading Status</b>
+        </h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="modal-body"
+        *ngIf="BulkErrorStatus"
+        style="    max-height: 300px;
+        overflow-y: auto;
+        padding: 32px 151px 32px 37px;"
+      >
+        <h3><b>{{modifiedUrls.length}} Files are not found</b></h3>
+
+        <div *ngFor="let data of modifiedUrls">
+          {{ data }}
+        </div>
+      </div>
+    
+      <div class="modal-body" *ngIf="ShowPopup" style="padding:36px 73px 36px 28px;">
+        Out of {{ countOfFiles }} files, {{ downloadedCout }} files are
+        currently being downloaded.
+      </div>
+      
+      <div
+        class="modal-body"
+        style="padding: 34px 140px 34px 140px"
+        *ngIf="ShowerrPopup"
+      >
+        No Data Available!
+      </div>
+      <div class="modal-footer" *ngIf="BulkErrorStatus">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Ok
+        </button>
+      </div>
+      <div class="modal-footer" *ngIf="ShowPopup">
+        <button
+          type="button"
+          id="closeModalButton"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="onCancelButton()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          *ngIf="OkDisable"
+          (click)="errorDisplay()"
+        >
+          Ok
+        </button>
+      </div>
+      <div class="modal-footer" *ngIf="ShowerrPopup">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Ok
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900',
+    fullScreenBackdrop: true
+  }"
+></ngx-loading>

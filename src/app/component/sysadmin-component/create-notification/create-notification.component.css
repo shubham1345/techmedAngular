@@ -1,0 +1,32 @@
+
+    
+    .health-info{
+      background-color: #dee2e6;
+      border-radius:7px;
+      margin:42px;
+      padding: 20px 100px 20px 100px;  
+      font-family: 'Montserrat-regular';
+      font-size: 14px;
+      /* margin-left: 20%;
+      margin-right: 20%; */
+      
+      
+    }
+
+  .clsPlacement{
+    /* margin-top: 16px;
+    width: 100%;
+    height: 14px; */
+    padding: 20px 100px 20px 100px;  
+    font-family: 'Montserrat-regular';
+    font-size: 14px;
+    /* margin-left: 20%;  */
+  }
+
+  label{
+    font-size: 16px;
+  }
+  row
+  {
+    align-items: center;
+  }

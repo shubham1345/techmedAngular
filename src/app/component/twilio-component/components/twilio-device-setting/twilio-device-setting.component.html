@@ -1,0 +1,22 @@
+            <h2 class="text-center">Meeting Initializing</h2>
+          
+            <div class="col-12 my-4" [ngClass]="isPreviewing ? 'd-block' : 'd-none'">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <app-twilio-camera (onCameraInitComplete)="onCameraInitComplete($event)" class="video-window" #camera></app-twilio-camera>
+                </div>
+            </div>
+              <form class="form" autocomplete="off">
+                <div class="form-group" *ngIf="hasAudioInputOptions">
+                    <app-twilio-device-select [kind]="'audioinput'" [label]="'Audio Input Source'" [devices]="devices"
+                        (settingsChanged)="onSettingsChanged($event)"></app-twilio-device-select>
+                </div>
+                <!-- <div class="form-group" *ngIf="hasAudioOutputOptions">
+                    <app-twilio-device-select [kind]="'audiooutput'" [label]="'Audio Output Source'" [devices]="devices"
+                        (settingsChanged)="onSettingsChanged($event)"></app-twilio-device-select>
+                </div> -->
+                <div class="form-group" *ngIf="hasVideoInputOptions">
+                    <app-twilio-device-select  [kind]="'videoinput'" #videoSelect [label]="'Camera'" [devices]="devices"
+                        (settingsChanged)="onSettingsChanged($event)"></app-twilio-device-select>
+                </div>
+            </form>
+          

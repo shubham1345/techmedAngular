@@ -1,0 +1,442 @@
+.modalclass
+{
+    margin: 0;
+    width: 100vw !important;
+    padding: 0;
+    max-width: 100vw !important;
+    z-index: 100000 !important;
+
+}
+
+.imgclass
+{
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    z-index: 100000 !important;
+
+}
+
+.chc-center-section{
+    width:100%;
+    height:100vh;
+    background:#0C4079;
+    overflow-y:hidden;
+}
+/* .chc-center-section:hover{
+    overflow-y:auto;
+   
+} */
+
+
+
+.chc-center-section .sidebar{
+    
+    /* padding: 1rem; */
+    /* background: #0C4079; */
+    margin: 0!important;
+}
+.chc-center-section .mid-content{
+    /* border: 1px solid #000; */
+    background: #fff;
+    height: 100vh;
+    width: 100%;
+    /* padding: 1rem; */
+    margin: 0!important;
+    border-radius: 30px 0 0 0;
+    overflow-y: auto;
+}
+.sidebar-heading-div{
+    margin: 2rem 0;
+}
+.sidebar-heading-div .sidebar-heading{
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: #FFF;
+    font-family: Montserrat-SemiBold;
+}
+
+/* bootstrap classes manipulation */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #000!important;
+    background-color: #fff!important;
+}
+.nav-pills .nav-link {
+    background: none;
+    border: 0;
+    border-radius: 0!important;
+    padding: 10px 0!important;
+    font-family: Montserrat-SemiBold;
+    font-size: 1rem;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.main-content-div{
+    display: flex;
+    flex-direction: row;
+}
+.main-content-div .main-mid-div{
+    flex: 3;
+    /* padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+}
+.main-content-div .main-mid-div .top-div{
+    padding: 1rem 3rem;
+}
+.main-content-div .right-side-doctor-div{
+    flex: 1;
+    background: #FDE5C5;
+    /* height: 100vh; */
+}
+
+/* search bar css */
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.fa-search:before {
+    content: "\f002";
+}
+
+.top-search-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    align-items: center;
+}
+.main-content-div .main-bottom-div{
+    /* padding: 1rem; */
+    background: #FDE5C5;
+}
+.main-bottom-div .consultated-patient-div{
+    padding: 1rem 3rem;
+}
+
+.right-side-doctor-div .available-doctor-heading-div h4{
+    margin-top: 2rem;
+    text-align: center;
+    font-size:20px;
+}
+.right-side-doctor-div .available-doctor-cards{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.right-side-doctor-div .available-doctor-cards .doctor-card{
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    margin: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+}
+.right-side-doctor-div .available-doctor-cards .doctor-card .doctor-card-img{
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.right-side-doctor-div .available-doctor-cards .doctor-card h5{
+    margin: 2px;
+    font-family: 'Montserrat-SemiBold';
+    font-size: 16px;
+}
+.right-side-doctor-div .available-doctor-cards .doctor-card p{
+    margin: 2px;
+    font-family: 'Montserrat-regular';
+    font-size: 16px; 
+}
+
+.top-search-register input{
+    width:65%;
+    border-radius:50px;
+    height:35px;
+    background-color: #F5F5FA;
+    border:1px solid #F5F5FA;
+    font-family: 'Montserrat-regular';
+}
+.second-nav-total{
+    margin-top:1rem;
+    margin-bottom:1rem;
+    width:100%;
+    font-family: 'Montserrat-medium';
+}
+.second-nav-total ul li{
+    margin-right: 10px;
+    border:unset!important;
+    color:#B30A0A!important;
+    font-family: 'Montserrat-medium';
+    font-size:16px;
+}
+.list-total{
+    display: flex; 
+    justify-content:left;
+    width: 100%; 
+    color:#B30A0A;
+    font-size:20px;
+    font-weight:500;
+    flex-direction:inherit;
+    margin-bottom: 1rem;
+}
+.list-total .list-group-item{
+    padding:0.5rem 0.5rem 0.5rem 0;
+    line-height: 1;
+}
+input[type="search"] {
+    border: none;
+    background: transparent;
+    margin: 0;
+    padding: 7px 8px;
+    font-size: 14px;
+    color: inherit;
+    border: 1px solid transparent;
+    border-radius: inherit;
+  }
+  
+  input[type="search"]::placeholder {
+    color: #0C4079;
+    font-style: italic;
+  }
+ 
+  input[type="search"]:focus {
+    box-shadow: 0 0 3px 0 #1183d6;
+    border-color: #1183d6;
+    outline: none;
+  }
+ 
+  input.nosubmit {
+    border: 1px solid #555;
+    width: 100%;
+    padding: 9px 4px 9px 40px;
+     background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+  }
+  .todays-patient-div h3{
+    margin-bottom: 1rem;
+    font-size: 20px;
+    font-weight: 700;
+    color:#06203C;
+    font-size: 16px;
+    font-family: 'Montserrat-medium';
+  }
+  .text-form{
+    margin-bottom: 1rem;
+    font-size: 16px;
+    font-weight: 700;  
+    color:#06203C;
+    margin-top:1rem;
+    font-family: 'Montserrat-semibold';
+  }
+  
+  .available-doctor-heading-div{
+      font-size:16px;
+      font-family: 'Montserrat-SemiBold';
+    }
+  .text-footer{
+      position: fixed;
+      bottom: 0px;
+
+  }
+
+  /* Account Info */
+
+
+  .account-info{
+      background-color: #FDE5C5;
+      border-radius:50px;
+      margin:20px;
+      padding: 20px 100px 20px 100px;  
+      font-family: 'Montserrat-regular';
+      font-size: 14px;
+    }
+.mbt-1{
+    margin-bottom:0.5rem;
+}
+.mbt-2{
+    margin-bottom: 2rem;
+}
+.mrt-1{
+    margin-right:1rem;
+}
+.mtp-1{
+    margin-top:1rem;
+}
+.mtp-2{
+    margin-top:2rem;
+}
+.phc-technician{
+    margin-bottom:2rem;
+    margin-top:2rem;
+    font-family: 'Montserrat-semibold';
+}
+.account-first-section{
+    margin-bottom:1rem;
+}
+
+/* patient-history */
+
+.patient-history{
+    padding:20px;
+    padding-left:50px;
+}
+.yesterday-patient{
+    margin-top:1rem;
+    margin-bottom:1rem;
+    font-family: 'Montserrat-SemiBold';
+    line-height: 3;
+    padding-bottom: 0px;
+    border-bottom-style: solid;
+    border-bottom-width: 3.1px;
+    width: fit-content;
+    border-block-color: #4A48B9;
+}
+
+.advanced-patient input{
+    box-shadow: 0px 1px 9px rgb(6 32 60 / 25%);
+    background: #F4F1F1;
+}
+.save-details{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-family: 'Montserrat-regular';
+}
+.form-group  label{
+    font-family: 'Montserrat-medium';
+}
+.form-group Input{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px rgba(211, 13, 13, 0.25);
+    border-radius:unset!important;
+}
+.gender-set{
+    font-family: 'Montserrat-medium';
+
+}
+input[type="text"]::placeholder , input[type="email"]::placeholder ,  input[type="tel"]::placeholder  {
+    font-family: 'Montserrat-regular';
+    font-size: 12px;
+  }
+  .text-red{
+      color:red;
+      font-family: 'Montserrat-regular';
+      font-style: italic;
+      font-size:12px;
+  }
+  .input-history{
+    background: #F4F1F1!important;
+    box-shadow: 0px 1px 9px rgb(6 32 60 / 25%)!important;
+  }
+  .advance-search{
+    background-color: unset!important;
+    border: unset!important;
+  }
+  .line-height input{
+      margin-bottom:2rem;
+  }
+  .search-set-icon{
+    background-color: #4A48B9;
+    color:#fff;
+    border-radius:50px;
+  }
+  .search-set-icon img{
+    padding:10px;
+    width:40px;
+  }
+  .search-advance-set{
+    display: flex;
+    align-items: center;
+    padding:10px;
+  }
+  textarea{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px rgb(211 13 13 / 25%);
+    border-radius: unset!important;
+    border: unset!important;
+    padding:10px;
+  }
+ 
+
+
+  .product-img-wrapper {
+    text-align: center;
+ }
+ 
+ .product-img-wrapper img {
+     width: 200px;
+     height: 200px;
+ }
+ 
+ .product-wrapper {
+     position: relative;
+     /* margin: 50px 0; */
+ }
+ 
+ .product-card {
+     position: relative;
+     max-width: 330px;
+     
+     text-align: center;
+  }
+ 
+ .product-card .card-bottom {
+     position: absolute;
+     bottom: 0px;
+     width:100%;
+     left:0;
+  }
+
+  .patient-queue-header{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background: #f3f3f3;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .patient-queue-header h2{
+    padding: 20px;
+    background-color: #d4c9c9;
+  }
+ 
+
+  ::ng-deep.mat-form-field-outline 
+  {
+    background-color: white;
+  }
+
+  .redtext{
+    color: red;
+    font-size: 15px;
+
+  }
+
+  .greentext{
+    color: green;
+    font-size: 15px;
+
+  }
+
+  .orangetext{
+    color: orange;
+    font-size: 15px;
+
+  }

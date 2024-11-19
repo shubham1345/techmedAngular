@@ -1,0 +1,411 @@
+<!-- <section class="chc-center-section">
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading"></h3>
+            </div>
+
+            <button class="nav-link active" [routerLink]="['/PHC-Registration']" id="v-pills-phc-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-phc" type="button" role="tab" aria-controls="v-pills-phc"
+                aria-selected="true">PHC Registration</button>
+            <button class="nav-link" [routerLink]="['/Doctor-Registration']" id="v-pills-Doctor-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Doctor" type="button" role="tab"
+                aria-controls="v-pills-Doctor" aria-selected="false">Doctor
+                Registration</button>
+            <button class="nav-link" [routerLink]="['/Patient-Queue-Management']" id="v-pills-Patient-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Patient" type="button" role="tab"
+                aria-controls="v-pills-Patient" aria-selected="false">Patient queue
+                management</button>
+
+
+            <button class="nav-link" [routerLink]="['/Holiday-Calendar']" id="v-pills-holiday-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-holiday" type="button" role="tab" aria-controls="v-pills-holiday"
+                aria-selected="false">Holiday Calendar</button>
+            <button class="nav-link" [routerLink]="['/Spoke-MAintenance']" id="v-pills-spoke-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-spoke" type="button" role="tab" aria-controls="v-pills-spoke"
+                aria-selected="false">Spoke Maintenance</button>
+            <button class="nav-link" [routerLink]="['/Employee-Training']" id="v-pills-employee-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-employee" type="button" role="tab"
+                aria-controls="v-pills-employee" aria-selected="false">Employee training
+            </button>
+            <button class="nav-link" [routerLink]="['/System-Health']" id="v-pills-system-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-system" type="button" role="tab" aria-controls="v-pills-system"
+                aria-selected="false">System health</button>
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                       
+                        <button class="btn width-btn" (click)="onSignOut()">logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-phc" role="tabpanel" aria-labelledby="v-pills-phc-tab" -->
+<!-- style="overflow-x:hidden ;"> -->
+<div>
+    <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+        primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' }"></ngx-loading>
+    <form [formGroup]="phcregistration" autocomplete="off">
+        <div class="phc-info">
+            <div>
+                <h2 class="Headersize" style="text-align: center;">PHC Registration </h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger"></span></label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div class="top-search-register">
+
+                        <!-- <input class="nosubmit" type="search"  placeholder="Search Doctor" (click)="searchname($event)"> -->
+                        <!-- <img height="20" style="margin-top: 0px;" src="../../../../assets/Images/smaill-icon/search-icon-white.png"
+                                        class="backbutton"> -->
+                        <!-- <input class="nosubmit advance-search" type="search" placeholder="Advance Search" style="width:100%;"> -->
+                        <input type="search" class="nosubmit" placeholder="Search PHC" #stateInput value=""
+                            formControlName="phcname"  [matAutocomplete]="auto">
+                        <!-- <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                            (keyup)="onSearchEmailValue()" formControlName="emailsearch" [matAutocomplete]="auto"> -->
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                (onSelectionChange)="stateInput.value !=undefined && 
+                                            onSelection($event)">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+
+
+
+
+
+                    <!-- <div>
+                        <input type="search" class="nosubmit" id="exampleFormControlInput1" placeholder="Enter PHC Name"
+                            #stateInput formControlName="phcname" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keyup)="onSearchPhcName()"
+                            [matAutocomplete]="auto">
+
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                (onSelectionChange)="stateInput.value !=undefined && 
+                                            onSelection($event)">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+
+                        <div *ngIf="phcregistration.controls['phcname'].invalid && phcregistration.controls['phcname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['phcname'].errors">
+                                PHC Name is Required
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span> PHC
+                        Name:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="phcname" class="form-control"
+                            *ngIf="isphcregistrationInput" readonly>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" *ngIf="isphcregistrationSelection"
+                            placeholder="Enter PHC Name" #stateInput formControlName="phcname" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')">
+                        <!-- 
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="stateInput.value !=undefined && 
+                                            onSelection($event)" >
+                                                {{option}}
+                                            </mat-option>
+                                        </mat-autocomplete> -->
+
+                        <div *ngIf="phcregistration.controls['phcname'].invalid && phcregistration.controls['phcname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['phcname'].errors">
+                                PHC Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>
+                        Cluster:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="phczone" class="form-control"
+                            *ngIf="isInput" (click)="click()">
+                            <!-- <select class="form-control" id="exampleFormControlInput1" formControlName="phczone"
+                            *ngIf="isphcregistrationInput" (change)="checkFirstDropdown($event)"> -->
+                            <!-- (change)="checkFirstDropdown($event)" -->
+                            <!-- <option [ngValue]="null" [disabled]="true">Please Select Cluster</option> -->
+                            <!-- <option class="option" value="" disabled selected hidden style="    color: #939699;
+                                            ">Enter Cluster</option>
+                            <option *ngFor="let c of ListCluster ; let i=index;" [value]="c.id">{{
+                                c.cluster }}</option>
+                        </select> -->
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="phczone"
+                            *ngIf="isSelection" (change)="checkFirstDropdown($event)">
+                            <!-- (change)="checkFirstDropdown($event)" -->
+                            <!-- <option [ngValue]="null" [disabled]="true">Please Select Cluster</option> -->
+                            <option class="option" value="" disabled selected hidden style="    color: #939699;
+                                            ">Select Cluster</option>
+                            <option *ngFor="let c of ListCluster ; let i=index;" [value]="c.id">{{
+                                c.cluster }}</option>
+                        </select>
+
+                        <div *ngIf="phcregistration.controls['phczone'].invalid && phcregistration.controls['phczone'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['phczone'].errors">
+                                Cluster is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Division:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="division" class="form-control"
+                        *ngIf="isInput" (click)="click()" >
+
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="division"
+                            *ngIf="isSelection"  (change)="onFirstOptionsSelected($event)">
+
+                            <option style="color:#999" value="" disabled selected hidden>Enter Division
+                            </option>
+                            <option *ngFor="let c of clusterlist" [value]="c.id">{{ c.name }}</option>
+                        </select>
+
+                        <div *ngIf="phcregistration.controls['division'].invalid && phcregistration.controls['division'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['division'].errors">
+                                Division is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>District:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="district" class="form-control"
+                        *ngIf="isInput" (click)="click()">
+
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="district"
+                            *ngIf="isSelection" (change)="onSecondOptionsSelected($event)">
+
+                            <option style="color:#999" value="" disabled selected hidden>Enter District
+                            </option>
+                            <option *ngFor="let c of divisionList " [value]="c.id">{{ c.districtName }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="phcregistration.controls['district'].invalid && phcregistration.controls['district'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['district'].errors">
+                                District is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Block:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="block" class="form-control" *ngIf="isInput" (click)="click()">
+
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="block"
+                        *ngIf="isSelection" >
+
+                            <option style="color:#999" value="" disabled selected hidden>Enter BLock
+                            </option>
+                            <option *ngFor="let c of districtList" [value]="c.id">{{ c.blockName }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="phcregistration.controls['block'].invalid && phcregistration.controls['block'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['block'].errors">
+                                Block is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>State:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="state">
+
+                            <option style="color:#999" value="" disabled selected hidden>Select State
+                            </option>
+                            <option *ngFor="let c of ListState" [value]="c.id">{{ c.stateName }}
+                            </option>
+                        </select>
+
+                        <div *ngIf="phcregistration.controls['state'].invalid && phcregistration.controls['state'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['state'].errors">
+                                State is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>MO Name:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter MO Name" formControlName="moname" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="onlyphabetkey($event)">
+
+                        <div *ngIf="phcregistration.controls['moname'].invalid && phcregistration.controls['moname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['moname'].errors">
+                                MO Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Registered Email
+                        ID:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" formControlName="registeredemailid" class="form-control" *ngIf="isphcregistrationInput" readonly>
+                        <input type="email" autocomplete="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email"
+                            formControlName="registeredemailid" (keypress)="emailkey($event)" *ngIf="isphcregistrationSelection">
+
+                        <div *ngIf="phcregistration.controls['registeredemailid'].invalid && phcregistration.controls['registeredemailid'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['registeredemailid'].errors">
+                                please enter correct email address
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Registered
+                        Mobile Number:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="tel" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Mobile Number" formControlName="registeredmobilenumber" autocomplete="password"
+                            (keypress)="keyPress($event)" maxlength="10" minlength="10">
+
+                        <div *ngIf="phcregistration.controls['registeredmobilenumber'].invalid && phcregistration.controls['registeredmobilenumber'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['registeredmobilenumber'].errors">
+                                please enter correct mobile number
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="lbltextsize"><span class="text-danger">*</span>Employee
+                        Name:</label>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 ">
+                    <div>
+                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Enter Employee Name" formControlName="employeename" maxlength="50"
+                            oninput="this.value = this.value.replace('  ',' ')" (keypress)="onlyphabetkey($event)">
+
+                        <div *ngIf="phcregistration.controls['employeename'].invalid && phcregistration.controls['employeename'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcregistration.controls['employeename'].errors">
+                                Employee Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="set-web-service">
+                        <button class="btn bg-purple register-capt"(click)=" clear()" >Clear</button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    
+                        <button class="btn bg-purple register-capt"(click)=" UpdatePHCRegistration()" >Save</button>
+                    
+                </div>
+                <div class="col-md-4 ">
+
+                    <button class="btn bg-purple register-capt" (click)=" phcRegistration()">Register New
+                        PHC</button>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- <div class="set-web-service">
+                        <button class="btn bg-purple register-capt" (click)=" phcRegistration()">Register New
+                            PHC</button>
+                    </div> -->
+        <div class="cancel-button">
+            <!-- <button class="text-danger error-show error-text">Cancel</button> -->
+        </div>
+        <!-- <div class="text-danger error-show error-text" >cancel</div> -->
+
+
+    </form>
+</div>
+
+<!-- 
+        </div>
+        </div>
+
+    </div>
+</section> -->

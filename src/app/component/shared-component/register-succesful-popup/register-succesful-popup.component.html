@@ -1,0 +1,61 @@
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="patient-registered" *ngIf="ispatientregistered && patientDetail">
+        <div class="patient-registered-success">Patient Registered Successfully</div>
+        <div class="patient-UID">Patient UID-<b>{{patientDetail.patientId}}</b></div>
+
+        <div class="start-new-case"><button class="btn bg-purple" (click)="startCase()">Start new case</button></div>
+        <div class="text-purple" (click)="close()">Not Now</div>
+      </div>
+
+      <div class="start-new-case-popup" *ngIf="isstartCase">
+        
+        <form [formGroup]="casetitleform" autocomplete="off">
+          <div class="form-group mb-2 row">
+            <label for="exampleFormControlInput1">OPD Number</label>
+            <input class="form-control" id="exampleFormControlInput1" maxlength="15" placeholder="OPD Number"
+              formControlName="opdNumber"
+              onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+              >
+              
+          </div>
+          <div *ngIf="casetitleform.controls['opdNumber'].invalid && casetitleform.controls['opdNumber'].touched"
+            class="error text-danger small">
+            <div *ngIf="casetitleform.controls['opdNumber'].errors">
+              OPD Number is required
+            </div>
+          </div>
+          <div class="form-group mb-2 row">
+            <label for="exampleFormControlInput1">Case Title</label>
+            <input class="form-control" id="exampleFormControlInput1" placeholder="Body Ache"
+              formControlName="casetitle" oninput="this.value = this.value.trimStart()">
+          </div>
+          <div *ngIf="casetitleform.controls['casetitle'].invalid && casetitleform.controls['casetitle'].touched"
+            class="error text-danger small">
+            <div *ngIf="casetitleform.controls['casetitle'].errors">
+              Case Title is required
+            </div>
+          </div>
+          <div class="form-group mb-2 row">
+            <label for="exampleFormControlSelect1">Speciality</label>
+            <select class="form-control" id="exampleFormControlInput1" formControlName="speciality" #specialitydropdown>
+              <option *ngFor="let spz of getListOfSpecializationMastervar[0]; let i = index;" [value]="spz.id">
+                  {{spz.specialization}}
+              </option>
+          </select>
+          </div>
+          <div *ngIf="casetitleform.controls['speciality'].invalid && casetitleform.controls['speciality'].touched"
+            class="error text-danger small">
+            <div *ngIf="casetitleform.controls['speciality'].errors">
+              Please select Speciality </div>
+          </div>
+        </form>
+        <button class="btn bg-purple submit-patient" [disabled]="this.casetitleform.invalid" (click)="onsubmitCasedetail()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+  backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+  primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'}"></ngx-loading>

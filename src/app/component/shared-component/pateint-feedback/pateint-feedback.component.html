@@ -1,0 +1,21 @@
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+            <p class="text-align-center">How would you rate your call?</p>
+            <div class="d-flex justify-content-center">
+                <button class="feedback-number" (click)="stars(1)" id="stars" [class.textdangerSelectionOne] [disabled]="disabled">
+                    1
+                </button>
+                <button class="feedback-number" (click)="stars(2)" id="twoStar" [class.textdangerSelectionTwo] [disabled]="disabled">2</button>
+                <button class="feedback-number" (click)="stars(3)" id="threeStar" [class.textdangerSelectionThree] [disabled]="disabled">3</button>
+                <button class="feedback-number" (click)="stars(4)" id="fourStar" [class.textdangerSelectionFour] [disabled]="disabled">4</button>
+                <button class="feedback-number" (click)="stars(5)" id="fiveStar" [class.textdangerSelectionFive] [disabled]="disabled">5</button>
+            </div>
+            <!-- <ngb-rating [max]="5" [rating]="starRating"  [readonly]="false"></ngb-rating> -->
+
+            
+        </div>
+    </div>
+</div><ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+  backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+  primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' }"></ngx-loading>

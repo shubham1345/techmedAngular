@@ -1,0 +1,638 @@
+<div class="bgimg my-0">
+  <span class="fa-pull-left" height="100%">
+    <img
+      src="../../../../assets/NHMLogo.png"
+      class="rounded-circle mx-2 img-wrap"
+      alt="NHMLogo"
+    />
+    <img
+      src="../../../../assets/MPArogyam.jpg"
+      class="rounded-circle mx-2 img-wrap"
+      alt="NHMLogo"
+    />
+    <img
+      src="../../../../assets/MPGovLogo.png"
+      class="rounded-circle mx-2 img-wrap"
+      alt="NHMLogo"
+    />
+  </span>
+  <span class="float-end">
+    <img
+      src="../../../../assets/logout.png"
+      (click)="onSignOut()"
+      class="rounded-circle mx-2 img-logout"
+      alt="NHMLogo"
+    />
+  </span>
+</div>
+
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>Consultations</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[0]?.isChecked,
+                '/maindashboard-med',
+                'specializationID',
+                '1'
+              )
+            "
+            >Med</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[1]?.isChecked,
+                '/maindashboard-med',
+                'specializationID',
+                '2'
+              )
+            "
+            >Gyne</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[2]?.isChecked,
+                '/maindashboard-med',
+                'specializationID',
+                '3'
+              )
+            "
+            >Ped</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>Diagnosis Speciality Wise</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[3]?.isChecked,
+                '/maindashboard-Diagnosis',
+                'specializationID',
+                '1'
+              )
+            "
+            >Med</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[4]?.isChecked,
+                '/maindashboard-Diagnosis',
+                'specializationID',
+                '2'
+              )
+            "
+            >Gyne</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[5]?.isChecked,
+                '/maindashboard-Diagnosis',
+                'specializationID',
+                '3'
+              )
+            "
+            >Ped</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>Report Summary</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[6]?.isChecked,
+                '/maindashboard-reportsummarydaily',
+                'report',
+                'daily'
+              )
+            "
+            >Daily</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[7]?.isChecked,
+                '/maindashboard-reportsummaryweekly',
+                'report',
+                'weekly'
+              )
+            "
+            >Weekly</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[8]?.isChecked,
+                '/maindashboard-reportsummarymonthly',
+                'report',
+                'monthly'
+              )
+            "
+            >Monthly</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>System Health</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[9]?.isChecked,
+                '/maindashboard-Remotehealth',
+                '',
+                ''
+              )
+            "
+            >Server</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[10]?.isChecked,
+                '/maindashboard-Systemhealthequipment',
+                '',
+                ''
+              )
+            "
+            >Equipment</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[11]?.isChecked,
+                '/maindashboard-Serverhealth',
+                '',
+                ''
+              )
+            "
+            >Remote</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>PHC</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[12]?.isChecked,
+                '/maindashboard-Phclogin',
+                '',
+                ''
+              )
+            "
+            >Login</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[13]?.isChecked,
+                '/maindashboard-PhcConsultation',
+                '',
+                ''
+              )
+            "
+            >Consultation</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[14]?.isChecked,
+                '/maindashboard-PhcManpower',
+                '',
+                ''
+              )
+            "
+            >Manpower</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>Patient</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[15]?.isChecked,
+                '/maindashboard-PatientRegistration',
+                '',
+                ''
+              )
+            "
+            >Reg</mat-chip
+          >
+          <mat-chip
+            class="gyne"
+            (click)="
+              accessReport(
+                reportAccessArray[16]?.isChecked,
+                '/maindashboard-PatientReview',
+                '',
+                ''
+              )
+            "
+            >Review</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[17]?.isChecked,
+                '/maindashboard-PatientReferred',
+                '',
+                ''
+              )
+            "
+            >Referred</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <p>Medicine Prescribed</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[18]?.isChecked,
+                '/maindashboard-Medprescribedgenericwise',
+                '',
+                ''
+              )
+            "
+            >Generic Wise</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[19]?.isChecked,
+                '/maindashboard-Medprescribedphcwise',
+                '',
+                ''
+              )
+            "
+            >PHC Wise</mat-chip
+          >
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <p>Diagnostic Prescribed</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[20]?.isChecked,
+                '/maindashboard-Diagnosticprescribedtestwise',
+                '',
+                ''
+              )
+            "
+            >Test Wise</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[21]?.isChecked,
+                '/maindashboard-Diagnosticprescribedphcwise',
+                '',
+                ''
+              )
+            "
+            >PHC Wise</mat-chip
+          >
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <p>Disease Profile</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[22]?.isChecked,
+                '/maindashboard-Diseaseprofileagewise',
+                '',
+                ''
+              )
+            "
+            >Age Wise</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[23]?.isChecked,
+                '/maindashboard-Diseaseprofilephcwise',
+                '',
+                ''
+              )
+            "
+            >PHC Wise</mat-chip
+          >
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <p>Doctor</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[24]?.isChecked,
+                '/maindashboard-Doctoravgtime',
+                '',
+                ''
+              )
+            "
+            >Avg Time</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[25]?.isChecked,
+                '/maindashboard-Doctoravailability',
+                '',
+                ''
+              )
+            "
+            >Availability</mat-chip
+          >
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp onechip">
+        <p>Report</p>
+
+        <mat-chip-list>
+          <!-- <mat-chip routerLink="/maindashboard-reportconsultation" [queryParams]="{report:'daily'}" class="med">Consultation</mat-chip> -->
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[26]?.isChecked,
+                '/maindashboard-new-reportconsultation',
+                'report',
+                'daily'
+              )
+            "
+          >
+            Consultation</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <p>Feedback</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[27]?.isChecked,
+                '/maindashboard-Feedbacksummary',
+                '',
+                ''
+              )
+            "
+            >Summary</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[28]?.isChecked,
+                '/maindashboard-Feedbackdetails',
+                '',
+                ''
+              )
+            "
+            >Details</mat-chip
+          >
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp onechip">
+        <p>Employee Training Feedback</p>
+
+        <mat-chip-list>
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[29]?.isChecked,
+                '/maindashboard-EmptrainingFeedback',
+                '',
+                ''
+              )
+            "
+            >Details</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp twochip">
+        <!-- <p>Spoke Maintenance</p> -->
+        <p>Spoke</p>
+
+        <mat-chip-list>
+          <!-- <mat-chip class="med">Med</mat-chip> -->
+
+          <mat-chip
+            class="med"
+            (click)="
+              accessReport(
+                reportAccessArray[30]?.isChecked,
+                '/maindashboard-Spokemaintenance',
+                '',
+                ''
+              )
+            "
+            >Maintenance</mat-chip
+          >
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[31]?.isChecked,
+                '/maindashboard-installation',
+                '',
+                ''
+              )
+            "
+            >Installation</mat-chip
+          >
+
+          <!-- <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp onechip">
+     
+         <p>Installation</p>
+
+        <mat-chip-list>
+      
+          <mat-chip routerLink="/maindashboard-installation" class="ped">Details</mat-chip>
+    
+        </mat-chip-list>
+      
+      </div>
+    </div> -->
+
+    <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp onechip">
+        <p>Appointments</p>
+
+        <mat-chip-list>
+          <!-- <mat-chip routerLink="/maindashboard-Appointment" class="med">Details</mat-chip> -->
+          <mat-chip
+            class="ped"
+            (click)="
+              accessReport(
+                reportAccessArray[32]?.isChecked,
+                '/maindashboard-new-Appointment',
+                '',
+                ''
+              )
+            "
+          >
+            Details</mat-chip
+          >
+
+          <!-- <mat-chip class="gyne">Gyne</mat-chip>
+          <mat-chip class="ped">Ped</mat-chip> -->
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-3">
+      <div class="mntrngDshbrdBxWrp">
+        <p>Feedback</p>
+
+        <mat-chip-list>
+          <mat-chip class="med">Med</mat-chip>
+          <mat-chip class="gyne">Gyne</mat-chip>
+          <mat-chip class="ped">Ped</mat-chip>
+        </mat-chip-list>
+      
+      </div>
+    </div> -->
+
+    <div id="chartContainer" style="height: 370px; width: 100%">
+      <div style="display: block; width: 100%">
+        <canvas id="canvas" height="100">{{ chart }}</canvas>
+      </div>
+    </div>
+    <!-- <img class="mt-4" src="../assets/Images/graph.png"> -->
+
+    <!-- <canvas baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="'bar'">
+</canvas>  -->
+  </div>
+</div>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900',
+    fullScreenBackdrop: true
+  }"
+></ngx-loading>

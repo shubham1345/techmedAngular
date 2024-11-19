@@ -1,0 +1,13 @@
+<button type="button" *ngIf="patientCaseId && patientCaseId>0" [disabled]="disabled"(click)="beginVideoCall()"><img src="../../../../../assets/Images/smaill-icon/black-video-icon.png" alt=""></button>
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900',
+    fullScreenBackdrop: true
+  }"
+></ngx-loading>

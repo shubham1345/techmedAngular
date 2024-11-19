@@ -1,0 +1,46 @@
+.text-align-center{
+    text-align: center;
+}
+.feedback-number{
+    background:grey;
+    border-radius: 50px;
+    border:unset;
+    /* padding: 12px; */
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    padding: 20px;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    margin-right:10px;
+    display: flex;
+    justify-content: center;
+}
+.feedback-number:hover
+{
+    /* background:#05AA05; */
+    cursor: pointer;
+}
+/* ngb-rating {
+    color: #05AA05;
+    font-size: 80px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+} */
+.textdangerSelectionOne{
+    background:#05AA05;
+}
+.textdangerSelectionTwo{
+    background:#05AA05;
+}
+.textdangerSelectionThree{
+    background:#05AA05;
+}
+.textdangerSelectionFour{
+    background:#05AA05;
+}
+.textdangerSelectionFive{
+    background:#05AA05;
+}

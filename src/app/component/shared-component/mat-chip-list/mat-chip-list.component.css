@@ -1,0 +1,29 @@
+mat-form-field {
+    width: -webkit-fill-available;
+}
+mat-form-field li{
+    font-family: 'Montserrat-SemiBold';
+}
+mat-chip{
+    display: flex;
+    align-items: flex-start;
+}
+.mat-chip.mat-standard-chip {
+    background-color: unset!important;
+    width: -webkit-fill-available;
+    border-radius: unset!important;
+}
+.mat-chip.mat-standard-chip:hover{
+    background-color: unset!important;
+    border-radius: 20px!important;
+
+}
+.input-auto{
+    padding-left:30px ;
+}
+input::placeholder {
+    font-style: italic;
+}
+.mat-chip-remove.mat-chip-trailing-icon.chip-remove{
+    margin-left:auto;
+}

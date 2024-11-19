@@ -1,0 +1,122 @@
+<div class="patient-queue-header">
+
+    <div class="patient-header">
+
+        <div class="row" style="align-items: baseline;">
+            <div class="col-1">
+            <h3>User Type</h3>
+            </div>
+            <div class="col-md-3">
+                <mat-select [formControl]="usertypeControl" class="form-control">
+                    <mat-option value="" selected disabled> Select User Type</mat-option>
+                    <mat-option *ngFor="let user of userType" [value]="user.id" (click)="usertypeSelected()" >
+                    {{user.userType}}
+                  </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="mat-elevation-z8 mt-3">
+
+          <form style="display:inline" class="form-group"  autocomplete="off">
+
+            <input matInput (keyup)="applyFilter($event)" placeholder="Type Here To Search" #input class="form-control mb-1" style="background-color: white;">
+
+      </form> 
+         <div id="content" #content> 
+             <table mat-table style="width: 100%;" class="mat-elevation-z8" [dataSource]="dataSource" matSort       
+           
+              >
+               
+                <ng-container matColumnDef="SrNo">
+                  <th  mat-header-cell *matHeaderCellDef > Sr No. </th>
+                 <td  mat-cell *matCellDef="let element">{{ element.srNo }}</td>
+              
+               </ng-container>
+     
+               <ng-container matColumnDef="name">
+                <th  mat-header-cell *matHeaderCellDef > Name </th>
+                <td  mat-cell *matCellDef="let element">{{element.name}}</td>
+            
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th  mat-header-cell *matHeaderCellDef > Email </th>
+                <td  mat-cell *matCellDef="let element">{{element.email}}</td>
+           
+              </ng-container>
+    
+              <ng-container matColumnDef="id">
+                <th  mat-header-cell *matHeaderCellDef >User Id </th>
+                <td  mat-cell *matCellDef="let element">{{element.id}}</td>
+             
+              </ng-container>
+
+              <ng-container matColumnDef="createdDate">
+                <th  mat-header-cell *matHeaderCellDef > Created date </th>
+                <td  mat-cell *matCellDef="let element">{{element.createdOn| date:'dd-MM-yyyy'}}</td>
+             
+              </ng-container>
+             
+              <ng-container matColumnDef="status">
+                <th  mat-header-cell *matHeaderCellDef >Current Status </th>
+                <td  mat-cell *matCellDef="let element;let i=index">
+
+                    <label class="switch">
+                        <input type="checkbox" [value]="element.isActive" [checked]="element.isActive" (change)="statusChnage($event,element.id,element.email)"> 
+                        <span class="slider round"></span>
+                      </label>
+
+                      <!-- <section class="example-section">
+                        <mat-slide-toggle
+                            class="example-margin"
+                            [color]="color"
+                            [checked]="element.isActive"
+                            
+                            (change)="statusChnage($event,element.id,i)"
+                            >
+                          Slide me!
+                        </mat-slide-toggle>
+                      </section> -->
+                      <!-- <label>Active</label> -->
+
+
+
+                </td>
+             
+              </ng-container>
+
+     
+     
+ 
+
+                   
+     
+     
+               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+              
+               <!-- <div *ngIf="getAllPendingPhcPatient?.length==0" class="text-center mx-2 my-3">No records found</div> -->
+             
+          </table>
+          <!-- <div *ngIf="getAllPendingPhcPatient?.length==0" class="text-center mx-2 my-3">No records found</div> -->
+     
+           
+        <mat-paginator #paginatorRef [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+         
+           </div>
+           </div>
+
+        
+
+
+
+
+
+      
+    </div>
+
+</div>
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'  }"></ngx-loading>

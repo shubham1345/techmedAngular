@@ -1,0 +1,17 @@
+<mat-form-field class="example-chip-list" appearance="fill">
+    <mat-chip-list #chipList aria-label="allergie selection">
+      <mat-chip *ngFor="let allergie of allergies ;" (removed)="remove(allergie)">
+       <ol type="1">
+           <li>{{allergie.name}}</li>
+       </ol> 
+        <button matChipRemove class="chip-remove">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input class="input-auto" placeholder="Start typing..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="addallergy($event)">
+    </mat-chip-list>
+  </mat-form-field>

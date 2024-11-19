@@ -1,0 +1,116 @@
+<div>
+    <form [formGroup]="createUser" autocomplete="off">
+
+        <div class="health-info" style="height: 480px;">
+            <div class="clsPlacement">
+                <h2 class="headersize">Create User</h2>
+            </div>
+            <div class="top">
+
+                <div class="row" >
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3"style="text-align-last:right; align-self: center;">
+                        <label for="" class="lbltextsize"><span class="errors">*</span>User Type:</label>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div>
+
+                          <select formControlName="userid" class="form-control" (change)="roleChange()">
+                        <option value="null" selected disabled>Select User Type</option>
+                        <option *ngFor="let role of rolesArray" value="{{role.id}}">{{role.userType}}</option>
+                          </select>
+                                <div class="errors">
+                                    <span *ngIf="createUser.get('userid').hasError('required') && createUser.get('userid').touched">*UserType is Required</span> 
+                                  </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+               
+                <div class="row" >
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3"style="text-align-last:right; align-self: center;">
+                        <label for="" class="lbltextsize"><span class="errors">*</span>Name:</label>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div>
+
+                            <input type="text" class="form-control" id="exampleFormControlInput1" autocomplete="off"
+                                placeholder="Enter User Name" #stateInput formControlName="username" maxlength="50"
+                                >
+                                <div class="errors">
+                                    <span *ngIf="createUser.get('username').hasError('required') && createUser.get('username').touched">*Username is Required</span> 
+                                  </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row" >
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3"style="text-align-last:right; align-self: center;">
+                        <label for="" class="lbltextsize"><span class="errors">*</span>Email:</label>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div>
+
+                            <input type="email" name="emal" class="form-control" id="exampleFormControlInput1"  autocomplete="new-password"
+                                placeholder="Enter User E-mail" #stateInput formControlName="email" maxlength="50"
+                                >
+                                <div class="errors">
+                                    <span *ngIf="createUser.get('email').hasError('required') && createUser.get('email').touched">*Email is Required</span> 
+                                    <span *ngIf="createUser.get('email').hasError('pattern')">Please Enter Valid E-mail Address</span> 
+                                    <!-- <span *ngIf="createUser.get('email').hasError('email')">Please Enter  E-mail Address</span>  -->
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" >
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3"style="text-align-last:right; align-self: center;">
+                        <label for="" class="lbltextsize"><span class="errors">*</span>Mobile:</label>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div>
+
+                            <input type="text" name="mobile" class="form-control" id="exampleFormControlInput1" autocomplete="new-password"
+                                placeholder="Enter User Mobile" #stateInput formControlName="mobile" maxlength="10" minlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                >
+                                <div class="errors">
+                                    <span *ngIf="createUser.get('mobile').hasError('required') && createUser.get('mobile').touched">*Mobile is Required</span> 
+                                    <span *ngIf="createUser.get('mobile').hasError('minlength') ">*Please Enter Valid Mobile No.</span> 
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-9 text-end">
+                        <button type="reset" class="btn bg-red mr-3" (click)="reset()">Reset</button>
+
+                        <button type="button" class="btn bg-purple register-capt ml-4" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+
+
+                </div>
+
+        </div>
+    </form>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' ,fullScreenBackdrop:true }"></ngx-loading>

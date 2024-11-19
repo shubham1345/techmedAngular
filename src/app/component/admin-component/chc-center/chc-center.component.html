@@ -1,0 +1,859 @@
+
+<section *ngIf="!showScreenSaver">
+    <!-- <section id="chccenter"> -->
+<section class="chc-center-section">
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading">{{phcName}}</h3>
+            </div>
+
+            <button class="nav-link" [ngClass]="{active:openTabValue=='1'}" id="v-pills-home-tab" data-bs-toggle="pill" (click)="MenuClick('dashboard')" data-bs-target="#v-pills-home"
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard</button>
+
+            <button class="nav-link" [ngClass]="{active:openTabValue=='2'}" id="v-pills-profile-tab" data-bs-toggle="pill" (click)="MenuClick('account')" data-bs-target="#v-pills-profile"
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Account</button>
+
+            <button class="nav-link" [ngClass]="{active:openTabValue=='3'}" id="v-pills-messages-tab" data-bs-toggle="pill" (click)="MenuClick('history')" data-bs-target="#v-pills-messages"
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">History</button>
+
+            <button class="nav-link" [ngClass]="{active:openTabValue=='4'}" id="v-pills-patient-queue-tab" data-bs-toggle="pill" (click)="MenuClick('queue')"
+                data-bs-target="#v-pills-patient-queue" type="button" role="tab" aria-controls="v-pills-patient-queue"
+                aria-selected="false">Patient Queue</button>
+            <!-- <div class="d-flex justify-content-center"><button class="nav-link text-footer" id="v-pills-messages-tab"
+                    data-bs-toggle="pill"  type="button" role="tab"
+                    aria-controls="v-pills-messages" aria-selected="false" (click)="onSignOut()">Logout</button>
+            </div> -->
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                        <button (click)="onSignOut()" class="btn width-btn">logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent">
+            <!-- dashboard div -->
+            <div class="tab-pane fade" [ngClass]="{active:openTabValue=='1',show:openTabValue=='1'}" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="main-content-div">
+                    <div class="main-mid-div">
+                        <div class="top-div">
+                            <div class="top-search-register">
+                                <input class="nosubmit" type="search" placeholder="Search patients"
+                                    (click)="searchOpenModal()">
+                                <span (click)="refreshClick()"><img style="width:20px; cursor:pointer"
+                                        src="../../../../assets/Images/smaill-icon/refresh-red.png" alt=""></span>
+                                <div>
+                                    <button class="btn bg-purple" id="table" (click)="openModal()">Register New Patient</button>
+
+                                </div>
+                            </div>
+
+                 
+
+                            <div class="d-flex  second-nav-total">
+                                <!-- <ul class="list-total list-group">
+                                    <li class="list-group-item" *ngFor="let reg of Totalregistered; let i = index;">
+                                        Total Cases Created Today {{reg.totalPatients}}</li>
+                                    <li class="list-group-item" *ngFor="let con of Totalconsulted">Consulted
+                                        {{con.totalConsulted}}</li>
+                                    <li class="list-group-item" *ngFor="let pen of TotalPending">Pending
+                                        {{pen.totalPending}}</li>
+                                </ul> -->
+
+              
+
+                                <ul class="list-total list-group">
+                                    <li class="list-group-item" >
+                                        Total Cases Created Today : {{Totalregistered?.totalPatients}}</li>
+                                    <li class="list-group-item" >Consulted:
+                                        {{Totalregistered?.totalConsulted}}</li>
+                                    <li class="list-group-item" >Pending :
+                                        {{Totalregistered?.totalPending}}</li>
+                                        <li class="list-group-item" >Absent :
+                                            {{Totalregistered?.patientAbsent}}</li>
+                                </ul>
+                            </div>
+                            <div class="todays-patient-div">
+                                <h3 class="text-form">Today's Patients</h3>
+                            </div>
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr class="border-style-hidden">
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Patient ID</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Phone Number</th>
+                                            <th scope="col">Case Title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- | paginate
+                                        : {
+                                            itemsPerPage: tableSize,
+                                            currentPage: page,
+                                            totalItems: count
+                                          };-->
+                                        <tr *ngFor="let tod of todayspatient[0] 
+                                       
+                                            let i = index">
+                                            <td style="cursor:pointer" (click)="onclickname(tod.id, p)">
+                                                {{tod.patientName}}</td>
+                                            <td>{{tod.patientID}}</td>
+                                            <td>{{tod.gender}}</td>
+                                            <td>{{tod.age}}</td>
+                                            <td>{{tod.phoneNumber}}</td>
+                                            <td>{{tod.caseHeading}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <!-- <pagination-controls
+                                  previousLabel="Prev"
+                                  nextLabel="Next"
+                                  (pageChange)="onTableDataChange($event)"
+                                >
+                                </pagination-controls> -->
+                            </div>
+                        </div>
+                        <div class="main-bottom-div">
+                            <div class="consultated-patient-div">
+                                <h3 class="text-form">Completed Consultation</h3>
+                                <table class="table" >
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Patient Name</th>
+                                            <th scope="col">Patient ID</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Referred By</th>
+                                            <th scope="col">Case Title</th>
+                                            <!-- <th scope="col">Case File No.</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cons of completedConsultation[0] | paginate
+                                        : {
+                                            itemsPerPage: 10,
+                                            currentPage: page,
+                                            totalItems: count
+                                          };  let i = index">
+                                            <td style="cursor: pointer;" (click)="onclickname(cons.id, p)">
+                                                {{cons.patientName}}</td>
+                                            <td>{{cons.patientID}}</td>
+                                            <td>{{cons.gender}}</td>
+                                            <td>{{cons.age}}</td>
+                                            <td>{{cons.referredByPHCName}}</td>
+                                            <td>{{cons.caseHeading}}</td>
+                                            <!-- <td> {{i}}</td> -->
+                                            <!-- <td>{{cons.caseDile}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="display: flex;
+                               justify-content: end;">
+
+                                    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="right-side-doctor-div">
+                        <div class="available-doctor-heading-div">
+                            <h4>Available Doctors</h4>
+                        </div>
+                        <div class="col-md-10" style="margin:0 auto;">
+
+                            <mat-form-field appearance="outline" style="width: 90%;" >
+                                <mat-select [(ngModel)]="availabledoctor"  id="exampleFormControlInput1" (opened)="openplatform()"  (selectionChange)="onOptionsSelected($event)" placeholder="Available Doctor's">
+                                <mat-option value="null" disabled *ngIf="!drlist.length">No Doctor Available</mat-option>
+                                    <mat-option *ngFor="let m of drlist; let i = index;" [value]="m.doctorID">{{m.doctorFName}} ({{m.specialty}})</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+
+
+                            <!-- <select class="form-control" id="exampleFormControlInput1" id="select1" #select1
+                              (focus)="openplatform()"  (change)="onOptionsSelected($event)">
+                                <option *ngFor="let m of drlist; let i = index;" [value]="m.doctorID">
+                                    {{m.doctorFName}} ({{m.specialty}})
+                                </option>
+                            </select> -->
+                        </div>
+
+                        <div class="available-doctor-cards" *ngIf="istrue">
+                            <div class="doctor-card">
+                                <div class="doctor-card-img">
+                                    <img [src]="'https://medteleapi.azurewebsites.net/'+detaildoctorphoto" height="60px"
+                                        width="60px" alt="Doctor image">
+                                </div>
+                                <div>
+                                    <h5>{{detaildoctorFName}}</h5>
+                                    <p>{{detaildoctorspeciality}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Account div -->
+            <div class="tab-pane fade" [ngClass]="{active:openTabValue=='2',show:openTabValue=='2'}" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <form [formGroup]="phcForm" autocomplete="off">
+                    <div class="account-info">
+                        <div class="account-first-section">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">PHC Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter PHC Name" formControlName="PhcName" readonly
+                                            [(ngModel)]="phcdetail.phcname"
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcName'].invalid && phcForm.controls['PhcName'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcName'].errors">
+                                            Phc Name is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">PHC Block</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.blockName" placeholder="Enter PHC Block"
+                                            formControlName="PhcZone">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcZone'].invalid && phcForm.controls['PhcZone'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcZone'].errors">
+                                            Phc Zone is required
+                                        </div>
+                                    </div> -->
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <div><label for="exampleFormControlInput1 mb-2" class="mbt-1">District</label>
+                                        </div>
+
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.districtName" placeholder="Enter District"
+                                            formControlName="PhcDistrict">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['Phcaddress'].invalid && phcForm.controls['Phcaddress'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['Phcaddress'].errors">
+                                            Address is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Division</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.divisionName" placeholder="Enter Division"
+                                            formControlName="PhcDivision">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['Phcstate'].invalid && phcForm.controls['Phcstate'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['Phcstate'].errors">
+                                            State is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Cluster</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.clusterName" placeholder="Enter Cluster"
+                                            formControlName="PhcCluster">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['Phcstate'].invalid && phcForm.controls['Phcstate'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['Phcstate'].errors">
+                                            State is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Cluster</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.pinCode" placeholder="Enter Postal Code"
+                                            formControlName="PhcPostal" (keypress)="keyPressNumbers($event)">
+                                    </div> -->
+                                    <!-- <div *ngIf="phcForm.controls['PhcPostal'].invalid && phcForm.controls['PhcPostal'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcPostal'].errors">
+                                            Postal Code is required
+                                        </div>
+                                    </div> -->
+                                <!-- </div> -->
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">State</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" readonly
+                                            placeholder="Enter State"
+                                            value="Madhya Pradesh">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcCity'].invalid && phcForm.controls['PhcCity'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcCity'].errors">
+                                            City is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Flat No.</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Flat No." formControlName="flat">
+                                    </div>
+                                    <div *ngIf="phcForm.controls['flat'].invalid && phcForm.controls['flat'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['flat'].errors">
+                                            Flat No. is required
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Street Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Street Name" formControlName="street" (keypress)="keyPressNumbers($event)">
+                                    </div>
+                                    <div *ngIf="phcForm.controls['street'].invalid && phcForm.controls['street'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['street'].errors">
+                                            Street Name is required
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+                            <div class="phc-technician">PHC Technician Details</div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Email Address</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.mailId" placeholder="Enter Email Address"
+                                            formControlName="PhcEmail">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcEmail'].invalid && phcForm.controls['PhcEmail'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcEmail'].errors">
+                                            Email is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Phone Number</label>
+                                        <input type="tel" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.phoneNo" placeholder="Enter Phone Number"
+                                            formControlName="PhcMobile" (keypress)="keyPressNumbers($event)">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcMobile'].invalid && phcForm.controls['PhcMobile'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcMobile'].errors">
+                                            Mobile is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">MO Name</label>
+                                        <input type="email" class="form-control" id="exampleFormControlInput1" readonly
+                                            [(ngModel)]="phcdetail.moname" placeholder="Enter MO Name"
+                                            formControlName="PhcMOName">
+                                    </div>
+                                    <!-- <div *ngIf="phcForm.controls['PhcEmail'].invalid && phcForm.controls['PhcEmail'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="phcForm.controls['PhcEmail'].errors">
+                                            Email is required
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">First Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="phcdetail.firstName"
+                                            placeholder="Enter First Name" formControlName="PhcFirstName" readonly
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Middle Name(Optional)</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"  [(ngModel)]="phcdetail.middleName"
+                                            placeholder="Enter Middle Name" formControlName="PhcMiddleName" readonly
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Employee Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            [(ngModel)]="phcdetail.employeeName" placeholder="Enter Employee Name"
+                                            formControlName="PhcMiddleName" readonly
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1">Last Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="phcdetail.lastName"
+                                            placeholder="Enter Last Name" formControlName="PhcLastName" readonly
+                                            oninput="this.value = this.value.toUpperCase()"
+                                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-md-3">
+                                <div class="gender-set"> <label for="">Photo</label></div>
+
+                                <div class="form-group">
+                                    <label for="file-input">
+                                        <img style="width:100px;" src="../../../../assets/Doctor.jpg" *ngIf="!imageSrc"
+                                            alt="">
+                                        <img [src]="imageSrc" *ngIf="imageSrc" style="width:100px;height:100px;"
+                                            class="avatar">
+                                    </label>
+
+                                    <input id="file-input" style="display: none" type="file" accept="image/*"
+                                        (change)="onFileChange($event)" #fileInput />
+                                    <div class="text-red"> <label for=""></label></div>
+
+                                </div>
+                                <div *ngIf="phcForm.controls['file'].invalid && phcForm.controls['file'].touched"
+                                    class="error text-danger small">
+                                    <div *ngIf="phcForm.controls['file'].errors">
+                                        Photo is required
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-4">
+                                <!-- <label for="" class="mbt-1 gender-set">Gender</label> -->
+                                <!-- <div class="d-flex">
+
+                                    <div class="form-check mrt-1">
+                                        <input class="form-check-input" value="male" type="radio" 
+                                            formControlName="gender" name="gender" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Male
+                                        </label>
+                                    </div>
+                                    <div class="form-check mrt-1">
+                                        <input class="form-check-input" value="female" type="radio"
+                                            formControlName="gender" name="gender" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Female
+                                        </label>
+                                    </div>
+                                    <div class="form-check mrt-1">
+                                        <input class="form-check-input" value="others" type="radio"
+                                            formControlName="gender" name="gender" id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            others
+                                        </label>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="form-check">
+                                    <input type="radio" name="gender" readonly  checked
+                                     class="form-check-input">
+                                    <label class="form-check-label mrt-1" for="flexRadioDefault3">
+                                        {{phcdetail.gender}}
+                                    </label>
+                                </div> -->
+                                <!-- <div *ngIf="phcForm.controls['gender'].invalid && phcForm.controls['gender'].touched"
+                                    class="error text-danger small">
+                                    <div *ngIf="phcForm.controls['gender'].errors">
+                                        Gender is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="col-md-4 save-details">
+                                <button class="btn bg-darkblue" (click)="submitphcdetails()">
+                                    save
+                                </button>
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- History div -->
+            <div class="tab-pane fade" [ngClass]="{active:openTabValue=='3',show:openTabValue=='3'}" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <div class="patient-history">
+                    <div class="top-search-register">
+                        <input class="nosubmit" type="search" placeholder="Search patients"
+                            (click)="searchadvancedPatient()" *ngIf="issearchPatients">
+                        <img (click)="imgOnclick()" *ngIf="serachImg" height="20" style="margin-top: 0px;"
+                            src="../../../../assets/Images/smaill-icon/arrow.jpg" class="backbutton">
+                        <input class="nosubmit advance-search" (click)="advancessearch()" type="search"
+                            *ngIf="isadvancesearchPatients" oninput="this.value = this.value"placeholder="Advance Search" style="width:100%;"
+                            [(ngModel)]="searchedKeyword"
+                            (keyup)="applyFilter($event)"
+                            >
+
+                    </div>
+                    <div class="" *ngIf="isYesterdayPatient">
+                        <div class="yesterday-patient">
+                            Yesterday's Patient
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr class="border-style-hidden">
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Patient ID</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Date of Registration</th>
+                                    <th scope="col">PHC Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let yesterday of yesterdayPatient">
+                                    <td style="cursor: pointer;" (click)="onclickname(yesterday.id, p)">
+                                        {{yesterday.patientName}}</td>
+                                    <td>{{yesterday.patientID}}</td>
+                                    <td>{{yesterday.gender}}</td>
+                                    <td>{{yesterday.age}}</td>
+                                    <td>{{yesterday.phoneNumber}}</td>
+                                    <td>{{currentDate(yesterday)}}</td>
+                                    <td>{{yesterday.phcname}}</td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="isAdvancePatient" class="advanced-patient">
+                        <div class="mtp-2 mbt-2">
+                            <form [formGroup]="advanceform" autocomplete="off">
+                                <div class="row line-height">
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Patient
+                                                Name</label>
+                                            <input type="text" class="form-control input-history"
+                                                formControlName="patientName" id="exampleFormControlInput1"
+                                                placeholder="Patient Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Patient UID</label>
+                                            <input type="text" class="form-control input-history"
+                                                formControlName="patientUID" id="exampleFormControlInput1"
+                                                placeholder="Patient UID">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Contact
+                                                Number</label>
+                                            <input type="text" class="form-control input-history"
+                                                formControlName="contactNo" id="exampleFormControlInput1"
+                                                placeholder="Contact Number" maxlength="10" autocomplete="password" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Phc</label>
+                                            <select class="form-control input-history" formControlName="phcid" id="phcSelectId" #phcdropdown>
+                                                <option [value]="PhcID">{{phcName}}</option>
+                                                <option value="0">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row line-height">
+                                    <!-- <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Patient Father's
+                                                Name</label>
+                                            <input type="text" class="form-control input-history" formControlName="FatherName"
+                                                id="exampleFormControlInput1" placeholder="Patient Father's Name">
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Date of
+                                                Registration</label>
+                                            <input type="date" class="form-control input-history" 
+                                            #dateOfRegistrationdropdown
+                                                formControlName="dateOfRegistration" id="exampleFormControlInput1"
+                                                placeholder="Date of Registration" max="{{todayDate}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Date Of
+                                                Birth</label>
+                                            <input type="date" class="form-control input-history"  #dateofbirthdropdown
+                                                formControlName="dateOfBirth" id="exampleFormControlInput1"
+                                                placeholder="Age" max="{{todayDate}}">
+
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group mb-2">
+                                            <label for="exampleFormControlInput1 mb-2" class="mbt-1">Gender</label>
+                                            <select class="form-control  input-history" id="exampleFormControlInput1"
+                                                formControlName="genderId"
+                                                #genderdropdown>
+                                                <option value="">Select Gender</option>
+                                                <option *ngFor="let g of genderArray; let i = index;"
+                                                    [value]="g.id">
+                                                    {{g.gender}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 search-advance-set"    
+                                    (click)="onsubmitAdvanceClick()">
+                                        <div class="search-set-icon">
+                                            <img src="../../../../assets/Images/smaill-icon/search-icon-white.png"
+                                                alt="">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-1 search-advance-set"    *ngIf="afterClick" >
+                                        <div class="search-set-icon">
+                                            <img src="../../../../assets/Images/smaill-icon/search-icon-white.png"
+                                                alt="">
+                                        </div>
+                                    </div> -->
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+                        <!-- <table class="table">
+                            <thead>
+                                <tr class="border-style-hidden">
+                                    <th scope="col">S.No.</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Patient ID</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Date of Registration</th>
+                                    <th scope="col">PHC Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let search of searchpatient[0] |  filter:searchedKeyword1() let i = index;">
+                                    <td>{{i+1}}</td>
+                                    <td style="cursor:pointer" (click)="onclickname(search.id, p)">
+                                        {{search.patientName}}</td>
+                                    <td>{{search.patientID}}</td>
+                                    <td>{{search.gender}}</td>
+                                    <td>{{search.age}}</td>
+                                    <td>{{search.phoneNumber}}</td>
+                                    <td>{{currentDate(search)}}</td>
+                                    <td>{{search.phcname}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table> -->
+                       
+
+                             <!-- <pagination-controls (pageChange)="page = $event"></pagination-controls> -->
+                      
+
+                         </div>
+                        <table style="width:100%" mat-table  class="mat-elevation-z8" [dataSource]="dataSource" matSort   matSortDisableClear
+                        >
+
+                       <ng-container matColumnDef="sno">
+                         <th  mat-header-cell *matHeaderCellDef > SL No.  </th>
+                         <td  mat-cell *matCellDef="let element;let i = index"> {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }} </td>
+                         <!-- <td  mat-cell *matCellDef="let element;let i = index"> {{ element.srNo}} </td> -->
+                       </ng-container>
+         
+                       <ng-container matColumnDef="name">
+                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                         <td mat-cell *matCellDef="let element" style="cursor:pointer" (click)="onclickname(element.id, p)"> {{element.patientName}} </td>
+                       </ng-container>
+         
+                       
+                       <ng-container matColumnDef="id">
+                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient ID </th>
+                         <td mat-cell *matCellDef="let element"> {{element.patientID}} </td>
+                       </ng-container>
+                       <ng-container matColumnDef="gender">
+                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+                         <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                       </ng-container>
+         
+                       
+                       <ng-container matColumnDef="age">
+                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
+                         <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+                       </ng-container>
+         
+         
+                       <ng-container matColumnDef="number">
+                         <th mat-header-cell *matHeaderCellDef > Phone Number </th>
+                         <td mat-cell *matCellDef="let element">{{element.phoneNumber}} </td>
+                       </ng-container>
+
+                       <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef > Date of Registration </th>
+                        <td mat-cell *matCellDef="let element">  {{currentDate(element)}}</td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="phcName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>PHC Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phcname}} </td>
+                      </ng-container>
+
+                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+                     </table>
+                    <mat-paginator #paginatorRef [pageSizeOptions]="[10]" showFirstLastButtons (page)="pageChange($event)"></mat-paginator>
+                     
+
+                    </div>
+
+                </div>
+            </div>
+            <!--Patient Queue-->
+
+
+            <div class="tab-pane fade" [ngClass]="{active:openTabValue=='4',show:openTabValue=='4'}" id="v-pills-patient-queue" role="tabpanel"
+                aria-labelledby="v-pills-patient-queue-tab">
+                <div class="patient-queue-header">
+                   <h2>
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2  bd-highlight">Patients Queue </div>
+                        <div class="p-2 flex-grow-1 bd-highlight">(WaitList)</div>
+                        <div class="p-2 bd-highlight">
+                            <span >{{counterMessage}} </span>
+                            <button  [disabled]="disabled" [hidden]="Refreshhidden"  (click)="refreshButton()"   style="width: 30px;
+                            height: 30px;
+                            cursor: pointer;
+                            background-repeat: round;
+                            border: none;
+                            background-color: transparent;
+                            background-image: url(../../../../assets/Images/smaill-icon/refresh-red.png);" ></button></div>
+                      </div>
+                   </h2>
+
+                  
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">District</th>
+                                <th scope="col">Patient Case Label</th>
+                                <th scope="col">Patient ID</th>
+                                <th scope="col">Doctor Name</th>
+                                <th scope="col">Doctor Gender</th>
+                                <th scope="col">Doctor Speciality</th>
+                                <th scope="col">Waitlist Number</th>
+                                <!-- <th scope="col">Initiate Call</th> -->
+                                <!-- <th scope="col">Update Queue</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of patientWailtListQueue">
+                                <th scope="row">{{p.srNo}}</th>
+                                <td>{{p.patient}}</td>
+                                <td>{{p.districtName}}</td>
+                                <td>{{p.caseHeading}}</td>
+                                <td>{{p.regID}}</td>
+                                <td [ngClass]="{'redtext':(p.isDoctorFree=='No' && p.isDoctorInCall=='No'),'greentext':(p.isDoctorFree=='Yes' && p.isDoctorInCall=='No'),'orangetext':p.isDoctorInCall=='Yes'}"><b><label>{{p.doctor}}</label></b></td>
+                                <td>{{p.gender}}</td>
+                                <td>{{p.specialization}}</td>
+                                <td>{{p.waitList }}</td>
+                                <!-- <td> -->
+
+                                    <!--------temporarly comment to stop phc from callng------------>
+                                    <!-- <app-twilio-call-button [skipOnInit]="true" [patientCaseId]="p.patientCaseID||0"
+                                        *ngIf="p.waitList == 0" style="line-height:2">
+
+                                        <img src="../../../../assets/Images/smaill-icon/black-video-icon.png" alt="">
+
+                                    </app-twilio-call-button>
+                                </td> -->
+                                <!-- <td><button type="button"
+                                        style="background-color:#f27474!important;border:unset!important;border-radius:5px; color:#fff;padding-top:10px;padding-bottom:10px;line-height: 1;"
+                                        (click)="changeQueue(p.patientCaseID);">Change Queue</button></td> -->
+
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'  }"></ngx-loading>
+</section>
+
+<section  *ngIf="showScreenSaver">
+    <!-- <app-screen-saver *ngIf="showScreenSaver"></app-screen-saver> -->
+
+    <div class="modal-dialog modal-xl modalclass"  style="overflow: hidden;">
+
+        <div class="imgclass">
+        <img src="{{screensaverimg}}" width="100%" height="100%">
+            
+        </div>
+    
+      </div>
+
+</section>
+
+ 

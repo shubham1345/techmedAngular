@@ -1,0 +1,157 @@
+<app-admin-header></app-admin-header>
+<div>
+  <form [formGroup]="holidaycalendar" autocomplete="off">
+    <div class="clsPlacement">
+      <h2 class="headersize">Holiday Calendar</h2>
+    </div>
+    <div class="health-info">
+      <div style="width: 40%; height: 100%; float: left; padding: 10px;">
+        <label for="" class="lbltextsize"
+          ><span class="text-danger">*</span>Holiday calendar</label
+        >
+        <div class="col-md-7 lblgap">
+          <input
+            type="date"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="Enter Training Date"
+            formControlName="holidaydate"
+          />
+
+          <div
+            *ngIf="
+              holidaycalendar.controls['holidaydate'].invalid &&
+              holidaycalendar.controls['holidaydate'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="holidaycalendar.controls['holidaydate'].errors">
+              District required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 areapadding">
+          <div>
+            <textarea
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Add Discription"
+              formControlName="holidaydiscrip"
+            ></textarea>
+          </div>
+          <div
+            *ngIf="
+              holidaycalendar.controls['holidaydiscrip'].invalid &&
+              holidaycalendar.controls['Block'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="holidaycalendar.controls['holidaydiscrip'].errors">
+              Discription required
+            </div>
+          </div>
+        </div>
+        <div class="row rowgap">
+          <div class="col-md-1">
+            <div class="set-web-service">
+              <button
+                class="btn bg-purple register-capt"
+                (click)="savesholidaycalendar()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 60%; float: right; padding: 10px;">
+        <div class="col-md-3 center">
+          <select
+            class="form-control"
+            id="exampleFormControlInput1"
+            #exampleFormControlInput1
+            formControlName="selectYear"
+            (change)="yearChange(exampleFormControlInput1.value)"
+          >
+            <option [value]="2022">2022</option>
+            <option [value]="2023">2023</option>
+            <option [value]="2024">2024</option>
+            <option [value]="2025">2025</option>
+          </select>
+        </div>
+        <table class="table table-striped lblgap">
+          <thead>
+            <tr>
+              <th>Day/Date</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of ApiData">
+              <th>{{ datepipe.transform(data.holidayDate, "dd-MMM-yyyy") }}</th>
+              <td>{{ data.holidayName }}</td>
+              <td>
+                <button class="btn bg-purple register-capt" type="button" (click)="Editholidaycalendar(datepipe.transform(data.holidayDate, 'yyyy-MM-dd'),data.holidayName)" >Edit</button> | 
+              
+                <button class="btn bg-purple register-capt" type="button" (click)="deleteholidaycalendar(datepipe.transform(data.holidayDate, 'yyyy-MM-dd') )">Delete</button>
+             
+              </td>
+            </tr>
+            <!-- <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                            
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                            
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                            
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                            
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                           
+                        </tr>
+                        <tr>
+                            <th>23-05-2022</th>
+                            <td>23-05-2022</td>
+                            
+                        </tr> -->
+            <!-- <tr *ngFor="let item of emlpoyees">
+                            <th>{{ item.Name }}</th>
+                            <td>{{ item.Age }}</td>
+                            <td>{{ item.Location }}</td>
+                            <td>{{ item.Salary }}</td>
+                            <td>
+                                <button type="button" >Delete</button>
+                            </td>
+                        </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>

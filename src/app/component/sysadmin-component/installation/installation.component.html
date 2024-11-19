@@ -1,0 +1,160 @@
+<div>
+    <form [formGroup]="installationForm" autocomplete="off">
+        <div class="clsPlacement">
+            <h2 class="headersize">Installation</h2>
+        </div>
+        <div class="health-info">
+            <div class="account-first-section">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>District</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="district"
+                                (change)="selectDistrict($event)">
+                                <option value=null selected disabled>Select District</option>
+                                <option *ngFor="let district of DistrictArray" value="{{district.id}}">{{
+                                    district.districtName }}</option>
+                            </select>
+                            <div *ngIf="installationForm.controls['district'].invalid && installationForm.controls['district'].touched"
+                                class="error text-danger small">
+                                <div *ngIf="installationForm.controls['district'].errors">
+                                    District is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Block</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="block"
+                                (change)="selectBlock($event)">
+                                <option value="null" selected disabled>Select Block</option>
+                                <option *ngFor="let c of blockArray " value="{{c.id}}">{{ c.blockName }}</option>
+                            </select>
+                            <div *ngIf="installationForm.controls['block'].invalid && installationForm.controls['block'].touched"
+                                class="error text-danger small">
+                                <div *ngIf="installationForm.controls['block'].errors">
+                                    Block is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Phc</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="phcid"
+                                (change)="selectPHC($event)">
+                                <option value="null" selected disabled>Select PHC</option>
+                                <option *ngFor="let phc of phcArray " value="{{phc.id}}" id="{{phc.phcname}}">{{
+                                    phc.phcname }}</option>
+                            </select>
+
+                            <div *ngIf="installationForm.controls['phcid'].invalid && installationForm.controls['phcid'].touched"
+                                class="error text-danger small">
+                                <div *ngIf="installationForm.controls['phcid'].errors">
+                                    PHC is Required
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Date</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <mat-form-field class="padding-setcalendar">
+                                <input matInput [matDatepicker]="picker" [max]="Date()" formControlName="date"
+                                    class="form-control input-padding" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker"
+                                    class="calendarbtn"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="installationForm.controls['date'].invalid && installationForm.controls['date'].touched"
+                                class="error text-danger small">
+                                <div *ngIf="installationForm.controls['date'].errors">
+                                    Date is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Name Of MO </label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Name Of Mo" formControlName="moname1">
+                            <div *ngIf="installationForm.controls['moname1'].invalid && installationForm.controls['moname1'].touched"
+                                class="error text-danger small">
+                                <div *ngIf="installationForm.controls['moname1'].errors">
+                                    Name Of MO is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="row rowgap">
+                <div class="form-group">
+                    <label for="file-input" style="display: none">
+                    </label>
+
+                    <input id="file-input" type="file" accept="document*" (change)="onFileChange($event)" #fileInput
+                        formControlName="file" />
+                </div>
+                <div *ngIf="installationForm.controls['file'].invalid && installationForm.controls['file'].touched"
+                    class="error text-danger small">
+                    <div *ngIf="installationForm.controls['file'].errors">
+                        File is Required
+                    </div>
+                    <div *ngIf="installationForm.controls['file'].errors.invalidFileFormat">
+                        Only PDF and XLSX files are allowed
+                    </div>
+                </div>
+                <!-- <div *ngIf="isShown" class="divarea"> -->
+
+
+
+            </div>
+
+            <div class="row rowgap">
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-1">
+                    <div class="set-web-service">
+                        <button class="btn bg-purple register-capt" (click)="saveInstallation()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<ngx-loading [show]="loading"
+    [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+                backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+                primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' ,fullScreenBackdrop:true }"></ngx-loading>

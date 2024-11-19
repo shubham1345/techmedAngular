@@ -1,0 +1,442 @@
+<section class="chc-center-section">
+  <div class="d-flex align-items-start">
+    <div
+      class="nav flex-column nav-pills me-3 sidebar fixed"
+      id="v-pills-tab"
+      role="tablist"
+      aria-orientation="vertical"
+    >
+      <div class="sidebar-heading-div">
+        <h3 class="sidebar-heading">{{ sysadmin }}</h3>
+      </div>
+
+      <button
+        class="nav-link"
+        id="v-pills-home-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-home"
+        aria-selected="true"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[0].isChecked &&
+            showMenu == 'PHC Registration'
+        }"
+        (click)="clickbutton('PHC Registration', 0, 'v-pills-home')"
+      >
+        PHC Registration
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-profile-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-profile"
+        aria-selected="false"
+        (click)="clickbutton('Doctor Registration', 1, 'v-pills-profile')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[1].isChecked &&
+            showMenu == 'Doctor Registration'
+        }"
+      >
+        Doctor Registration
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-messages-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-messages"
+        aria-selected="false"
+        (click)="clickbutton('Patient Queue Management', 2, 'v-pills-messages')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[2].isChecked &&
+            showMenu == 'Patient Queue Management'
+        }"
+      >
+        Patient Queue Management
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-orphan-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-orphan"
+        aria-selected="false"
+        (click)="clickbutton('Orphan Case File', 3, 'v-pills-orphan')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[3].isChecked &&
+            showMenu == 'Orphan Case File'
+        }"
+      >
+        Orphan Case File
+      </button>
+
+      <button
+        class="nav-link"
+        id="v-pills-holiday-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-holiday"
+        aria-selected="false"
+        (click)="clickbutton('Holiday Calendar', 4, 'v-pills-holiday')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[4].isChecked &&
+            showMenu == 'Holiday Calendar'
+        }"
+      >
+        Holiday Calendar
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-spoke-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-spoke"
+        aria-selected="false"
+        (click)="clickbutton('Spoke Maintenance', 5, 'v-pills-holiday')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[5].isChecked &&
+            showMenu == 'Spoke Maintenance'
+        }"
+      >
+        Spoke Maintenance
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-spoke-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-spoke"
+        aria-selected="false"
+        (click)="clickbutton('Installation', 6, 'v-pills-spoke')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[6].isChecked && showMenu == 'Installation'
+        }"
+      >
+        Installation
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-employee-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-employee"
+        aria-selected="false"
+        (click)="clickbutton('Employee Training', 7, 'v-pills-employee')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[7].isChecked &&
+            showMenu == 'Employee Training'
+        }"
+      >
+        Employee Training
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-system-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-system"
+        aria-selected="false"
+        (click)="clickbutton('System Health', 8, 'v-pills-system')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[8].isChecked &&
+            showMenu == 'System Health'
+        }"
+      >
+        System Health
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-prescription-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-prescription"
+        aria-selected="false"
+        (click)="
+          clickbutton('Prescription Not Generated', 9, 'v-pills-prescription')
+        "
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[9].isChecked &&
+            showMenu == 'Prescription Not Generated'
+        }"
+      >
+        Prescription Not Generated
+      </button>
+      <button
+        class="nav-link"
+        id="v-pills-Doctor-Feedback-tab"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-Doctor-Feedback"
+        aria-selected="false"
+        (click)="clickbutton('Doctor Feedback', 10, 'v-pills-Doctor-Feedback')"
+        [ngClass]="{
+          active:
+            reportAccessArrayOriginal[10].isChecked &&
+            showMenu == 'Doctor Feedback'
+        }"
+      >
+        Doctor Feedback
+      </button>
+
+      <!-- <button class="nav-link" id="v-pills-createNotification-tab" data-bs-toggle="pill" data-bs-target="#v-pills-createNotification"
+                type="button" role="tab" aria-controls="v-pills-createNotification" aria-selected="false" (click)="clickbutton('createNotification')">Create Notification</button>
+            -->
+
+      <div class="product-wrapper">
+        <div class="product-card">
+          <div>
+            <button class="btn width-btn" (click)="onSignOut()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content mid-content" id="v-pills-tabContent">
+      <!-- PHC Registration-->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-home"
+        role="tabpanel"
+        aria-labelledby="v-pills-home-tab"
+      >
+        <div *ngIf="showMenu == 'PHC Registration'">
+          <app-phc-registration></app-phc-registration>
+        </div>
+      </div> -->
+      <!--Doctor Registration -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-profile"
+        role="tabpanel"
+        aria-labelledby="v-pills-profile-tab"
+      >
+      <div *ngIf="showMenu == 'PHC Registration'">
+        <app-phc-registration></app-phc-registration>
+      </div>
+        <div *ngIf="showMenu == 'Doctor Registration'">
+          <app-doctor-registration> </app-doctor-registration>
+        </div>
+      </div> -->
+
+      <!-- Patient queue management-->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-messages"
+        role="tabpanel"
+        aria-labelledby="v-pills-messages-tab"
+      >
+      <div *ngIf="showMenu == 'PHC Registration'">
+        <app-phc-registration></app-phc-registration>
+      </div>
+        <div *ngIf="showMenu == 'Doctor Registration'">
+          <app-doctor-registration> </app-doctor-registration>
+        </div>
+        <div *ngIf="showMenu == 'Patient Queue Management'">
+          <app-sys-queue-mgmt></app-sys-queue-mgmt>
+        </div>
+      </div> -->
+
+      <!-- Patient pending management-->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-orphan"
+        role="tabpanel"
+        aria-labelledby="v-pills-orphan-tab"
+      >
+      <div *ngIf="showMenu == 'PHC Registration'">
+        <app-phc-registration></app-phc-registration>
+      </div>
+        <div *ngIf="showMenu == 'Doctor Registration'">
+          <app-doctor-registration> </app-doctor-registration>
+        </div>
+        <div *ngIf="showMenu == 'Patient Queue Management'">
+          <app-sys-queue-mgmt></app-sys-queue-mgmt>
+        </div>
+        <div *ngIf="showMenu == 'Orphan Case File'">
+          <app-orphan-case-file-queue></app-orphan-case-file-queue>
+        </div>
+      </div> -->
+
+      <!-- Holiday Calendar -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-holiday"
+        role="tabpanel"
+        aria-labelledby="v-pills-holiday-tab"
+        style="overflow-x: hidden"
+      >
+        <div *ngIf="showMenu == 'Holiday Calendar'">
+          <app-sys-holiday-calendar></app-sys-holiday-calendar>
+        </div>
+
+        <div *ngIf="showMenu == 'PHC Registration'">
+          <app-phc-registration></app-phc-registration>
+        </div>
+          <div *ngIf="showMenu == 'Doctor Registration'">
+            <app-doctor-registration> </app-doctor-registration>
+          </div>
+          <div *ngIf="showMenu == 'Patient Queue Management'">
+            <app-sys-queue-mgmt></app-sys-queue-mgmt>
+          </div>
+          <div *ngIf="showMenu == 'Orphan Case File'">
+            <app-orphan-case-file-queue></app-orphan-case-file-queue>
+          </div>
+
+      </div> -->
+      <!-- Spoke Maintenance -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-spoke"
+        role="tabpanel"
+        aria-labelledby="v-pills-spoke-tab"
+        style="overflow-x: hidden"
+      >
+        <div *ngIf="showMenu == 'Spoke Maintenance'">
+          <app-sys-spoke-maintenance></app-sys-spoke-maintenance>
+        </div>
+      </div> -->
+      <!--Employee training  -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-employee"
+        role="tabpanel"
+        aria-labelledby="v-pills-employee-tab"
+        style="overflow-x: hidden"
+      >
+      <div *ngIf="showMenu == 'Spoke Maintenance'">
+        <app-sys-spoke-maintenance></app-sys-spoke-maintenance>
+      </div>
+        <div *ngIf="showMenu == 'Employee Training'">
+          <app-sys-employee-training></app-sys-employee-training>
+        </div>
+      </div> -->
+      <!-- System health -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-system"
+        role="tabpanel"
+        aria-labelledby="v-pills-system-tab"
+        style="overflow-x: hidden"
+      >
+      <div *ngIf="showMenu == 'Spoke Maintenance'">
+        <app-sys-spoke-maintenance></app-sys-spoke-maintenance>
+      </div>
+        <div *ngIf="showMenu == 'Employee Training'">
+          <app-sys-employee-training></app-sys-employee-training>
+        </div>
+        <div *ngIf="showMenu == 'System Health'">
+          <app-sys-system-health> </app-sys-system-health>
+        </div>
+      </div> -->
+      <!-- Prescription -->
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-prescription"
+        role="tabpanel"
+        aria-labelledby="v-pills-prescription-tab"
+        style="overflow-x: hidden"
+      >
+        <div *ngIf="showMenu == 'Prescription Not Generated'">
+          <app-prescription-not-generated-by-phcs>
+          </app-prescription-not-generated-by-phcs>
+        </div>
+      </div> -->
+      <!-- doctor feedback -->
+      <div
+        class="tab-pane fade"
+        id="v-pills-Doctor-Feedback"
+        role="tabpanel"
+        aria-labelledby="v-pills-Doctor-Feedback-tab"
+        style="overflow-x: hidden"
+      >
+        <!-- <div *ngIf="showMenu == 'Doctor Feedback'">
+          <app-doctor-feedback> </app-doctor-feedback>
+        </div> -->
+      </div>
+
+      <!-- Installation -->
+
+      <div *ngIf="showMenu == 'Holiday Calendar'">
+        <app-sys-holiday-calendar></app-sys-holiday-calendar>
+      </div>
+
+      <div *ngIf="showMenu == 'PHC Registration'">
+        <app-phc-registration></app-phc-registration>
+      </div>
+      <div *ngIf="showMenu == 'Doctor Registration'">
+        <app-doctor-registration> </app-doctor-registration>
+      </div>
+      <div *ngIf="showMenu == 'Patient Queue Management'">
+        <app-sys-queue-mgmt></app-sys-queue-mgmt>
+      </div>
+      <div *ngIf="showMenu == 'Orphan Case File'">
+        <app-orphan-case-file-queue></app-orphan-case-file-queue>
+      </div>
+
+      <div *ngIf="showMenu == 'Installation'">
+        <app-installation></app-installation>
+      </div>
+
+      <div *ngIf="showMenu == 'Dashboard'">
+        <app-sysadmin-dashboard></app-sysadmin-dashboard>
+      </div>
+
+      <div *ngIf="showMenu == 'Spoke Maintenance'">
+        <app-sys-spoke-maintenance></app-sys-spoke-maintenance>
+      </div>
+      <div *ngIf="showMenu == 'Employee Training'">
+        <app-sys-employee-training></app-sys-employee-training>
+      </div>
+      <div *ngIf="showMenu == 'System Health'">
+        <app-sys-system-health> </app-sys-system-health>
+      </div>
+
+      <div *ngIf="showMenu == 'Prescription Not Generated'">
+        <app-prescription-not-generated-by-phcs>
+        </app-prescription-not-generated-by-phcs>
+      </div>
+
+      <div *ngIf="showMenu == 'Doctor Feedback'">
+        <app-doctor-feedback> </app-doctor-feedback>
+      </div>
+
+      <!-- <div
+        class="tab-pane fade"
+        id="v-pills-createNotification"
+        role="tabpanel"
+        aria-labelledby="v-pills-createNotification-tab"
+        style="overflow-x: hidden"
+        [ngClass]="{
+          show: reportAccessArray[0]?.reportName == 'createNotification',
+          active: reportAccessArray[0]?.reportName == 'createNotification'
+        }"
+      >
+        <div *ngIf="showMenu == 'createNotification'">
+          <app-create-notification></app-create-notification>
+        </div>
+      </div> -->
+    </div>
+    <ngx-loading
+      [show]="loading"
+      [config]="{
+        animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+        backdropBorderRadius: '10px',
+        primaryColour: '#ff9900',
+        secondaryColour: '#ff9900',
+        tertiaryColour: '#009900'
+      }"
+    ></ngx-loading>
+  </div>
+</section>

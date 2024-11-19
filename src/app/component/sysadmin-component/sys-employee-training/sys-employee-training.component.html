@@ -1,0 +1,323 @@
+<!-- <section class="chc-center-section">
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading"></h3>
+            </div>
+
+            <button class="nav-link active" [routerLink]="['/PHC-Registration']" id="v-pills-phc-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-phc" type="button" role="tab" aria-controls="v-pills-phc"
+                aria-selected="false">PHC Registration</button>
+            <button class="nav-link" [routerLink]="['/Doctor-Registration']" id="v-pills-Doctor-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Doctor" type="button" role="tab"
+                aria-controls="v-pills-Doctor" aria-selected="false">Doctor
+                Registration</button>
+            <button class="nav-link" [routerLink]="['/Patient-Queue-Management']" id="v-pills-Patient-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Patient" type="button" role="tab"
+                aria-controls="v-pills-Patient" aria-selected="false">Patient queue
+                management</button>
+
+
+            <button class="nav-link" [routerLink]="['/Holiday-Calendar']" id="v-pills-holiday-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-holiday" type="button" role="tab" aria-controls="v-pills-holiday"
+                aria-selected="false">Holiday Calendar</button>
+            <button class="nav-link" [routerLink]="['/Spoke-MAintenance']" id="v-pills-spoke-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-spoke" type="button" role="tab" aria-controls="v-pills-spoke"
+                aria-selected="false">Spoke Maintenance</button>
+            <button class="nav-link" [routerLink]="['/Employee-Training']" id="v-pills-employee-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-employee" type="button" role="tab"
+                aria-controls="v-pills-employee" aria-selected="false">Employee training
+            </button>
+            <button class="nav-link" [routerLink]="['/System-Health']" id="v-pills-system-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-system" type="button" role="tab" aria-controls="v-pills-system"
+                aria-selected="false">System health</button>
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                        <button class="btn width-btn"  (click)="onSignOut()">logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent"  style="overflow-x: hidden;"> -->
+            <div style="overflow-x: hidden;">
+                <form [formGroup]="employeedetail" autocomplete="off">
+                    <div class="clsPlacement">
+                        <h2 class="headersize">Employee Training Feedback</h2>
+                    </div>
+                    <div class="health-info">
+                        <div class="account-first-section" >
+
+
+                            <!-- <div class="row phc">
+                                <div class="col-md-4">
+                                    <div> -->
+                                        <!-- <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label> -->
+                                        <!-- <select  class="form-control" id="exampleFormControlInput1" formControlName="PHCsName" (change)="onOptionsSelected($event)"> -->
+                                        <!-- <option value="0">Select PHC</option> -->
+                                        <!-- <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option> -->
+                                        <!-- </select> -->
+                                    <!-- </div> -->
+                                    <!-- <div *ngIf="employeedetail.controls['PHCsName'].invalid && employeedetail.controls['PHCsName'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['PHCsName'].errors">
+                                            PHC is Required
+                                        </div>
+                                    </div> -->
+                                <!-- </div>
+                            </div> -->
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <select class="form-control" id="exampleFormControlInput1"
+                                            formControlName="PHCsName" (change)="onOptionsSelected($event)">
+                                            <!-- <option value="0">Select PHC</option> -->
+                                            <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['PHCsName'].invalid && employeedetail.controls['PHCsName'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['PHCsName'].errors">
+                                            PHC is Required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Employee Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Employee Name" formControlName="employeenmame" readonly>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['employeenmame'].invalid && employeedetail.controls['employeenmame'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['employeenmame'].errors">
+                                            Employee Name is Required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+
+                            </div>
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Training Subject</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Training Subject" formControlName="trainingsubject"
+                                            maxlength="50" oninput="this.value = this.value.replace('  ',' ')"
+                                            (keypress)="onlyphabetkey($event)">
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['trainingsubject'].invalid && employeedetail.controls['trainingsubject'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['trainingsubject'].errors">
+                                            Training Subject is Required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Training Period</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div>
+                                        <select class="form-control" id="exampleFormControlInput1"
+                                            formControlName="Quartername">
+                                            <!-- <option value="0">Select Quarter</option> -->
+                                            <option value="1">Aug-Jan</option>
+                                            <option value="2">Feb-Jul</option>
+                                            <!-- <option value="3-Qtr">Jul-Sep</option>
+                                            <option value="4-Qtr">Oct-Dec</option> -->
+                                        </select>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['Quartername'].invalid && employeedetail.controls['Quartername'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['Quartername'].errors">
+                                            Quarter is Required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div>
+                                        <select class="form-control" id="exampleFormControlInput1"
+                                            formControlName="yearname">
+                                            <!-- <option value="0">select Year</option> -->
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['yearname'].invalid && employeedetail.controls['yearname'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['yearname'].errors">
+                                            Year is Required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Training Date</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <!-- <input type="date" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Training Date" formControlName="trainingdate"> -->
+
+                                            <mat-form-field class="padding-setcalendar">
+                                                <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="trainingdate"
+                                                    class="form-control input-padding" readonly>
+                                                <mat-datepicker-toggle matSuffix [for]="picker" class="calendarbtn"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['trainingdate'].invalid && employeedetail.controls['trainingdate'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['trainingdate'].errors">
+                                            Training date is Required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Training By</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Trainer's Name" formControlName="trainingby"
+                                            maxlength="50" oninput="this.value = this.value.replace('  ',' ')"
+                                            (keypress)="onlyphabetkey($event)">
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['trainingby'].invalid && employeedetail.controls['trainingby'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="employeedetail.controls['trainingby'].errors">
+                                            Trainingby is Required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row rowgap">
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span
+                                            class="text-danger">*</span>Employee Feedback</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Feedback(1-5)" formControlName="employeefeedback"
+                                            minlength="1" maxlength="1" autocomplete="off" onpaste="return false" 
+                                            (keypress)="keyPressNumbers($event)" >
+                                    </div>
+
+                                    <div class="error text-danger small" *ngIf="employeedetail.controls['employeefeedback'].hasError('pattern')">
+                                      <span>Only [  1-5 ] numbers are allowed </span>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['employeefeedback'].hasError('required')&& employeedetail.controls['employeefeedback'].touched"
+                                        class="error text-danger small">
+                                        <span> Feedback[1-5] is Required</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-1">
+                                    <!-- <div class="set-web-service">
+                                        <button class="btn bg-purple register-capt"
+                                            (click)="saveemployeetraningt()">Save</button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+
+                            <div class="row rowgap">
+                                <div class="form-group">
+                                    <label for="file-input" style="display: none">
+                                    </label>
+            
+                                    <input id="file-input" type="file" accept="document*" (change)="onFileChange($event)"
+                                        #fileInput formControlName="file" />
+                                </div>
+                                <div *ngIf="employeedetail.controls['file'].invalid && employeedetail.controls['file'].touched" class="error text-danger small">
+                                    <div *ngIf="employeedetail.controls['file'].errors">
+                                        <div *ngIf="employeedetail.controls['file'].errors.required">
+                                            File is Required
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['file'].errors.invalidFileFormat">
+                                            Only PDF and XLSX files are allowed
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- <div *ngIf="isShown" class="divarea">
+            
+                         
+            
+            </div> -->
+
+                            <div class="row rowgap">
+                                <div class="col-md-8">
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                    
+                                    <div class="set-web-service">
+                                        <button class="btn bg-purple register-capt" 
+                                            (click)="saveemployeetraningt()">Save</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <!-- <div class="set-web-service">
+                                        <button class="btn bg-purple register-capt"
+                                            (click)="saveemployeetraningt()">Save</button>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-1">
+                                    <!-- <div class="set-web-service">
+                                        <button class="btn bg-purple register-capt"
+                                            (click)="saveemployeetraningt()">Save</button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <!-- </div>
+    </div>
+</section> -->
+
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' ,fullScreenBackdrop:true }"></ngx-loading>

@@ -1,0 +1,126 @@
+<ng-container *ngIf="playAudio">
+  <audio controls autoplay>
+    <source src="../../../../../assets/ringing.mp3" type="audio/mpeg" />
+  </audio>
+</ng-container>
+
+<ng-container *ngIf="playAlertAudio && role == 'Doctor'">
+  <audio controls autoplay>
+    <source src="../../../../../assets/alertsound.mp3" type="audio/mpeg" />
+  </audio>
+</ng-container>
+
+<div
+  [ngClass]="isFullScreen ? 'full-screen' : ''"
+  [ngClass]="isCallInProgress ? '' : 'notInProg'"
+  class="call-popup shadow"
+  *ngIf="isValidRoom"
+>
+  <div class="card h-100">
+    <div class="card-header d-flex">
+      <div *ngIf="callingEnvironment === 'jitsi'"> 
+        <div class="py-2" style="margin-right: 10px" >
+          {{ isValidRoom && isConnectingData ? "Call Duration" : "Connecting..." }}
+        </div>
+        
+        <div class="py-2 ml-3" style="font-size: 20px; color: red;  margin-left: 94px;
+        margin-top: -35px; " *ngIf="isConnectingData">
+          <label id="timer"></label>
+        </div>
+       </div>
+       <div *ngIf="callingEnvironment === 'Twilio'"> 
+        <div class="py-2" style="margin-right: 10px" >
+          {{ isValidRoom  ? "Call Duration" : "Connecting..." }}
+        </div>
+        
+        <div class="py-2 ml-3" style="font-size: 20px; color: red; margin-left: 94px;
+        margin-top: -35px;">
+          <label id="timer"></label>
+        </div>
+       </div>
+      <!-- <div *ngIf="role === 'PHCUser'">
+        <div class="py-2" style="margin-right: 10px">
+              {{ isValidRoom && isConnectingData ? "Call Duration" : "" }}
+         
+        </div>
+        
+        <div class="py-2 ml-3" style="font-size: 20px; color: red; margin-top: -36px ;margin-left: 92px" >
+          <label id="timer"></label>
+        </div>
+      </div>
+       -->
+    
+      <div class="ms-auto">
+        <a
+          *ngIf="!isFullScreen"
+          class="btn btn-link btn-expand"
+          (click)="switchFullScreen(true)"
+        >
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+        <a
+          *ngIf="isFullScreen"
+          class="btn btn-link btn-collaps onFS"
+          (click)="switchFullScreen(false)"
+        >
+          <i class="fas fa-compress-arrows-alt"></i>
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-------------------------twilio component ------------------------------->
+      <div
+        [ngClass]="{
+          jitsiDiv: meetingStarted && callingEnvironment == 'jitsi'
+        }"
+      >
+        <app-twilio-room
+          *ngIf="meetingStarted && callingEnvironment == 'Twilio'"
+          (onMeetingCloseTrigger)="onMeetingCloseTrigger($event)"
+          [patientCaseId]="patientCaseId"
+          [roomName]="roomName"
+        ></app-twilio-room>
+
+        <!-------------------------jitsi component------------------------------------->
+
+        <app-jitsicall
+          *ngIf="meetingStarted && callingEnvironment == 'jitsi'"
+          [patientCaseId]="patientCaseId"
+          [roomName]="roomName"
+          class="jitsiDiv"
+          (onMeetingCloseTrigger)="onMeetingCloseTrigger($event)"
+        ></app-jitsicall>
+      </div>
+
+      <div
+        *ngIf="showLoader"
+        class="d-flex justify-content-center align-items-center"
+      >
+        <h1 class="pt-4">Connecting...</h1>
+        <ngx-loading
+          [show]="showLoader"
+          [config]="{
+            animationType: ngxLoadingAnimationTypes.rectangleBounce,
+            backdropBackgroundColour: 'rgb(0 0 0 / 63%)',
+            backdropBorderRadius: '10px',
+            primaryColour: '#ff9900',
+            secondaryColour: '#ff9900',
+            tertiaryColour: '#009900'
+          }"
+        ></ngx-loading>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="isValidRoom && callingEnvironment == 'jitsi'">
+  <div class="py-2 ml-3" style="font-size: 20px; color: red">
+    <label id="timer"></label>
+  </div>
+
+  <app-jitsicall
+    [patientCaseId]="patientCaseId"
+    [roomName]="roomName"
+    (onMeetingCloseTrigger)="onMeetingCloseTrigger($event)"
+  ></app-jitsicall>
+</div> -->

@@ -1,0 +1,32 @@
+.doctor-refer{
+    font-family: 'Montserrat-SemiBold';
+    font-size: 14px;
+    margin-bottom: 10px;
+    
+}
+.modal-body{
+    padding: 30px 50px 30px 50px;
+    width:450px;
+
+}
+.modal-body button{
+    text-align: center;
+}
+/* select{
+    border: unset!important;
+    border-radius: unset!important;
+    margin-bottom: 20px;
+} */
+.option-set{
+    padding: 5px !important;
+}
+.btn-set{
+    margin-top:20px;
+}
+.modal-body.addqueue{
+    width:100%;
+
+}
+.queue-body{
+    text-align: center;
+}

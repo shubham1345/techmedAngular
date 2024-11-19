@@ -1,0 +1,11 @@
+<div class="preview video-camera-box shadow m-4">
+    <div [hidden]="!isPreviewing" style="height: 500px ;" #preview fxFill fxLayoutAlign="center center"></div>
+    <div [hidden]="isPreviewing" fxFill fxLayoutAlign="center center" fxLayout="column">
+        <div class="imageHolder" fxFlexAlign="center">
+            {{localInitial}}
+        </div>
+    </div>
+    <div class="video-user-name d-flex align-items-center justify-content-center">
+        <div>{{localInitial}}</div>
+    </div>
+</div>

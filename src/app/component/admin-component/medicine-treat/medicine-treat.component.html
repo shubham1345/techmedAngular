@@ -1,0 +1,68 @@
+<div class="col-md-12 medicinetreat">
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <!-- <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+        {{fruit}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip> -->
+      <input class="ctscan" placeholder="" #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit.id">
+        {{fruit.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div class="case-detial-inerkt">
+
+
+    <div class="p-2">
+      <div class="form-group d-flex align-items-center">
+        <label>Morning</label>
+        <input value="morning"  name="dose" type="checkbox" id="morning" [(ngModel)]="isMorning" (change)="onSelected($event)">
+        <label>Noon</label>
+        <input value="noon" name="dose"   type="checkbox" id="noon" [(ngModel)]="isNoon" (change)="onSelected($event)">
+        <label>Night</label>
+        <input value="night" name="dose"   type="checkbox" id="night" [(ngModel)]="isnight" (change)="onSelected($event)">
+      </div>
+    </div>
+    <div class="p-2">
+      <div class="form-group  d-flex align-items-center">
+        <label>Empty Stomach</label>
+        <input value="emptyStomach" name="dose"   type="checkbox" id="empty_stomach" [(ngModel)]="isemptyStomach" (change)="onSelected($event)">
+        <label>After Meal</label>
+        <input value="afterMeal" name="dose"   type="checkbox" id="after_meal" [(ngModel)]="isafterMeal" (change)="onSelected($event)">
+
+      </div>
+    </div>
+    <div class="p-2">
+      <div class="form-group d-flex align-items-center">
+        <label>OD</label>
+        <input value="od"  name="dose"  type="checkbox" id="od" [(ngModel)]="isod" (change)="onSelected($event)">
+        <label>BD</label>
+        <input value="bd" name="dose"   type="checkbox" id="bd" [(ngModel)]="isbd" (change)="onSelected($event)">
+        <label>TD</label>
+        <input value="td" name="dose"   type="checkbox" id="td" [(ngModel)]="istd" (change)="onSelected($event)">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-2">
+  <button class="buttonkt" (click)="saveMedicine()">Save Medicine</button>
+</div>
+
+<div>
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+      {{fruit}}
+      <button matChipRemove>
+        <mat-icon><img style="width:20px;" src="../../../../assets/Images/smaill-icon/delete-icon.png" alt=""></mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-list>
+  <div></div>
+</div>

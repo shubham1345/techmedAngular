@@ -1,0 +1,90 @@
+.health-info{
+    background-color: #dee2e6;
+    border-radius:7px;
+    margin:42px;
+    padding: 20px 36px auto 36px;   
+    float: left;
+    min-height: 100px;
+    min-width: 60%;
+    font-family: 'Montserrat-regular';
+    font-size: 14px;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
+.mbt-1{
+  margin-bottom:0.5rem;
+}
+.mbt-2{
+  margin-bottom: 2rem;
+}
+.mrt-1{
+  margin-right:1rem;
+}
+.mtp-1{
+  margin-top:1rem;
+}
+.mtp-2{
+  margin-top:2rem;
+}
+.phc-technician{
+  margin-bottom:2rem;
+  margin-top:2rem;
+  font-family: 'Montserrat-semibold';
+}
+/* .account-first-section{
+    width: 50%;
+} */
+
+/* patient-history */
+.paddingRow{
+  padding: 11px;
+}
+.clsPlacement{
+  margin-top: 25px;
+  
+  height: 29px;
+  margin-left: 20%;
+}
+.spmheader{
+  font-size: 17px;
+}
+.headersize{
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 4px; 
+}
+.lbltextsize{
+  font-size: 16px;
+}
+.row{
+  padding: 8px;
+}
+.video-container{
+  display: flex;
+  justify-content: center;
+  margin-top:1rem;
+}
+
+.rowgap{
+  padding-top: 100px;
+}
+.lblgap{
+padding-top: 5px;
+}
+.divarea{
+  margin-left: 50%;
+  width: 270px;
+  height: 210px;
+  /* background-color:yellow; */
+  outline:10px solid black;
+}
+.calwidth{
+  width: 47%;
+}
+.areapadding{
+    padding-top: 15px;
+}
+.center{
+    margin-left: 168px;
+}

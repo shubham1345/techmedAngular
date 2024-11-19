@@ -1,0 +1,170 @@
+<app-admin-header></app-admin-header>
+<div>
+    <form [formGroup]="employeedetail" autocomplete="off">
+        <div class="clsPlacement">
+            <h2 class="headersize">Employee Training Feedback</h2> 
+        </div>
+        <div class="health-info">
+            <div class="account-first-section">
+                <div class="row phc">
+                    <div class="col-md-4">
+                                <div>
+                                    <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                    <select  class="form-control" id="exampleFormControlInput1" formControlName="PHCsName" (change)="onOptionsSelected($event)">
+                                        <!-- <option value="0">Select PHC</option> -->
+                                        <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option>
+                                    </select>
+                                </div>
+                        <div *ngIf="employeedetail.controls['PHCsName'].invalid && employeedetail.controls['PHCsName'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['PHCsName'].errors">
+                                PHC is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Employee Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Employee Name" formControlName="employeenmame" readonly>
+                        </div>
+                        <div *ngIf="employeedetail.controls['employeenmame'].invalid && employeedetail.controls['employeenmame'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['employeenmame'].errors">
+                                Employee Name is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training Subject</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Training Subject" formControlName="trainingsubject">
+                        </div>
+                        <div *ngIf="employeedetail.controls['trainingsubject'].invalid && employeedetail.controls['trainingsubject'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['trainingsubject'].errors">
+                                Training suject is required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize" ><span class="text-danger">*</span>Training Period</label>
+                    </div>
+                    <div class="col-md-3">
+                      <div>
+                          <select  class="form-control" id="exampleFormControlInput1" formControlName="Quartername">
+                              <!-- <option value="0">Select Quarter</option> -->
+                              <option value="1-Qtr">Jan-Mar</option>
+                              <option value="2-Qtr">Apr-Jun</option>
+                              <option value="3-Qtr">Jul-Sep</option>
+                              <option value="4-Qtr">Oct-Dec</option>
+                          </select>
+                      </div>
+                      <div *ngIf="employeedetail.controls['Quartername'].invalid && employeedetail.controls['Quartername'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['Quartername'].errors">
+                                Quarter is required
+                            </div>
+                        </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div>
+                        <select  class="form-control" id="exampleFormControlInput1" formControlName="yearname">
+                            <!-- <option value="0">select Year</option> -->
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                        </select>
+                    </div>
+                    <div *ngIf="employeedetail.controls['yearname'].invalid && employeedetail.controls['yearname'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['yearname'].errors">
+                                Year is required
+                            </div>
+                        </div>
+                </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training Date</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="date" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Training Date" formControlName="trainingdate">
+                        </div>
+                        <div *ngIf="employeedetail.controls['trainingdate'].invalid && employeedetail.controls['trainingdate'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['trainingdate'].errors">
+                                Training date is required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training By</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Trainer's Name" formControlName="trainingby">
+                        </div>
+                        <div *ngIf="employeedetail.controls['trainingby'].invalid && employeedetail.controls['trainingby'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['trainingby'].errors">
+                                Trainingby is required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Employee Feedback</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Feedback(1-10)" formControlName="employeefeedback" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="employeedetail.controls['employeefeedback'].invalid && employeedetail.controls['employeefeedback'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="employeedetail.controls['employeefeedback'].errors">
+                                Feedback is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-1">
+                      <div class="set-web-service">
+                          <button class="btn bg-purple register-capt" (click)="saveemployeetraningt()">Save</button>
+                      </div>
+                  </div>
+                   
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

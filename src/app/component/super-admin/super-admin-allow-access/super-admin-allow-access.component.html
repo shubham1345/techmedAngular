@@ -1,0 +1,131 @@
+<div>
+    <form [formGroup]="createReportAccess" autocomplete="off">
+        <div class="health-info" style="height: 400px;">
+            <div class="clsPlacement">
+                <h2 class="headersize">Report Access</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="text-align-last:right; align-self: center;">
+                    <label for="" class="lbltextsize"><span class="errors">*</span> Government Users : </label>
+                </div>
+
+                <div class="col-md-9">
+                    <div>
+                        <input type="text" formControlName="userid" #searchDrug placeholder="Type to filter by name"
+                            class="form-control" (input)="filterGovUser($event)" matInput [matAutocomplete]="autoDrug">
+
+                        <mat-autocomplete #autoDrug="matAutocomplete" [displayWith]="displayFn.bind(this)">
+                            <mat-option *ngFor="let option of filterListOfGov ;let i = index;" [value]="option"
+                                [id]="option.userID">
+                                {{option.name +', '+option.email}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <div class="errors">
+                            <span
+                                *ngIf="createReportAccess.get('userid').hasError('required') && createReportAccess.get('userid').touched">*User
+                                is Required</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2" style="text-align-last:right; align-self: center;"><span
+                        *ngIf="showUserDetail">Email :</span></div>
+                <div class="col-md-4"><span *ngIf="showUserDetail">{{govUserEmail}}</span></div>
+                
+                <div class="col-md-2" style="text-align-last:right; align-self: center;"><span
+                        *ngIf="showUserDetail">Mobile No. :</span></div>
+                <div class="col-md-4"><span *ngIf="showUserDetail">{{govUserMobile}}</span></div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="text-align-last:right; align-self: center;">
+                    <mat-label>Cluster : </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-select formControlName="clusterIDs" #select multiple class="form-control" [disabled]="!createReportAccess.get('userid').value">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick()" *ngFor="let cluster of clusterData" [value]="cluster.id">
+                            {{cluster.cluster}}
+                        </mat-option>
+                    </mat-select>
+                    <div class="errors">
+                        <span
+                            *ngIf="createReportAccess.get('clusterIDs').hasError('required') && createReportAccess.get('clusterIDs').touched">*Cluster
+                            is Required</span>
+                    </div>
+                </div>
+
+                <div class="col-md-2" style="text-align-last:right; align-self: center;">
+                    <mat-label> Division : </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-select formControlName="divisionIDs" #selectDivi multiple class="form-control" [disabled]="!createReportAccess.get('userid').value">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelectedDivi" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelectionDivi()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClickDivi()" *ngFor="let division of divisionData"
+                            [value]="division.id">
+                            {{division.name}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-2" style="text-align-last:right; align-self: center;">
+                    <mat-label> District : </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-select formControlName="districtIDs" #selectDis multiple class="form-control" [disabled]="!createReportAccess.get('userid').value">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelectedDis" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelectionDis()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClickDis()" *ngFor="let district of districtData"
+                            [value]="district.id">
+                            {{district.districtName}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+
+                <div class="col-md-2" style="text-align-last:right; align-self: center;">
+                    <mat-label> Block : </mat-label>
+                </div>
+                <div class="col-md-4">
+                    <mat-select formControlName="blockIDs" #selectBlo multiple class="form-control" [disabled]="!createReportAccess.get('userid').value">
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelectedBlo" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelectionBlo()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClickBlo()" *ngFor="let block of blockData" [value]="block.id">
+                            {{block.blockName}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-9 text-end">
+                    <button type="reset" class="btn bg-red mr-3" (click)="reset()">Reset</button>
+                    <button type="button" class="btn bg-purple register-capt ml-4" (click)="submit()">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<ngx-loading [show]="loading"
+    [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' ,fullScreenBackdrop:true }"></ngx-loading>

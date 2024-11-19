@@ -1,0 +1,551 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button
+      class="nav-link active"
+      id="nav-home-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-home"
+      type="button"
+      role="tab"
+      aria-controls="nav-home"
+      aria-selected="true"
+      (click)="changeTab('manpower')"
+    >
+      {{ this.ReportName }}
+    </button>
+    <button
+      class="nav-link"
+      id="nav-profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-profile"
+      type="button"
+      role="tab"
+      aria-controls="nav-profile"
+      aria-selected="false"
+      (click)="changeTab('hrmanpower')"
+    >
+      {{ this.ReportNameHR }}
+    </button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div
+    class="tab-pane fade show active"
+    id="nav-home"
+    role="tabpanel"
+    aria-labelledby="nav-home-tab"
+  >
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="">
+            <div class="example-container">
+              <form [formGroup]="doctorForm" autocomplete="off">
+                <div class="mdMedgnrlMdcnWrp">
+                  <span>{{ this.ReportName }}</span>
+
+                  <mat-form-field>
+                    <input
+                      matInput
+                      [matDatepicker]="dp"
+                      [max]="today"
+                      placeholder="Month and Year"
+                      formControlName="date"
+                      [formControl]="date"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="dp"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker
+                      #dp
+                      startView="multi-year"
+                      (yearSelected)="chosenYearHandler($event)"
+                      (monthSelected)="chosenMonthHandler($event, dp)"
+                      panelClass="example-month-picker"
+                    >
+                    </mat-datepicker>
+                  </mat-form-field>
+                  <input
+                    type="button"
+                    value="Search"
+                    (click)="submitdetails()"
+                  />
+
+                  <Div *ngIf="isValid">
+                    <label>NoOf Days In Month</label> :
+                    <span>{{ HeaderData.noOfDaysInMonth }}</span>
+                    <label>Total Working Days</label> :
+                    <span>{{ HeaderData.totalWorkingDays }}</span>
+                    <label>Total Present Days</label> :
+                    <span>{{ HeaderData.totalPresentDays }}</span>
+                    <label>Availability Percentage</label> :
+                    <span>{{ HeaderData.availabilityPercentage }}</span>
+                  </Div>
+                </div>
+              </form>
+              <div class="mat-elevation-z8 mt-3">
+                <form
+                  style="display: inline"
+                  class="form-group"
+                  [formGroup]="formControl"
+                  autocomplete="off"
+                >
+                  <mat-form-field class="mx-1">
+                    <input matInput formControlName="cluster" />
+                    <mat-placeholder>Cluster</mat-placeholder>
+                  </mat-form-field>
+
+                  <mat-form-field class="mx-1">
+                    <input
+                      matInput
+                      class="form-control"
+                      formControlName="districtName"
+                      type="text"
+                    />
+                    <mat-placeholder>District</mat-placeholder>
+                  </mat-form-field>
+                  <mat-form-field class="mx-1">
+                    <input matInput formControlName="blockName" />
+                    <mat-placeholder>Block</mat-placeholder>
+                  </mat-form-field>
+                  <mat-form-field class="mx-1">
+                    <input matInput formControlName="phcName" />
+                    <mat-placeholder>PHC</mat-placeholder>
+                  </mat-form-field>
+
+                  <mat-form-field class="mx-1">
+                    <input matInput formControlName="phase" />
+                    <mat-placeholder>Phase</mat-placeholder>
+                  </mat-form-field>
+
+                  <!--               
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="workingDays">
+                <mat-placeholder>Working Days</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="daysPresent">
+                <mat-placeholder>Days Present</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="daysAbsent">
+                <mat-placeholder>Days Absent</mat-placeholder>
+              </mat-form-field> -->
+
+                  <div>
+                    <a routerLink="/main-dashboard" class="fa-pull-right"
+                      ><button class="btn btn-danger pull-right">
+                        <fa-icon [icon]="faClose"></fa-icon></button
+                    ></a>
+                    <button
+                      type="button"
+                      class="fa-pull-right btn btn-secondary"
+                      (click)="downloadPdf()"
+                    >
+                      <fa-icon [icon]="faFilePdf"></fa-icon>
+                    </button>
+                    <button
+                      type="button"
+                      class="fa-pull-right btn btn-secondary"
+                      (click)="Download('Excel')"
+                    >
+                      <fa-icon [icon]="faFileExcel"></fa-icon>
+                    </button>
+                  </div>
+                </form>
+                <Div id="content" #content>
+                  <!-- <table mat-table [dataSource]="dataSource"> -->
+                  <table
+                    mat-table
+                    [dataSource]="dataSource"
+                    class="mat-elevation-z8"
+                    matSort
+                    matSortDisableClear
+                    matSortDirection="desc"
+                  >
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="srNo">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        SL No.
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.srNo }}
+                      </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="districtName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        District
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.districtName }}
+                      </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="blockName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Block
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.blockName }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="phcName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        PHC
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.phcName }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="phase">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Phase
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.phase }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="location">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Location
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element?.location }}
+                      </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="noOfDaysInMonth">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        No Of Days In Month
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.noOfDaysInMonth }}
+                      </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="workingDays">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Working Days
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.workingDays }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="daysPresent">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Days Present
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.daysPresent }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="daysAbsent">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Days Absent
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.daysAbsent }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cluster">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Cluster
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element?.cluster }}
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                  </table>
+                  <div
+                    *ngIf="dataSource.data?.length === 0"
+                    class="text-center mx-2 my-3"
+                  >
+                    No records found
+                  </div>
+
+                  <mat-paginator
+                    [pageSizeOptions]="[10]"
+                    showFirstLastButtons
+                  ></mat-paginator>
+                </Div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-profile"
+    role="tabpanel"
+    aria-labelledby="nav-profile-tab"
+  >
+    <div
+      class="tab-pane fade show active"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+     
+    <!---------HR REport --------->
+    <app-maindashboard-phc-hr-manpower-report *ngIf="isHRReport"></app-maindashboard-phc-hr-manpower-report>
+
+      <!-- <div class="container-fluid mt-3">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="">
+              <div class="example-container">
+                <form [formGroup]="doctorForm" autocomplete="off">
+                  <div class="mdMedgnrlMdcnWrp">
+                    <span>{{ this.ReportNameHR }}</span>
+
+                    <mat-form-field>
+                      <input
+                        matInput
+                        [matDatepicker]="hrReport"
+                        [max]="today"
+                        placeholder="Month and Year"
+                        formControlName="date"
+                        [formControl]="date"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="hrReport"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #hrReport
+                        startView="multi-year"
+                        (yearSelected)="chosenYearHandler1($event)"
+                        (monthSelected)="chosenMonthHandler1($event, hrReport)"
+                        panelClass="example-month-picker"
+                      >
+                      </mat-datepicker>
+                    </mat-form-field>
+                    <input
+                      type="button"
+                      value="Search"
+                      (click)="submitdetails1()"
+                    />
+
+                  </div>
+
+                  <Div *ngIf="isHRReport">
+                    <label>NoOf Days In Month</label> :
+                    <span>{{ HeaderData?.noOfDaysInMonth }}</span>
+                    <label>Total Working Days</label> :
+                    <span>{{ HeaderData?.totalWorkingDays }}</span>
+                    <label>Total Present Days</label> :
+                    <span>{{ HeaderData?.totalPresentDays }}</span>
+                    <label>Availability Percentage</label> :
+                    <span>{{ HeaderData?.availabilityPercentage }}</span>
+                  </Div>
+
+                </form>
+                <div class="mat-elevation-z8 mt-3">
+                  <form
+                    style="display: inline"
+                    class="form-group"
+                    [formGroup]="formControlHR"
+                    autocomplete="off"
+                  >
+                   
+                  <mat-form-field class="mx-1">
+                    <input matInput  formControlName="employeeName" />
+                    <mat-placeholder>District HR Name</mat-placeholder>
+                  </mat-form-field>
+                   
+
+                    <div>
+                      <a routerLink="/main-dashboard" class="fa-pull-right"
+                        ><button class="btn btn-danger pull-right">
+                          <fa-icon [icon]="faClose"></fa-icon></button
+                      ></a>
+                      <button
+                        type="button"
+                        class="fa-pull-right btn btn-secondary"
+                        (click)="downloadPdfHR()"
+                      >
+                        <fa-icon [icon]="faFilePdf"></fa-icon>
+                      </button>
+                      <button
+                        type="button"
+                        class="fa-pull-right btn btn-secondary"
+                        (click)="DownloadHR('Excel')"
+                      >
+                        <fa-icon [icon]="faFileExcel"></fa-icon>
+                      </button>
+                    </div>
+                  </form>
+                  <Div id="content" #content>
+                  <table mat-table [dataSource]="dataSource"> -->
+                    <!-- <table
+                      mat-table
+                      [dataSource]="dataSourceHR"
+                      class="mat-elevation-z8"
+                      matSort
+                      matSortDisableClear
+                      matSortDirection="desc"
+                    >
+                    Position Column 
+                      <ng-container matColumnDef="srNo">
+                        <th mat-header-cell *matHeaderCellDef >
+                          SL No.
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.srNo }}
+                        </td>
+                      </ng-container>
+
+                  
+                      <ng-container matColumnDef="districtName">
+                        <th mat-header-cell *matHeaderCellDef >
+                          District
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.districtName }}
+                        </td>
+                      </ng-container>
+
+                    
+                      <ng-container matColumnDef="blockName">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Block
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.blockName }}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="phcName">
+                        <th mat-header-cell *matHeaderCellDef >
+                          District HR Name
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.employeeName }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="phase">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Phase
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.phase }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="location">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Location
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.location }}
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                      </ng-container>
+
+                    
+                      <ng-container matColumnDef="noOfDaysInMonth">
+                        <th mat-header-cell *matHeaderCellDef >
+                          No Of Days In Month
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.noOfDaysInMonth }}
+                        </td>
+                      </ng-container>
+
+                  
+                      <ng-container matColumnDef="workingDays">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Working Days
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.workingDays }}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="daysPresent">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Present Days 
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.daysPresent }}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="daysAbsent">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Absent Days                         </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.daysAbsent }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="cluster">
+                        <th mat-header-cell *matHeaderCellDef >
+                          Cluster
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.cluster }}
+                        </td>
+                      </ng-container>
+
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                      ></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                      ></tr>
+                    </table>
+                    <div
+                      *ngIf="dataSourceHR.data?.length === 0"
+                      class="text-center mx-2 my-3"
+                    >
+                      No records found
+                    </div> 
+
+                    <mat-paginator
+                      [pageSizeOptions]="[10]"
+                      showFirstLastButtons
+                      #secondPaginator
+                    ></mat-paginator>  
+                  </Div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <ngx-loading
+    [show]="loading"
+    [config]="{
+      animationType: ngxLoadingAnimationTypes.rectangleBounce,
+      backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+      backdropBorderRadius: '10px',
+      primaryColour: '#ff9900',
+      secondaryColour: '#ff9900',
+      tertiaryColour: '#009900',
+      fullScreenBackdrop: true
+    }"
+  ></ngx-loading>
+</div>

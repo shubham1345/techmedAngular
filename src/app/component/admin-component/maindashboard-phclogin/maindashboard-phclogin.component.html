@@ -1,0 +1,267 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button
+      class="nav-link active"
+      id="nav-home-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-home"
+      type="button"
+      role="tab"
+      aria-controls="nav-home"
+      aria-selected="true"
+      
+    >
+      {{ this.ReportName }}
+    </button>
+    <button
+      class="nav-link"
+      id="nav-profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-profile"
+      type="button"
+      role="tab"
+      aria-controls="nav-profile"
+      aria-selected="false"
+ 
+    >
+      {{ this.ReportNameHR }}
+    </button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div
+    class="tab-pane fade show active"
+    id="nav-home"
+    role="tabpanel"
+    aria-labelledby="nav-home-tab"
+  >
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="">
+        <div class="example-container">
+          <form [formGroup]="doctorForm" autocomplete="off">
+          <div class="mdMedgnrlMdcnWrp">
+            <span>{{this.ReportName}}</span>
+
+      
+              <label>PHC:</label>  
+                  <select formControlName="PHCID">  
+                                           <option value="0" selected>All PHC</option>  
+                                           <option *ngFor="let phc of ListOfPHC"  
+                                                   value={{phc.id}}>  
+                                               {{phc.phcName}}  
+                                           </option>  
+                    </select>   
+                    <label>From</label> :
+                    <mat-form-field class="" >
+                      <input matInput [matDatepicker]="picker"  class="Datecls" [max]="today" formControlName="fromdate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker ></mat-datepicker>
+                    </mat-form-field>
+                    <label>To</label> :
+                    <mat-form-field class="" >
+                      <input matInput [matDatepicker]="pickerto" class="Datecls"  [max]="today" formControlName="todate">
+                      <mat-datepicker-toggle matSuffix [for]="pickerto"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerto ></mat-datepicker>
+                    </mat-form-field>
+            <!-- <label>From</label> : <input type="date" formControlName="fromdate">
+            <label>To</label> : <input type="date" formControlName="todate"> -->
+            <input type="button" value="Search" (click)="submitdetails()" >
+          </div>
+          <div *ngIf="ShowErrorMessage" class='alert alert-danger'>
+            {{ValidationMessage}}
+            </div>
+        
+            <div *ngIf="IsDateNotSelected" class='alert alert-danger'>
+              Please select PHC, From date and To date!
+              </div>
+        </form>
+          <div class="mat-elevation-z8 mt-3">
+            <form style="display:inline" class="form-group" [formGroup]="formControl" autocomplete="off">
+             
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="cluster">
+                <mat-placeholder>Cluster</mat-placeholder>
+              </mat-form-field>
+             
+              <mat-form-field class="mx-1">
+                <input matInput class="form-control" formControlName="districtName" type="text">
+                <mat-placeholder>District</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="blockName">
+                <mat-placeholder>Block</mat-placeholder>
+              </mat-form-field> 
+               <mat-form-field class="mx-1">
+                <input matInput formControlName="phcName">
+                <mat-placeholder>PHC</mat-placeholder>
+              </mat-form-field>
+              
+
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="phase">
+                <mat-placeholder>Phase</mat-placeholder>
+              </mat-form-field>
+
+          
+
+              <!-- <mat-form-field class="mx-1">
+                <input matInput formControlName="logedDate">
+                <mat-placeholder>Date</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="loginTime">
+                <mat-placeholder>Login Time</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="logoutTime">
+                <mat-placeholder>Logout Time</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="totalTime">
+                <mat-placeholder>Duration(hh:mm)</mat-placeholder>
+              </mat-form-field>
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="remark">
+                <mat-placeholder>Remark</mat-placeholder>
+              </mat-form-field> -->
+              <mat-form-field class="mx-1">
+                <input matInput formControlName="status">
+                <mat-placeholder>Status</mat-placeholder>
+              </mat-form-field>
+
+            
+              <div>
+                <a routerLink="/main-dashboard" class="fa-pull-right"><button class="btn btn-danger pull-right" > <fa-icon [icon]="faClose"></fa-icon></button></a>
+                <button  type="button" class="fa-pull-right btn btn-secondary" (click)="downloadPdf()"><fa-icon [icon]="faFilePdf"></fa-icon></button>
+                <button  type="button" class="fa-pull-right btn btn-secondary" (click)="Download('Excel')"><fa-icon [icon]="faFileExcel"></fa-icon></button>
+              </div>
+            </form>
+            <Div id="content" #content> 
+
+
+            <!-- <table mat-table [dataSource]="dataSource"> -->
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort   matSortDisableClear
+               matSortDirection="desc" >
+              <!-- Position Column -->
+              <ng-container matColumnDef="srNo">
+                <th  mat-header-cell *matHeaderCellDef mat-sort-header> SL No.  </th>
+                <td  mat-cell *matCellDef="let element"> {{element.srNo}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="districtName">
+                <th  mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+                <td mat-cell *matCellDef="let element"> {{element.districtName}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="blockName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Block </th>
+                <td mat-cell *matCellDef="let element"> {{element.blockName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="phcName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> PHC </th>
+                <td mat-cell *matCellDef="let element"> {{element.phcName}} </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="LTName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> LT Name </th>
+                <td mat-cell *matCellDef="let element">{{element.ltName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Qualification">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Qualification </th>
+                <td mat-cell *matCellDef="let element"> {{element.qualification}}</td>
+              </ng-container>
+              <ng-container matColumnDef="approvaldate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Approval Date </th>
+                <td mat-cell *matCellDef="let element">{{datepipe.transform(element.approvalDate, 'dd-MM-yyyy') }} </td>
+              </ng-container>
+
+              
+
+            
+              <ng-container matColumnDef="phase">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phase </th>
+                <td mat-cell *matCellDef="let element"> {{element?.phase}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                <td mat-cell *matCellDef="let element"> {{element?.location}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="logedDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let element"> {{datepipe.transform(element.logedDate, 'dd-MM-yyyy') }} </td>
+              </ng-container>
+              <ng-container matColumnDef="loginTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>  Login Time </th>
+                <td mat-cell *matCellDef="let element"> {{datepipe.transform(con(element.loginTime), 'h:mm:ss a') }} </td>
+              </ng-container>
+              <ng-container matColumnDef="logoutTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Logout Time </th>
+                <td mat-cell *matCellDef="let element">{{datepipe.transform(con(element.logoutTime), 'h:mm:ss a') }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="totalTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration(hh:mm:ss) </th>
+                <td mat-cell *matCellDef="let element">{{element.totalTime}}  </td>
+              </ng-container>
+              <ng-container matColumnDef="remark">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Remark </th>
+                <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="cluster">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cluster </th>
+                <td mat-cell *matCellDef="let element"> {{element?.cluster}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+            </table>
+            <div *ngIf="dataSource.data?.length === 0" class="text-center mx-2 my-3">No records found</div>
+         
+            <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+          </Div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</div>
+<div
+    class="tab-pane fade"
+    id="nav-profile"
+    role="tabpanel"
+    aria-labelledby="nav-profile-tab"
+  >
+    <div
+      class="tab-pane fade show active"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
+    <app-phc-hr-executive-profile></app-phc-hr-executive-profile>
+    </div>
+    </div>
+
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+  backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+  primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900',fullScreenBackdrop:true  }"></ngx-loading>
+
+</div>

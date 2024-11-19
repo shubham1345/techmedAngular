@@ -1,0 +1,323 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.chc-center-section {
+    width: 100%;
+    height: 100vh;
+    background: #0C4079;
+}
+
+.chc-center-section .sidebar {
+
+    /* padding: 1rem; */
+    /* background: #0C4079; */
+    margin: 0 !important;
+}
+
+.chc-center-section .mid-content {
+    /* border: 1px solid #000; */
+    background: #fff;
+    height: 100vh;
+    width: 100%;
+    /* padding: 1rem; */
+    margin: 0 !important;
+    border-radius: 30px 0 0 0;
+}
+
+.sidebar-heading-div {
+    margin: 2rem 0;
+}
+
+.backdash {
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    font-size: 12px;
+}
+
+.sidebar-heading-div .sidebar-heading {
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: #FFF;
+    font-family: Montserrat-SemiBold;
+}
+
+/* bootstrap classes manipulation */
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+.nav-pills .nav-link {
+    background: none;
+    border: 0;
+    border-radius: 0 !important;
+    padding: 10px 0 !important;
+    font-family: 'Montserrat-SemiBold';
+    font-size: 1rem;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.text-footer {
+    position: fixed;
+    bottom: 0px;
+}
+
+.top-section {
+    background: #FDE5C5;
+    border-radius: 30px 0px 0px 0px;
+    font-family: 'Montserrat-regular';
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.patient-details {
+    padding: 20px 50px 20px 50px;
+}
+
+.patient-img {
+    margin-right: 50px;
+}
+
+.patient-own-details {
+    margin-right: 50px;
+
+}
+
+.patient-label {
+    margin-right: 30px;
+}
+
+a {
+    color: #000 !important;
+}
+
+.tabbing-margin {
+    margin: 3rem;
+}
+
+.case-detail-textarea {
+    box-shadow: 0px 1px 9px rgba(6, 32, 60, 0.25);
+}
+
+.case-detail-textarea-doc {
+    background-color: #F5F5FA;
+}
+
+textarea {
+    border: 1px solid #fff;
+}
+
+.tab-content.mid-content {
+    overflow-y: scroll;
+}
+
+.vital-area {
+    height: 310px
+}
+
+.arear-process {
+    /* height:176px; */
+}
+
+.observe-area {
+    /* height:95px; */
+}
+
+.observe-area-treatment {
+    /* height: 89px; */
+}
+
+label {
+    font-family: 'Montserrat-SemiBold';
+    font-weight: 600;
+    font-size:16px;
+}
+
+table input {
+    box-shadow: 0px 1px 4px rgba(6, 32, 60, 0.25);
+    border: #fff;
+    width: 92px;
+    height: 25px;
+    background: #F5F5FA;
+
+}
+
+table {
+    border-collapse: unset;
+    border-color: #fff;
+
+}
+
+.bg-light-green {
+    background: #38B823;
+    border-radius: 46px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.referred-img {
+    margin-right: 2rem;
+}
+
+.prescription-area {
+    height: auto;
+    background: #F5F5FA;
+    box-shadow: 0px 1px 4px rgba(6, 32, 60, 0.25);
+
+}
+
+.feedback {
+
+    margin-right: 10px
+}
+
+.img-pd-set {
+    padding: 20px;
+}
+
+mat-form-field {
+    width: -webkit-fill-available;
+}
+
+mat-form-field li {
+    font-family: 'Montserrat-SemiBold';
+}
+
+mat-chip {
+    display: flex;
+    align-items: flex-start;
+}
+
+.mat-chip.mat-standard-chip {
+    background-color: unset !important;
+    width: -webkit-fill-available;
+    border-radius: unset !important;
+}
+
+.mat-chip.mat-standard-chip:hover {
+    background-color: unset !important;
+    border-radius: 20px !important;
+
+}
+
+.input-auto {
+    padding-left: 30px;
+    border: unset !important;
+}
+
+input::placeholder {
+    font-style: italic;
+}
+
+.mat-chip-remove.mat-chip-trailing-icon.chip-remove {
+    margin-left: auto;
+}
+
+
+.casedetailsdoc-button {
+    font-weight: 600;
+    margin-left: 500px;
+    margin-top: 30px;
+}
+
+.vwCdssItlc {
+    color: #ff6e6b;
+    font-style: italic;
+    padding-left: 10px;
+}
+
+.case-detial-wrapkt textarea,
+.tarealotherkt {
+    resize: none;
+    width: 100%;
+    border-color: #E7E8EF;
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: #E7E8EF;
+}
+
+.case-detial-wrapkt input[type="text"] {
+    resize: none;
+    width: 100%;
+    border: 2px solid #E7E8EF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: #E7E8EF;
+    padding: 3px 7px;
+}
+
+.case-detial-wrapkt .form-group label {
+    font-weight: 400;
+    font-size: 14px;
+    float: left;
+    padding-top: 1px;
+}
+
+.case-detial-wrapkt input[type="checkbox"] {
+    float: left;
+    margin-top: 5px;
+    margin-right: 25px;
+    margin-left: 7px;
+}
+
+.case-detial-wrapkt label {
+    color: #004371;
+}
+
+.case-detial-inerkt .p-2 {
+    min-width: 100%;
+    height: 40px;
+    float: left;
+}
+
+.buttonkt {
+    background: #4A48B9;
+    border-radius: 15px;
+    color: #fff;
+    border: 0px solid #ffffff;
+    padding: 2px 15px;
+}
+
+.spanAddnwkt {
+    color: #4A48B9;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.rbuttonswrpkt {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.printerrwrpkt {
+    color: #1e4079;
+    font-weight: 600;
+    margin-bottom: 10px;
+    float: right;
+}
+
+.prscrptnareakt label {
+    color: #1e4079;
+    font-weight: 600;
+
+}
+
+.setprintsend {
+    display: flex;
+    align-items: baseline;
+    /* justify-content: center; */
+    width: max-content;
+}
+.patient-label label{
+    font-size:14px!important;
+}

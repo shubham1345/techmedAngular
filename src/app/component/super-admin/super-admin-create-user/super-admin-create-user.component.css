@@ -1,0 +1,280 @@
+
+  .main-content-div{
+    display: flex;
+    flex-direction: row;
+  }
+  .main-content-div .main-mid-div{
+    flex: 3;
+    /* padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+  }
+  .main-content-div .main-mid-div .top-div{
+    padding: 1rem 3rem;
+  }
+  .main-content-div .right-side-doctor-div{
+    flex: 1;
+    background: #FDE5C5;
+    /* height: 100vh; */
+  }
+  
+
+
+  .main-content-div .main-bottom-div{
+    /* padding: 1rem; */
+    background: #FDE5C5;
+  }
+  .main-bottom-div .consultated-patient-div{
+    padding: 1rem 3rem;
+  }
+  
+
+
+ 
+  .todays-patient-div h3{
+    margin-bottom: 1rem;
+    font-size: 20px;
+    font-weight: 700;
+    color:#06203C;
+    font-size: 16px;
+    font-family: 'Montserrat-medium';
+  }
+  .text-form{
+    margin-bottom: 1rem;
+    font-size: 16px;
+    font-weight: 700;  
+    color:#06203C;
+    margin-top:1rem;
+    font-family: 'Montserrat-semibold';
+  }
+  
+
+  
+  /* Account Info */
+  
+  
+
+  .mbt-1{
+    margin-bottom:0.5rem;
+  }
+  .mbt-2{
+    margin-bottom: 2rem;
+  }
+  .mrt-1{
+    margin-right:1rem;
+  }
+  .mtp-1{
+    margin-top:1rem;
+  }
+  .mtp-2{
+    margin-top:2rem;
+  }
+  .phc-technician{
+    margin-bottom:2rem;
+    margin-top:2rem;
+    font-family: 'Montserrat-semibold';
+  }
+  .account-first-section{
+    margin-bottom:1rem;
+  }
+  
+  /* patient-history */
+  
+  .patient-history{
+    padding:20px;
+    padding-left:50px;
+  }
+  .yesterday-patient{
+    margin-top:1rem;
+    margin-bottom:1rem;
+    font-family: 'Montserrat-SemiBold';
+    line-height: 3;
+    padding-bottom: 0px;
+    border-bottom-style: solid;
+    border-bottom-width: 3.1px;
+    width: fit-content;
+    border-block-color: #4A48B9;
+  }
+  
+  .advanced-patient input{
+    box-shadow: 0px 1px 9px rgb(6 32 60 / 25%);
+    background: #F4F1F1;
+  }
+  .save-details{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-family: 'Montserrat-regular';
+  }
+  .form-group  label{
+    font-family: 'Montserrat-medium';
+  }
+  .form-group Input{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px rgba(211, 13, 13, 0.25);
+    border-radius:unset!important;
+  }
+  .gender-set{
+    font-family: 'Montserrat-medium';
+  
+  }
+  input[type="text"]::placeholder , input[type="email"]::placeholder ,  input[type="tel"]::placeholder  {
+    font-family: 'Montserrat-regular';
+    font-size: 12px;
+  }
+  .text-red{
+      color:red;
+      font-family: 'Montserrat-regular';
+      font-style: italic;
+      font-size:12px;
+  }
+  .input-history{
+    background: #F4F1F1!important;
+    box-shadow: 0px 1px 9px rgb(6 32 60 / 25%)!important;
+  }
+  .advance-search{
+    background-color: unset!important;
+    border: unset!important;
+  }
+  .line-height input{
+      margin-bottom:2rem;
+  }
+  .search-set-icon{
+    background-color: #4A48B9;
+    color:#fff;
+    border-radius:50px;
+  }
+  .search-set-icon img{
+    padding:10px;
+    width:40px;
+  }
+  .search-advance-set{
+    display: flex;
+    align-items: center;
+    padding:10px;
+  }
+  textarea{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px rgb(211 13 13 / 25%);
+    border-radius: unset!important;
+    border: unset!important;
+    padding:10px;
+  }
+  
+  
+  
+  .product-img-wrapper {
+    text-align: center;
+  }
+  
+  .product-img-wrapper img {
+     width: 200px;
+     height: 200px;
+  }
+  
+  .product-wrapper {
+     position: relative;
+     /* margin: 50px 0; */
+  }
+  
+  .product-card {
+     position: relative;
+     max-width: 330px;
+     
+     text-align: center;
+  }
+  
+  .product-card .card-bottom {
+     position: absolute;
+     bottom: 0px;
+     width:100%;
+     left:0;
+  }
+  .health-info{
+      background-color: #dee2e6;
+      border-radius:7px;
+      margin:42px;
+      padding: 20px 36px auto 36px;   
+      float: left;
+      min-height: 100px;
+      min-width: 60%;
+      font-family: 'Montserrat-regular';
+      font-size: 14px;
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+  
+  .mbt-1{
+    margin-bottom:0.5rem;
+  }
+  .mbt-2{
+    margin-bottom: 2rem;
+  }
+  .mrt-1{
+    margin-right:1rem;
+  }
+  .mtp-1{
+    margin-top:1rem;
+  }
+  .mtp-2{
+    margin-top:2rem;
+  }
+
+  /* .account-first-section{
+      width: 50%;
+  } */
+  
+  /* patient-history */
+  .paddingRow{
+    padding: 11px;
+  }
+  .clsPlacement{
+    margin-top: 15px;
+    
+    height: 29px;
+    margin-left: 38%;
+  }
+  .spmheader{
+    font-size: 17px;
+  }
+  .headersize{
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 9px; 
+    align-items:center ;
+    width: auto;
+  }
+  .lbltextsize{
+    font-size: 16px;
+    text-align: right;
+    
+  }
+  .row{
+    padding: 8px;
+  }
+
+  
+
+
+  .top{
+    padding: 30px;
+  }
+
+
+  .errors
+  {
+    color: red;
+    font-size: small;
+
+  }
+.bg-red
+{
+    background-color: red;
+    color: #fff!important;
+    border-radius: 50px!important;
+    font-size: 14px!important;
+    font-weight: bold!important;
+    font-family: 'Montserrat-SemiBold';
+    margin-right: 2em;
+}
+ 

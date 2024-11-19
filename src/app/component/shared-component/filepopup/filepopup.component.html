@@ -1,0 +1,17 @@
+<div class="modal-body">
+    <div class="container">
+       
+        <div class="bg">
+        <div  *ngIf="isPDF;else other_content" class="bg">
+            <embed src="{{imageFilePath}}" width="98%" height="98%" />
+        </div>
+        <ng-template #other_content>
+            <img src="{{imageFilePath}}" alt="Patient image">
+        </ng-template>
+    </div>
+    <!-- <div class="bg">
+    </div> -->
+  
+    </div>
+
+</div>

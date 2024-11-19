@@ -1,0 +1,16 @@
+.video-camera-box{
+    position: relative;
+ 
+}
+.video-user-name{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    color: black;
+    
+}
+.video-user-name > div{
+    background: white;
+min-width: 40%;
+}

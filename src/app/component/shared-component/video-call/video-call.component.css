@@ -1,0 +1,9 @@
+.video-call{
+    font-size:14px;
+    font-family: 'Montserrat-SemiBold';
+    margin-bottom: 20px;
+}
+.modal-body{
+    text-align: center;
+    padding: 50px 100px 50px 100px;
+}

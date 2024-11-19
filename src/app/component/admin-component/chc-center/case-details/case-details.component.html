@@ -1,0 +1,2166 @@
+<section *ngIf="!showScreenSaver">
+<section class="chc-center-section">
+  <div class="d-flex align-items-start">
+    <div
+      class="nav flex-column nav-pills me-3 sidebar fixed"
+      id="v-pills-tab"
+      role="tablist"
+      aria-orientation="vertical"
+    >
+      <div class="sidebar-heading-div">
+        <h3 class="sidebar-heading">
+          {{ phcName }}
+        </h3>
+      </div>
+
+      <button
+        class="nav-link active"
+        id="v-pills-home-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-home"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-home"
+        aria-selected="true"
+      >
+        Case Details
+      </button>
+      <button
+        #trigger
+        class="nav-link"
+        id="v-pills-profile-tab"
+        data-bs-toggle="pill"
+        data-bs-target="#v-pills-profile"
+        type="button"
+        role="tab"
+        aria-controls="v-pills-profile"
+        aria-selected="false"
+        *ngIf="showTreatmentMenu"
+        (click)="clickTreatment()"
+      >
+        Treatment
+      </button>
+
+      <button
+        class="nav-link backdash"
+        type="button"
+        (click)="backToDashboard()"
+        *ngIf="isgoingvideo"
+      >
+        Back To Dashboard
+      </button>
+    </div>
+    <div class="tab-content mid-content" id="v-pills-tabContent">
+      <div class="top-section">
+        <div class="patient-details d-flex justify-content-center">
+          <div class="patient-img">
+            <!-- *ngFor="let src of imagespatient;" -->
+            <!-- <img
+              style="height: 90.49px; width: 72.59px"
+              class="rounded-circle"
+              src="{{ imagespatient }}{{
+                patientProfileDetail?.patientMaster?.photo
+              }}"
+              alt=""
+            /> -->
+
+            <img
+            style="height: 90.49px; width: 72.59px"
+            class="rounded-circle"
+            src="{{imgprofile}}"
+            alt="patient Image"
+          />
+
+          </div>
+          <div class="patient-own-details">
+            <div class="patient-name">
+              <strong
+                >{{ patientProfileDetail?.patientMaster?.firstName }}
+                {{ patientDetail?.lastName }}</strong
+              >
+            </div>
+            <div class="extra-patient-detail">
+              <div>
+                Patient UID:
+                {{ patientProfileDetail?.patientMaster?.patientId }}
+              </div>
+              <div>
+                {{ patientProfileDetail?.patientMaster?.age }} | {{ gender }} |
+                {{ maritalstatus }}
+              </div>
+              <div>{{ patientProfileDetail?.patientMaster?.phoneNumber }}</div>
+              <div>
+                Govt ID.
+                {{ patientProfileDetail?.patientMaster?.idproofNumber }}
+              </div>
+            </div>
+          </div>
+
+          <div class="patient-label">
+            <div>
+              <label for=""><strong> Case Label:</strong> </label>
+            </div>
+            <div>
+              <label for=""><strong>OPD No:</strong> </label>
+            </div>
+            <div>
+              <label for=""><strong>PHC:</strong> </label>
+            </div>
+            <div>
+              <label for=""><strong>Referred to Doctor:</strong> </label>
+            </div>
+          </div>
+          <div>
+            <div class="">
+              <select
+                name="caselabel"
+                id="caselabel"
+                [class.textdangerSelection]="true"
+                id="borderColor"
+                (change)="onSelection($event)"
+              >
+                <option value="0">Select Label</option>
+                <option
+                  *ngFor="let case of reversecaseDetail"
+                  [selected]="case.caseID == patientCaseDetailId"
+                  [value]="case.caseID"
+                >
+                  {{ case.caseLabel }} {{ getlabelDate(case) }}
+                </option>
+              </select>
+              <div class="text-danger" *ngIf="isshowcaselabelError">
+                Please select a case label
+              </div>
+
+              <div>
+                <div *ngIf="patientopd?.opdno != null; else elseBlock">
+                  {{ patientopd?.opdno }}
+                </div>
+                <ng-template #elseBlock> - </ng-template>
+              </div>
+              <div>{{ getqueue?.phcName }} ({{ getqueue?.phcMoname }})</div>
+              <div>
+                <p class="m-0 p-0">{{ getqueue?.doctorName }}</p>
+                <p class="m-0 p-0">{{ getqueue?.doctorSpecialization }}</p>
+                <p class="m-0 p-0">{{ getqueue?.doctorMobileNo }}</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-left: 10px" *ngIf="!isDoctor">
+            <button
+              class="bg-purple"
+              (click)="ExistingCaseLabel()"
+              *ngIf="isgoingvideo"
+            >
+              New Case Label
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="tab-pane fade show active"
+        id="v-pills-home"
+        role="tabpanel"
+        aria-labelledby="v-pills-home-tab"
+      >
+        <form
+          [formGroup]="caseDeatilForm"
+          #detailForm="ngForm"
+          autocomplete="off"
+        >
+          <div class="container mt-5 mb-5">
+            <div class="row">
+              <div class="col-md-1"></div>
+
+              <!-- <div class="col-md-4">
+
+                                <div class="mb-2"><label for="">Complaints and symptoms</label></div>
+                                <div class="case-detail-textarea arear-process mb-3">
+
+                                    <app-matchip-list-auto></app-matchip-list-auto>
+
+
+
+                                </div>
+                                <div class="mb-2"><label for="">observations</label></div>
+                                <div class="case-detail-textarea observe-area mb-3">
+                                    <app-mat-chip-list></app-mat-chip-list>
+                                </div>
+                                <div class="mb-2"><label for="">Allergies</label></div>
+                                <div class="case-detail-textarea observe-area  mb-3">
+                                    <app-mat-chip-allergies></app-mat-chip-allergies>
+                                </div>
+                                <div class="mb-2"><label for="">Family History</label></div>
+                                <div class="case-detail-textarea observe-area  mb-3">
+                                    <app-mat-chip-familyhistory></app-mat-chip-familyhistory>
+                                </div>
+
+                            </div> -->
+              <!-- <div class="col-md-1"></div> -->
+              <div class="col-md-4">
+                <h3 style="color: red">Fields marked with * are mandatory</h3>
+                <div class="mb-2">
+                  <label for="">*Complaints and symptoms</label>
+                </div>
+                <div>
+                  <textarea
+                    class="case-detail-textarea arear-process-treatment mb-3"
+                    [readonly]="isDoctor || isReferToDoctor"
+                    cols="40"
+                    rows="6"
+                    name=""
+                    id=""
+                    formControlName="complaints"
+                  ></textarea>
+                </div>
+                <span
+                  style="color: red"
+                  *ngIf="
+                    caseDeatilForm.controls['complaints'].invalid &&
+                    caseDeatilForm.controls['complaints'].touched
+                  "
+                >
+                  Complaints and symptoms are required
+                </span>
+                <!-- <div class="mb-2"><label for="">On Examination (For EA, RS, CVS, CNS)</label></div>
+                <div>
+                  <textarea class="case-detail-textarea arear-process-treatment mb-3"
+                    [readonly]="isDoctor || isReferToDoctor" cols="40" rows="3" name="" id=""
+                    formControlName="observations"></textarea>
+                </div> -->
+                <div class="mb-2"><label for="">Allergies</label></div>
+                <div>
+                  <textarea
+                    class="case-detail-textarea arear-process-treatment mb-3"
+                    [readonly]="isDoctor || isReferToDoctor"
+                    cols="40"
+                    rows="3"
+                    name=""
+                    id=""
+                    formControlName="Allergies"
+                  ></textarea>
+                </div>
+                <div class="mb-2"><label for="">Family History</label></div>
+                <div>
+                  <textarea
+                    class="case-detail-textarea observe-area-treatment mb-3"
+                    [readonly]="isDoctor || isReferToDoctor"
+                    cols="40"
+                    rows="3"
+                    name=""
+                    id=""
+                    formControlName="FamilyHistory"
+                  ></textarea>
+                </div>
+
+                <div class="mb-2"><label for="">On Examination</label></div>
+
+                <div class="onExam">
+                  <div class="mb-2">
+                    <label>1. P/A</label>
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="examination_PA"
+                        [readonly]="isDoctor || isReferToDoctor"
+                        [disabled]="isDoctor"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label>2. R/S</label>
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="examination_RS"
+                        [readonly]="isDoctor || isReferToDoctor"
+                        [disabled]="isDoctor"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label>3. CVS</label>
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="examination_CVS"
+                        [readonly]="isDoctor || isReferToDoctor"
+                        [disabled]="isDoctor"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label>4. CNS</label>
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="examination_CNS"
+                        [readonly]="isDoctor || isReferToDoctor"
+                        [disabled]="isDoctor"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+             
+                <div class="mb-2"><label for="">Vitals</label></div>
+                <div
+                  class="case-detail-textarea vital-area mb-3"
+                  style="height: 400px; overflow-x: auto"
+                >
+                  <div class="container">
+                    <div class="row">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Value</th>
+                            <!-- <th scope="col">Date</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span
+                              ><span
+                                *ngIf="
+                                  caseDetails.patientCase.specializationID.toString() ==
+                                    '1' ||
+                                  caseDetails.patientCase.specializationID.toString() ==
+                                    '2'
+                                "
+                                >*</span
+                              >Blood Pressure [Mm/Hg]
+                              <br />
+
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  (bloodpressure &&
+                                    bloodpressure.invalid &&
+                                    bloodpressure.touched) ||
+                                  bloodPressurevalidate
+                                "
+                              >
+                                Enter a valid number
+                              </span>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                formControlName="bloodpressure"
+                                minlength="1"
+                                maxlength="7"
+                                [required]="
+                                  caseDetails.patientCase.specializationID.toString() ==
+                                    '1' ||
+                                  caseDetails.patientCase.specializationID.toString() ==
+                                    '2'
+                                "
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['bloodpressure']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['bloodpressure']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['bloodpressure']
+                                    .errors
+                                "
+                                [readonly]="isDoctor || isReferToDoctor"
+                                [disabled]="isDoctor"
+                                (keypress)="keyPressNumbers1($event)"
+                                (keyup)="bloodPressurevalidtaion($event)"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span>*Temperature [°F]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  bloodsuger &&
+                                  bloodsuger.invalid &&
+                                  bloodsuger.touched
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="bloodsuger"
+                                maxlength="5"
+                                pattern="^(?!0\d)^(90|91|92|93|94|95|96|97|98|99|100|101|102|103|104|105|106|107|108)(\.\d+)?$"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['bloodsuger']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['bloodsuger']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['bloodsuger'].errors
+                                "
+                                [disabled]="isDoctor"
+                                (keypress)="keyPressNumbers2($event)"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span>*Weight [Kgs]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  weight && weight.invalid && weight.touched
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="weight"
+                                pattern="[0-9]+"
+                                minlength="1"
+                                maxlength="3"
+                                (keypress)="keyPressNumber($event)"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['weight'].invalid &&
+                                  (caseDeatilForm.controls['weight'].touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['weight'].errors
+                                "
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span>Height [cm]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  height && height.invalid && height.touched
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="height"
+                                pattern="[0-9]+"
+                                minlength="1"
+                                maxlength="3"
+                                (keypress)="keyPressNumber($event)"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['height'].invalid &&
+                                  (caseDeatilForm.controls['height'].touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['height'].errors
+                                "
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span>*Respiration Rate
+                              [/Min.]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  respirationRate &&
+                                  respirationRate.invalid &&
+                                  respirationRate.touched
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="respirationRate"
+                                pattern="^[1-9]?[0-9]{1}$|^100$"
+                                minlength="1"
+                                maxlength="3"
+                                (keypress)="keyPressNumber($event)"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['respirationRate']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['respirationRate']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['respirationRate']
+                                    .errors
+                                "
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="genPractice">
+                            <td class="td">
+                              <span class="text-danger"></span>SPO2 [%]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="spo2 && spo2.invalid && spo2.touched"
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="spo2"
+                                pattern="^[1-9]?[0-9]{1}$|^100$"
+                                minlength="1"
+                                maxlength="3"
+                                (keypress)="keyPressNumber($event)"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['spo2'].invalid &&
+                                  (caseDeatilForm.controls['spo2'].touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['spo2'].errors
+                                "
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span class="text-danger"></span>Haemoglobin
+                              (HGB)[g/dl]
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;" *ngIf="spo2 && spo2.invalid && spo2.touched">
+                                Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="Haemoglobin"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span class="text-danger"></span>Last Menstruation
+                              Period [LMP] [No of weeks ago]
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;" *ngIf="spo2 && spo2.invalid && spo2.touched">
+                                Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="lastMenstruation"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span
+                                class="text-danger"
+                                *ngIf="ANC.touched"
+                              ></span
+                              >*ANC Month
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  caseDeatilForm.controls['ANC'].invalid &&
+                                  (caseDeatilForm.controls['ANC'].touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ANC'].errors
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="ANC"
+                                minlength="1"
+                                maxlength="1"
+                                required="caseDetails.patientCase.specializationID=='2'"
+                                (keypress)="keyPressNumber($event)"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['ANC'].invalid &&
+                                  (caseDeatilForm.controls['ANC'].touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ANC'].errors
+                                "
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span class="text-danger"></span>*No Of Children
+                              [Living]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  caseDeatilForm.controls['ChildrenLiving']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['ChildrenLiving']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ChildrenLiving']
+                                    .errors
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="ChildrenLiving"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                required="caseDetails.patientCase.specializationID=='2'"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['ChildrenLiving']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['ChildrenLiving']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ChildrenLiving']
+                                    .errors
+                                "
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span
+                                class="text-danger"
+                                *ngIf="
+                                  caseDetails.patientCase.specializationID ==
+                                    '2' && ChildrenDead.touched
+                                "
+                              ></span
+                              >*No Of Children [Stillbirth]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  caseDeatilForm.controls['ChildrenDead']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['ChildrenDead']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ChildrenDead'].errors
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="ChildrenDead"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                required="caseDetails.patientCase.specializationID=='2'"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['ChildrenDead']
+                                    .invalid &&
+                                  (caseDeatilForm.controls['ChildrenDead']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['ChildrenDead'].errors
+                                "
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span class="text-danger"></span>*Abortion [No of
+                              weeks ago]
+                              <br />
+                              <span
+                                style="color: red; font-size: smaller"
+                                *ngIf="
+                                  caseDeatilForm.controls['Abortion'].invalid &&
+                                  (caseDeatilForm.controls['Abortion']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['Abortion'].errors
+                                "
+                              >
+                                Enter a valid number</span
+                              >
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="Abortion"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                                required="caseDetails.patientCase.specializationID=='2'"
+                                [class.textdangerInput]="
+                                  caseDeatilForm.controls['Abortion'].invalid &&
+                                  (caseDeatilForm.controls['Abortion']
+                                    .touched ||
+                                    detailForm.submitted) &&
+                                  caseDeatilForm.controls['Abortion'].errors
+                                "
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                          <tr *ngIf="obsspec">
+                            <td class="td">
+                              <span class="text-danger"></span>FHR [BPM]
+                              <br />
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="frh"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <!-- <tr>
+                            <td>
+                              FHR
+                              <br>
+                              <span style="color: red;font-size: smaller;"
+                                *ngIf="foetal && foetal.invalid && foetal.touched"> Enter a valid number</span>
+                            </td>
+                            <td><input type="tel" formControlName="foetal" pattern="^[1-9]?[0-9]{1}$|^250$"
+                                minlength="1" maxlength="3" (keypress)="keyPressNumber($event)"
+                                [readonly]="isDoctor || isReferToDoctor">
+                            </td>
+                            <td> {{ currentDate }}</td>
+
+                          </tr> -->
+
+                          <tr *ngIf="pediaSpec && isAgeLessThen28Day == 2">
+                            <td class="td">
+                              MUAC [c.m.]
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;"
+                                *ngIf="foetal && foetal.invalid && foetal.touched"> Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="Muac"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="pediaSpec && isAgeLessThen28Day == 2">
+                            <td class="td">
+                              Weight for length
+                              <p><-3SD / -3 to <-2SD />= -2SD</p>
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;"
+                                *ngIf="foetal && foetal.invalid && foetal.touched"> Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="WfL"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                          <tr *ngIf="pediaSpec && isAgeLessThen28Day == 1">
+                            <td class="td">
+                              Head Circumference [c.m.]
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;"
+                                *ngIf="foetal && foetal.invalid && foetal.touched"> Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="HeadCircumference"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+
+                          <tr *ngIf="pediaSpec && isAgeLessThen28Day == 1">
+                            <td class="td">
+                              Length [c.m.]
+                              <br />
+                              <!-- <span style="color: red;font-size: smaller;"
+                                *ngIf="foetal && foetal.invalid && foetal.touched"> Enter a valid number</span> -->
+                            </td>
+                            <td>
+                              <input
+                                type="tel"
+                                formControlName="Length"
+                                minlength="1"
+                                maxlength="3"
+                                [readonly]="isDoctor || isReferToDoctor"
+                              />
+                            </td>
+                            <!-- <td> {{ currentDate }}</td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                      <ng-container
+                        *ngIf="pediaSpec && isAgeLessThen28Day == 1"
+                      >
+                        <div class="register-log">
+                          <label for="text">* Select Colour</label> <br />
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Pink"
+                              name="colour"
+                              value="Pink"
+                              formControlName="colour"
+                              required="parseInt(patientProfileDetail?.patientMaster?.age.split(' ')[0])&lt=28 && caseDetails.patientCase.specializationID=='3'"
+                            />
+                             
+                            <label for="Pink" class="vitallable-margin"
+                              >Pink</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="Pale"
+                              name="colour"
+                              value="Pale"
+                              formControlName="colour"
+                            />
+                             
+                            <label for="Pale" class="vitallable-margin"
+                              >Pale</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="CentralCyanosis"
+                              name="colour"
+                              value="CentralCyanosis"
+                              formControlName="colour"
+                            />
+                             
+                            <label
+                              for="CentralCyanosis"
+                              class="vitallable-margin"
+                              >Central Cyanosis</label
+                            ><br />
+                            <input
+                              type="radio"
+                              id="PeripheralCyanosis"
+                              name="colour"
+                              value="PeripheralCyanosis"
+                              formControlName="colour"
+                            />
+                             
+                            <label
+                              for="PeripheralCyanosis"
+                              class="vitallable-margin"
+                              >Peripheral Cyanosis</label
+                            >
+                          </div>
+                          <span
+                            style="color: red; font-size: smaller"
+                            *ngIf="
+                              caseDeatilForm.controls['colour'].invalid &&
+                              (caseDeatilForm.controls['colour'].touched ||
+                                detailForm.submitted) &&
+                              caseDeatilForm.controls['colour'].errors
+                            "
+                          >
+                            Colour is required</span
+                          >
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading">
+                            CRT > 3 secs</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Yes"
+                              name="CRT"
+                              value="Yes"
+                              formControlName="CRT"
+                            />
+                             
+                            <label for="Yes" class="vitallable-margin"
+                              >Yes</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="No"
+                              name="CRT"
+                              value="No"
+                              formControlName="CRT"
+                            />
+                             
+                            <label for="No" class="vitallable-margin">No</label
+                            ><br />
+                          </div>
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading">
+                            Cry</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Absent"
+                              name="Cry"
+                              value="Absent"
+                              formControlName="Cry"
+                            />
+                             
+                            <label for="Absent" class="vitallable-margin"
+                              >Absent</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="Feeble"
+                              name="Cry"
+                              value="Feeble"
+                              formControlName="Cry"
+                            />
+                             
+                            <label for="Feeble" class="vitallable-margin"
+                              >Feeble</label
+                            ><br />
+                            <input
+                              type="radio"
+                              id="Normal"
+                              name="Cry"
+                              value="Normal"
+                              formControlName="Cry"
+                            />
+                             
+                            <label for="Normal" class="vitallable-margin"
+                              >Normal</label
+                            ><br />
+                            <input
+                              type="radio"
+                              id="HighPitch"
+                              name="Cry"
+                              value="HighPitch"
+                              formControlName="Cry"
+                            />
+                            <label for="HighPitch" class="vitallable-margin"
+                              >High Pitch</label
+                            ><br />
+                          </div>
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading">
+                            Convulsions</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Presentonadmission"
+                              name="Convulsions"
+                              value="Presentonadmission"
+                              formControlName="Convulsions"
+                            />
+                             
+                            <label
+                              for="Presentonadmission"
+                              class="vitallable-margin"
+                              >Present on admission</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="Pasthistory"
+                              name="Convulsions"
+                              value="Pasthistory"
+                              formControlName="Convulsions"
+                            />
+                             
+                            <label for="Pasthistory" class="vitallable-margin"
+                              >Past history</label
+                            ><br />
+                            <input
+                              type="radio"
+                              id="No"
+                              name="Convulsions"
+                              value="No"
+                              formControlName="Convulsions"
+                            />
+                             
+                            <label for="No" class="vitallable-margin">No</label
+                            ><br />
+                          </div>
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading">
+                            Jaundice</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Yes"
+                              name="Jaundice"
+                              value="Yes"
+                              formControlName="Jaundice"
+                            />
+                             
+                            <label for="Yes" class="vitallable-margin"
+                              >Yes</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="No"
+                              name="Jaundice"
+                              value="No"
+                              formControlName="Jaundice"
+                            />
+                             
+                            <label for="No" class="vitallable-margin">No</label
+                            ><br />
+                          </div>
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading">
+                            *Taking Breast Feeds</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Yes"
+                              name="breastFeeding"
+                              value="Yes"
+                              formControlName="breastFeeding"
+                              required="parseInt(patientProfileDetail?.patientMaster?.age.split(' ')[0])&lt=28 && caseDetails.patientCase.specializationID=='3'"
+                            />
+                             
+                            <label for="Yes" class="vitallable-margin"
+                              >Yes</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="No"
+                              name="breastFeeding"
+                              value="No"
+                              formControlName="breastFeeding"
+                            />
+                             
+                            <label for="No" class="vitallable-margin">No</label
+                            ><br />
+                          </div>
+                          <span
+                            style="color: red; font-size: smaller"
+                            *ngIf="
+                              caseDeatilForm.controls['breastFeeding']
+                                .invalid &&
+                              (caseDeatilForm.controls['breastFeeding']
+                                .touched ||
+                                detailForm.submitted) &&
+                              caseDeatilForm.controls['breastFeeding'].errors
+                            "
+                          >
+                            breastFeeding is required</span
+                          >
+                        </div>
+
+                        <div class="register-log d-flex align-items-center">
+                          <label for="text" class="vitallable-margin-heading"
+                            >*Sucking</label
+                          >
+                          <div class="d-flex align-items-center">
+                            <input
+                              type="radio"
+                              id="Good"
+                              name="Sucking"
+                              value="Good"
+                              formControlName="Sucking"
+                              required="parseInt(patientProfileDetail?.patientMaster?.age.split(' ')[0])&lt=28 && caseDetails.patientCase.specializationID=='3'"
+                            />
+                             
+                            <label for="Good" class="vitallable-margin"
+                              >Good</label
+                            ><br />
+                             
+                            <input
+                              type="radio"
+                              id="Poor"
+                              name="Sucking"
+                              value="Poor"
+                              formControlName="Sucking"
+                            />
+                             
+                            <label for="Poor" class="vitallable-margin"
+                              >Poor</label
+                            ><br />
+                            <input
+                              type="radio"
+                              id="NoSucking"
+                              name="Sucking"
+                              value="NoSucking"
+                              formControlName="Sucking"
+                            />
+                             
+                            <label for="NoSucking" class="vitallable-margin"
+                              >No Sucking</label
+                            ><br />
+                          </div>
+                          <span
+                            style="color: red; font-size: smaller"
+                            *ngIf="
+                              caseDeatilForm.controls['Sucking'].invalid &&
+                              (caseDeatilForm.controls['Sucking'].touched ||
+                                detailForm.submitted) &&
+                              caseDeatilForm.controls['Sucking'].errors
+                            "
+                          >
+                            Sucking is required</span
+                          >
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-2"><label for="">Clinical Documents</label></div>
+
+                <div class="col-md-12">
+                  <div class="row">
+                    <div
+                      class="col-md-2 productAddfromImages"
+                      style="margin: 20px"
+                      *ngFor="
+                        let fileItem of filterItemsOfType(1);
+                        let i = index
+                      "
+                    >
+                      <div *ngIf="fileItem.documentTypeID == 1">
+                        <a (click)="downloadFile(fileItem)">
+                          <img
+                            style="width: 50px"
+                            class="img-fluid"
+                            [src]="fileItem.imgInfo"
+                          />
+
+                          <span
+                            class="d-block text-truncate file-title small"
+                            >{{ fileItem.name }}</span
+                          >
+                        </a>
+                        <a
+                          *ngIf="fileItem.id == 0"
+                          (click)="removeImage(i)"
+                          class=""
+                          ><img
+                            style="width: 20px"
+                            src="../../../../../assets/Images/smaill-icon/delete-icon.png"
+                        /></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <label for="">Prescription Documents</label>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="row">
+                    <div
+                      class="col-md-2 productAddfromImages"
+                      style="margin: 20px"
+                    >
+                      <!-- *ngFor='let fileItem of filterItemsOfType(2); let i = index'> -->
+                      <div *ngIf="this.getqueue?.caseFileStatusID == 5">
+                        <!-- <div *ngIf="fileItem.documentTypeID == 2"> -->
+                        <a (click)="openPrescription()">
+                          <!-- <a (click)="openPrescription()" [href]="fileItem.file" target="blank"> -->
+
+                          <img
+                            style="width: 50px"
+                            class="img-fluid"
+                            [src]="imgInfo"
+                          />
+                          <!-- <span class="d-block text-truncate file-title small">{{fileItem.name}}</span> -->
+                        </a>
+                        <!-- <a *ngIf="fileItem.id==0" (click)="removeImage(i)" class=""><img style="width:20px;"
+                            src="../../../../../assets/Images/smaill-icon/delete-icon.png"></a> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="">
+                  <div class="form-group">
+                    <br />
+                    <input
+                      #fileInput
+                      type="file"
+                      formControlName="file"
+                      style="display: none"
+                      class="form-control"
+                      (change)="onSelectFile($event)"
+                      multiple
+                      accept="image/x-png,image/gif,image/jpeg,application/pdf,video/*"
+                    />
+                  </div>
+                  <!-- <div
+                    *ngIf="caseDeatilForm.controls['file'].invalid && (caseDeatilForm.controls['file'].touched || detailForm.submitted) && caseDeatilForm.controls['file'].errors"
+                    class="alert alert-danger">
+                    File is required.
+                  </div> -->
+                  <div class="p-3 mb-2 bg-danger text-white" *ngIf="biggerFile">
+                    {{ fileSizeError }}
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <div class="mb-3" (click)="clickuplaoddoc()">
+                    <button
+                      class="btn bg-purple"
+                      type="button"
+                      (click)="fileInput.value = ''; fileInput.click()"
+                      *ngIf="!isReferToDoctor && showSubmitbtn && !isDoctor"
+                    >
+                      Upload Documents
+                    </button>
+                  </div>
+                  <div class="mb-3">
+                    <button
+                      style="margin-left: 10px"
+                      class="btn bg-purple"
+                      type="button"
+                      *ngIf="this.getqueue?.caseFileStatusID == 5 && !isDoctor"
+                      (click)="postPatientFeedback()"
+                    >
+                      Feedback
+                    </button>
+                  </div>
+                  
+                </div>
+                <!-- [disabled]="isRefercase" -->
+
+                <!-- !isReferToDoctor && showSubmitbtn && !isDoctor -->
+                <button
+                  class="btn bg-light-green refdoc"
+                  type="button"
+                  (click)="referDoctor()"
+                  *ngIf="
+                    getqueue?.patientCase?.caseStatusID == 2 &&
+                    !isDoctor &&
+                    buttonHideRefer
+                  "
+                >
+                  Refer Case to Doctor
+                </button>
+                <div
+                  *ngIf="referIdnotMatched && !isDoctor"
+                  class="text-danger"
+                  style="font-size: 16px; text-decoration: underline"
+                >
+                  This Patient case created on other PHC
+                </div>
+
+                <!-- <app-twilio-call-button [patientCaseId]="getqueue?.patientCase.id||0"></app-twilio-call-button> -->
+
+                <!-- hide submit button if case created by another phc -->
+                <span *ngIf="!referIdnotMatched && !isDoctor">
+                  <button
+                    class="btn bg-light-green"
+                    (click)="checkFormValue()"
+                    *ngIf="showSubmitbtn && !isDoctor"
+                  >
+                    Submit
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div
+        class="tab-pane fade"
+        id="v-pills-profile"
+        role="tabpanel"
+        aria-labelledby="v-pills-profile-tab"
+      >
+        <div class="container mt-5">
+          <form [formGroup]="treatmentplan" autocomplete="off">
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-4 mb-3">
+                <div>
+                  <div style="background-color: #f5f5fa; padding: 10px">
+                    <div class="col-md-12">
+                      <div class="case-detial-wrapkt">
+                        <label style="margin-top: 5px"
+                          >Suggested Diagnosis (Snomed-CT)
+                        </label>
+                        <input
+                          type="text"
+                          value=""
+                          formControlName="suggestedDiagnosis"
+                          #SuggestedDiagnosis1
+                          [readonly]="!isDoctor || isCompleted"
+                          [disabled]="!isDoctor"
+                          [matAutocomplete]="auto"
+                          (keyup)="suggestedDiagnosis($event)"
+                          oninput="this.value = this.value.toUpperCase()"
+                        />
+                        <mat-autocomplete #auto="matAutocomplete">
+                          <mat-option
+                            *ngFor="
+                              let item of snomedCodesList
+                                | filter
+                                  : treatmentplan.controls['suggestedDiagnosis']
+                                      .value
+                            "
+                            [value]="item.codeName"
+                          >
+                            {{ item.codeName }}
+                          </mat-option>
+                        </mat-autocomplete>
+
+                        <div
+                          *ngIf="
+                            treatmentplan.controls['suggestedDiagnosis']
+                              .invalid &&
+                            treatmentplan.controls['suggestedDiagnosis'].touched
+                          "
+                          class="error text-danger small"
+                        >
+                          <div
+                            *ngIf="
+                              treatmentplan.controls['suggestedDiagnosis']
+                                .errors
+                            "
+                          >
+                            Suggested Diagnosis is required
+                          </div>
+                        </div>
+
+                        <label style="margin-top: 5px"
+                          >Provisional Diagnosis
+                        </label>
+                        <button
+                          style="margin-left: 10px"
+                          *ngIf="isDoctor"
+                          (click)="isCheckCdss()"
+                          class="bg-purple imp-purple"
+                        >
+                          Check CDSS
+                        </button>
+                        <div class="text-danger" *ngIf="errorProvision">
+                          Please click on check CDSS
+                        </div>
+
+                        <!-- <input type="text" value="" formControlName="provisionalDiagnosis" (input)="onProvision()" #movieSearchInput
+                           [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor"
+                          [matAutocomplete]="autop"> -->
+                        <!-- <input type="text" value="" formControlName="provisionalDiagnosis" (input)="test($event)" #movieSearchInput
+                          [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor"
+                         [matAutocomplete]="autop">
+                        <mat-autocomplete #autop="matAutocomplete">
+                          <mat-option *ngFor="let item of diseasesListforProvisional" [value]="item.diseases">
+                            {{item.diseases}}
+                          </mat-option>
+                        </mat-autocomplete> -->
+
+                        <input
+                          type="text"
+                          formControlName="provisionalDiagnosis"
+                          [matAutocomplete]="autop"
+                          (input)="onProvision()"
+                          (keyup)="ProvisionalDiagnosis($event)"
+                          [readonly]="!isDoctor || isCompleted"
+                          [disabled]="!isDoctor"
+                          #searchedKeyword
+                          oninput="this.value = this.value.toUpperCase()"
+                        />
+                        <mat-autocomplete #autop="matAutocomplete">
+                          <mat-option
+                            *ngFor="
+                              let option of diseasesListforProvisional
+                                | filter : searchedKeyword.value
+                            "
+                            [value]="option.diseases"
+                          >
+                            {{ option.diseases }}
+                          </mat-option>
+                          <mat-option
+                            disabled
+                            *ngIf="
+                              diseasesListforProvisional.length == 0 &&
+                              searchedKeyword.value.length >= 3
+                            "
+                          >
+                            No Data Found
+                          </mat-option>
+                        </mat-autocomplete>
+
+                        <div
+                          *ngIf="
+                            treatmentplan.controls['provisionalDiagnosis']
+                              .invalid &&
+                            treatmentplan.controls['provisionalDiagnosis']
+                              .touched
+                          "
+                          class="error text-danger small"
+                        >
+                          <div
+                            *ngIf="
+                              treatmentplan.controls['provisionalDiagnosis']
+                                .errors
+                            "
+                          >
+                            Provisional Diagnosis is required
+                          </div>
+                        </div>
+
+                        <label>Medicine </label>
+                        <!-- <span style="color:red; font-size:10px;">Upto 10
+                            Medicines
+                            only </span> -->
+
+                        <div>
+                          <!-- <input type="text" #searchDrug placeholder="Type to filter by name" [matAutocomplete]="autopq">
+                            
+                              <mat-autocomplete #autopq="matAutocomplete">
+                                <mat-option *ngFor="let option of drugList| filter:searchDrug.value" [value]="option.name">
+                                  {{option.name}}
+                                </mat-option>
+                                <mat-option disabled *ngIf="drugList.length==0 &&searchDrug.value.length>=3"> No Data Found
+                                </mat-option>
+                              </mat-autocomplete> -->
+                        </div>
+
+                        <div formArrayName="medicineVMs">
+                          <div
+                            formGroupName="{{ j }}"
+                            *ngFor="
+                              let medi of medicineVMs.controls;
+                              let j = index
+                            "
+                          >
+                            <!-- <app-medicine-treat (medicinelist)="medicinelist($event)"></app-medicine-treat> -->
+                            <!-- <select class="form-control" id="exampleFormControlInput1" formControlName="drugID">
+                              <option *ngFor="let m of drugList; let i = index;" [value]="m.id"
+                                [disabled]="!isDoctor || isCompleted" style="width:50%;">
+                                {{m.name}}
+                              </option>
+                            </select> -->
+
+                            <input
+                              type="text"
+                              formControlName="drugID"
+                              #searchDrug
+                              placeholder="Type to filter by name"
+                              (input)="filterMedicine($event)"
+                              [matAutocomplete]="autoDrug"
+                              [disabled]="!isDoctor || isCompleted"
+                            />
+
+                            <mat-autocomplete #autoDrug="matAutocomplete">
+                              <mat-option
+                                *ngFor="
+                                  let option of newMedicineArray;
+                                  let i = index
+                                "
+                                [value]="option.name"
+                                [id]="option.id"
+                              >
+                                {{ option.name }}
+                              </mat-option>
+                              <mat-option
+                                disabled
+                                *ngIf="
+                                  drugList.length == 0 &&
+                                  searchDrug.value.length >= 3
+                                "
+                              >
+                                No Data Found
+                              </mat-option>
+                            </mat-autocomplete>
+
+                            <div *ngIf="oneTimedose" class="text-danger">
+                              Already Selected
+                            </div>
+                            <div *ngIf="isshowErrormsg" class="text-danger">
+                              Please select a dose
+                            </div>
+                            <div class="p-2" *ngIf="isMedicineMax">
+                              <!-- <span class="text-danger"> Can not add more than 10 Medicines.</span> -->
+                            </div>
+                            <div class="case-detial-inerkt">
+                              <div class="p-2">
+                                <mat-radio-group
+                                  aria-label="Select an option"
+                                  formControlName="doseDuration"
+                                >
+                                  <mat-radio-button
+                                    value="emptyStomach"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >Empty Stomach</mat-radio-button
+                                  >
+                                  <mat-radio-button
+                                    value="afterMeal"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >After Meal
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+                              <div class="p-2">
+                                <mat-radio-group
+                                  aria-label="Select an option"
+                                  formControlName="doseTiming"
+                                >
+                                  <mat-radio-button
+                                    value="od"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >O.D
+                                  </mat-radio-button>
+                                  <mat-radio-button
+                                    value="bd"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >B.I.D
+                                  </mat-radio-button>
+                                  <mat-radio-button
+                                    value="td"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >T.D.S
+                                  </mat-radio-button>
+                                  <mat-radio-button
+                                    value="qid"
+                                    [disabled]="!isDoctor || isCompleted"
+                                    >Q.I.D
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+
+                              <label style="margin-top: 5px">Duration</label>
+                              <div class="d-flex align-items-center">
+                                <input
+                                  type="text"
+                                  formControlName="duration"
+                                  maxlength="5"
+                                  id="Duration"
+                                  (keypress)="keyPressNumbers($event)"
+                                  style="
+                                    margin-right: 10px;
+                                    padding: 10px;
+                                    width: 35%;
+                                  "
+                                  [readonly]="!isDoctor || isCompleted"
+                                  [disabled]="!isDoctor || isCompleted"
+                                />
+                                <span style="font-weight: 600"> Days</span>
+                              </div>
+                              <div
+                                *ngIf="showDurationErrMsg"
+                                class="text-danger"
+                              >
+                                Please Enter a duration
+                              </div>
+                            </div>
+                            <label style="margin-top: 5px">Comments</label>
+                            <div>
+                              <textarea
+                                class="case-detail-textarea arear-process-treatment mb-3"
+                                maxlength="50"
+                                [readonly]="!isDoctor || isCompleted"
+                                [disabled]="!isDoctor || isCompleted"
+                                cols="40"
+                                rows="2"
+                                name=""
+                                id=""
+                                formControlName="medicinecomments"
+                                
+                              ></textarea>
+                            </div>
+                          </div>
+
+                          <div class="p-2">
+                            <button
+                              type="button"
+                              class="buttonkt"
+                              (click)="saveMedicine()"
+                              *ngIf="isDoctor || isCompleted"
+                              [disabled]="!isDoctor || isCompleted"
+                            >
+                              Save Medicine
+                            </button>
+                          </div>
+                        </div>
+                        <div *ngFor="let med of referredMedList; let i = index">
+                          {{ med.medicineName }}
+                          <span *ngIf="med.doseDuration == 'emptyStomach'">
+                            EmptyStomach<span
+                              *ngIf="
+                                med.doseDuration == 'afterMeal' ||
+                                med.doseTiming == 'od' ||
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseDuration == 'afterMeal'">
+                            AfterMeal<span
+                              *ngIf="
+                                med.doseTiming == 'od' ||
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'od'">
+                            OD<span
+                              *ngIf="
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'bd'">
+                            BID<span
+                              *ngIf="
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'td'">
+                            TDS<span *ngIf="med.doseTiming == 'qid'"
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'qid'"> QID </span>
+                          <div *ngIf="isDoctor" (click)="deleteReferMed(i)">
+                            <img
+                              style="width: 10px"
+                              src="../../../../../assets/Images/smaill-icon/delete-icon.png"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px">
+                    <label class="" style="margin-top: 10px"
+                      >Investigation Advised<span
+                        style="color: red; font-size: 10px"
+                        >Upto 10 Tests only
+                      </span></label
+                    >
+                    <div
+                      class="col-md-12"
+                      style="background-color: #f5f5fa; padding: 10px"
+                    >
+                      <ng-container
+                        *ngFor="let d of patientCaseDiagonostics; let i = index"
+                      >
+                        <div class="d-flex" style="padding: 10px">
+                          <div>{{ d.name }}</div>
+                          <div *ngIf="isDoctor" class="ms-auto">
+                            <img
+                              (click)="removeDiagnostic(i)"
+                              style="width: 10px"
+                              src="../../../../../assets/Images/smaill-icon/delete-icon.png"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </ng-container>
+                      <select
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        formControlName="patientCaseDiagonostics"
+                        (change)="changeDiagnosticTest()"
+                      >
+                        <option value="" selected disabled>
+                          Select Diagnosis Test
+                        </option>
+                        <option
+                          *ngFor="let m of diagnostictest; let i = index"
+                          [value]="i"
+                          [disabled]="!isDoctor || isCompleted"
+                        >
+                          {{ m.name }}
+                        </option>
+                      </select>
+                      <div *ngIf="testDiagnostic" class="text-danger">
+                        Already Selected
+                      </div>
+
+                      <div class="p-2" *ngIf="isDiagnosticMax">
+                        <span class="text-danger">
+                          Can not add more than 10 Medicines.</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="rbuttonswrpkt">
+                  <button
+                    class="buttonkt float-end ms-2"
+                    (click)="higherfacility()"
+                    *ngIf="isDoctor"
+                    [disabled]="isCompleted"
+                  >
+                    Referred To
+                  </button>
+
+                  <button
+                    class="buttonkt float-end"
+                    (click)="markpatientabsent()"
+                    *ngIf="isDoctor && !isgoingvideo"
+                    [disabled]="isCompleted"
+                  >
+                    Patient Absent
+                  </button>
+                </div>
+                <div
+                  *ngIf="isHigherFacility"
+                  style="text-align: right; margin-bottom: 10px"
+                >
+                  <input
+                    type="text"
+                    (keyup)="onChangeInputBox($event)"
+                    class=""
+                    id="referInputBox"
+                    formControlName="referredTo"
+                    *ngIf="isInputHide"
+                    [readonly]="isCompleted"
+                    placeholder="Whom we are referring to?"
+                    style="margin-right: 10px"
+                  />
+                  <input
+                    type="text"
+                    (keyup)="onChangeInputBox($event)"
+                    class=""
+                    id="referInputBox"
+                    formControlName="comment"
+                    *ngIf="isInputHidecomment"
+                    [readonly]="isCompleted"
+                    placeholder="Comment"
+                    style="margin-right: 10px"
+                  />
+                  <span
+                    ><img
+                      (click)="isInputBoxHide()"
+                      *ngIf="isCrossHide"
+                      style="width: 10px; cursor: pointer"
+                      src="../../../../../assets/Images/smaill-icon/cross-sign.png"
+                      alt=""
+                  /></span>
+                </div>
+                <div
+                  class="col-md-12 px-3 pb-3"
+                  style="background-color: #f5f5fa; min-height: 150px"
+                >
+                  <div>
+                    <label style="margin-top: 5px"> Advice </label>
+                    <div>
+                      <textarea
+                        class="tarealotherkt"
+                        formControlName="instruction"
+                        [readonly]="!isDoctor || isCompleted"
+                        [disabled]="!isDoctor"
+                        oninput="this.value = this.value.toUpperCase()"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div>
+                    <label style="margin-top: 5px"> Special Instruction </label>
+                    <div>
+                      <textarea
+                        class="tarealotherkt"
+                        formControlName="findings"
+                        [readonly]="!isDoctor || isCompleted"
+                        [disabled]="!isDoctor"
+                        oninput="this.value = this.value.toUpperCase()"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div>
+                    <label style="margin-top: 5px"> Feedback </label>
+                    
+                    <div>
+                      <textarea
+                        class="tarealotherkt"
+                        formControlName="doctorFeedback"
+                        [readonly]="!isDoctor "
+                        [disabled]="!isDoctor"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="p-2">
+                    <button
+                    type="button"
+                      class=" buttonkt"
+                      [disabled]="!isDoctor && isCompleted "
+                      *ngIf="isDoctor && this.getqueue?.caseFileStatusID == 5"
+                     (click)="saveFeedback()"
+                    >
+                      Update
+                    </button>
+                  </div>
+                 
+                    
+                 
+
+                  <!-- <div>
+                    <label class="my-2">
+                      On Examination
+                    </label>
+                    <div class="mb-2">
+                      <label>1. P/A</label>
+                      <div>
+                        <input type="text" class="form-control" formControlName="examination_PA"
+                          [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor">
+                      </div>
+                    </div>
+
+                    <div class="mb-2">
+                      <label>2. R/S</label>
+                      <div>
+                        <input type="text" class="form-control" formControlName="examination_RS"
+                          [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor">
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <label>3. CVS</label>
+                      <div>
+                        <input type="text" class="form-control" formControlName="examination_CVS"
+                          [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor">
+                      </div>
+                    </div>
+
+                    <div class="mb-2">
+                      <label>4. CNS</label>
+                      <div>
+                        <input type="text" class="form-control" formControlName="examination_CNS"
+                          [readonly]="!isDoctor || isCompleted" [disabled]="!isDoctor">
+                      </div>
+                    </div>
+
+                  </div> -->
+                </div>
+
+                <div class="mt-3">
+                  <label for="">Prescription Preview</label>
+                  <div class="prescription-area prscrptnareakt mt-2 p-4 px-5">
+                    <div class="row">
+                      <div class="col-12">
+                        <label style="font-size: 14px">Diagnosis-</label>
+                        <div>
+                          {{ form_treatment["provisionalDiagnosis"].value }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-12">
+                        <label style="font-size: 14px">Medicines-</label>
+                        <div *ngFor="let med of referredMedList; let i = index">
+                          {{ med.medicineName }}
+
+                          <span *ngIf="med.doseDuration == 'emptyStomach'">
+                            EmptyStomach<span
+                              *ngIf="
+                                med.doseDuration == 'afterMeal' ||
+                                med.doseTiming == 'od' ||
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseDuration == 'afterMeal'">
+                            AfterMeal<span
+                              *ngIf="
+                                med.doseTiming == 'od' ||
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'od'">
+                            OD<span
+                              *ngIf="
+                                med.doseTiming == 'bd' ||
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'bd'">
+                            BID<span
+                              *ngIf="
+                                med.doseTiming == 'td' ||
+                                med.doseTiming == 'qid'
+                              "
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'td'">
+                            TDS<span *ngIf="med.doseTiming == 'qid'"
+                              >&#44;</span
+                            >
+                          </span>
+                          <span *ngIf="med.doseTiming == 'qid'"> QID </span>
+                          <span style="margin-left: 10px; font-weight: 600"
+                            >Duration:</span
+                          >
+                          <span style="margin-left: 10px">{{
+                            med.duration
+                          }}</span>
+                          <span style="margin-left: 10px; font-weight: 600"
+                            >Comments:</span
+                          >
+                          <span style="margin-left: 10px">{{
+                            med.medicinecomments
+                          }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-12">
+                        <label style="font-size: 14px">Advice - </label>
+                        <div>{{ form_treatment["instruction"]?.value }}</div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-12">
+                        <label style="font-size: 14px">Tests- </label>
+                        <div
+                          *ngFor="
+                            let p of patientCaseDiagonostics;
+                            let i = index
+                          "
+                        >
+                          {{ p.name }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- *ngIf="isCompleted && prescriptionPdf" -->
+                <div *ngIf="getqueue" style="height: 0px; overflow: hidden">
+                  <app-prescription-preview-pdf
+                    #PrescriptionPreviewPdfComponent
+                    [preview]="false"
+                    [doctorSignature]="getqueue?.doctorSignature"
+                  >
+                  </app-prescription-preview-pdf>
+                </div>
+
+                <!-- <div class="" style="margin-right:10px; font-weight:600; cursor: pointer;"
+                    (click)="printPrescription()"> Print Report <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                      height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                      <path
+                        d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                    </svg>
+
+
+                  </div> -->
+                <div *ngIf="isDoctor" class="row mt-3">
+                  <div class="col-12">
+                    <mat-form-field class="mat-dripper" style="width: 30%">
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        [disabled]="isCompleted"
+                        [min]="minDate"
+                        placeholder="Review Date"
+                        formControlName="reviewDate"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-12" *ngIf="isgoingvideo == false && this.callingEnviroment === 'Twilio'">
+                    <button
+                      class="btn bg-light-green feedback"
+                      [disabled]="!isDoctor || isCompleted"
+                      style="margin-bottom: 20px"
+                      (click)="posttreatment()"
+                      *ngIf="isvideoCall"
+                    >
+                      Submit Treatment & End Call
+                    </button>
+                  </div>
+                  <div class="col-12" *ngIf="isgoingvideo == false && this.callingEnviroment === 'jitsi'">
+                    <button
+                      class="btn bg-light-green feedback"
+                      [disabled]="!isDoctor || isCompleted"
+                      style="margin-bottom: 20px"
+                      (click)="posttreatment()"
+                      *ngIf="isvideoCall"
+                    >
+                      Submit Treatment & End Call
+                    </button>
+                  </div>
+                </div>
+
+                <!-- <label style="margin-right:10px;" for="Review Date">Review Date: </label>
+                     <input type="date" formControlName="review" style="margin-right:10px; cursor: pointer;" placeholder="Review Date"> -->
+              </div>
+            </div>
+          </form>
+          <div style="margin-top: 50px" class="hidden" style="display: none">
+            <app-prescription-preview-pdf
+              (getPdf)="getPdf($event)"
+              [preview]="previewPrint"
+              [doctorSignature]="doctorSignature"
+              *ngIf="previewPrint.isComplete"
+            ></app-prescription-preview-pdf>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+<!-- <div class="container">
+  <div id="pdfTable" #pdfTable>
+    <h2>Angular HTML To PDF Generator Example - ItSolutionStuff.com</h2>
+              
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hardik</td>
+          <td>Savani</td>
+          <td>itsolutionstuff.com</td>
+        </tr>
+        <tr>
+          <td>Vimal</td>
+          <td>Kashiyani</td>
+          <td>hdtuto.com</td>
+        </tr>
+        <tr>
+          <td>Harshad</td>
+          <td>Pathak</td>
+          <td>nicesnippets.com</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-primary" (click)="downloadAsPDF()">Export To PDF</button>
+</div> -->
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900'
+  }"
+></ngx-loading>
+
+
+<app-screen-saver *ngIf="showScreenSaver" ></app-screen-saver>

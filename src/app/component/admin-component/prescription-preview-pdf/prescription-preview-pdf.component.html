@@ -1,0 +1,219 @@
+<div id="pdfTable" #pdfTable style="page-break-before: always">
+
+    <table style="width:100%;" align="center">
+        <tr>
+            <td>
+                <table align="center" valign="center" style="width:100%; font-size:13.5px;">
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td>
+                                <img src="../../../../assets/MPGovLogo.png" alt="">
+                            </td>
+                            <td>
+                                <img style="margin-bottom:5px;" src="../../../../assets/MPArogyam.jpg" alt="">
+                                <p style="margin:0px;">PHC TeleMedicine Unit</p>
+                                <p style="margin:0px;"><b>PHC Name : {{preview?.doctorDetail?.phcName}}</b></p>
+                                <p style="margin:0px;">District Name : {{preview?.doctorDetail?.patientMaster?.district}} , City Name: {{preview?.doctorDetail?.patientMaster?.city}} ,
+                                    {{preview?.doctorDetail?.patientMaster?.state}}</p>
+
+                            </td>
+                            <td>
+                                <img src="../../../../assets//NHMLogo.png" alt="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table align="center" style="width:75%; border-top:3px solid deepskyblue; font-size:10px; ">
+                    <tbody>
+                        <tr>
+                            <td><b>Doctor Name :</b> {{preview?.doctorDetail?.doctorName}}</td>
+                            <td><b>Contact No :</b> {{preview?.doctorDetail?.doctorMobileNo}}</td>
+                            <td><b>MCI Registration No :</b> {{preview?.doctorDetail?.doctorMCINo}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Qualification :</b> {{preview?.doctorDetail?.doctorQalification}} </td>
+                            <td></td>
+                            <td><b>Specialist :</b> {{preview?.doctorDetail?.doctorSpecialization}}</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table align="center" style="width:75%; border-top:3px solid deepskyblue; font-size:10px;">
+                    <tbody>
+                        <tr>
+                            <td><b>Patient Name :</b> {{preview?.doctorDetail?.patientMaster?.firstName}}
+                                {{preview?.doctorDetail?.patientMaster?.lastName}}</td>
+                            <td><b>Age :</b> {{preview?.doctorDetail?.patientMaster?.age}} </td>
+                            <td><b>Sex :</b> {{preview?.doctorDetail?.patientMaster?.genderId == 2 ? 'Female' : 'Male'}}
+                            </td>
+                            <td><b> Mobile No :</b> {{preview?.doctorDetail?.patientMaster?.mobileNo}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>W/O, S/O, D/O :</b> {{preview?.doctorDetail?.patientMaster?.guardianName}} </td>
+                            <td><b>Patient Address :</b> {{preview?.doctorDetail?.patientMaster?.address}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Consultation Date :</b> {{createdOn}}</td>
+                            <td><b>PatientId :</b> {{preview?.doctorDetail?.patientMaster?.patientId}}</td>
+                            <td><b>OPD No :</b> {{preview?.doctorDetail?.patientCase?.opdno}}</td>
+                            <td><b>Prescription No :</b> {{preview?.doctorDetail?.patientCase?.caseFileNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+
+                <div *ngIf="preview?.doctorDetail?.vitals && preview?.doctorDetail?.vitals.length>0"
+                    style="width:75%; margin:0 auto; margin-top:10px; font-size:10px;">
+                    <h5 style="background: deepskyblue;padding-left: 5px;">Vitals</h5>
+                    <div style=" display: flex;  flex-wrap: wrap;">
+                        <ng-container *ngFor="let vital of (preview?.doctorDetail?.vitals||[])">
+                            <div style="width:33%; padding:0 5px 5px 5px;flex: 0 0 auto;display: flex;"
+                                *ngIf="vital.value">
+                                <span style="font-weight: bold;">{{vital.vitalName}}</span>
+                                <span style="margin-left: auto !important;">{{vital.value}}</span>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- <table align="center" style="width:75%; margin-top:10px; font-size:10px;">
+                    <tr style="background: deepskyblue; ">
+                        <th>Vitals</th>
+                        <th>{{preview?.doctorDetail?.vitals[0]?.vitalName}}</th>
+                        <th>Temperature</th>
+                        <th>{{preview?.doctorDetail?.vitals[2]?.vitalName}}</th>
+                        <th>{{preview?.doctorDetail?.vitals[3]?.vitalName}}</th>
+                        <th>{{preview?.doctorDetail?.vitals[4]?.vitalName}}</th>
+                        <th>{{preview?.doctorDetail?.vitals[5]?.vitalName}}</th>
+                    </tr>
+                    <tr>
+                        <td>Value</td>
+                        <td>{{preview?.doctorDetail?.vitals[0]?.value}}</td>
+                        <td>{{preview?.doctorDetail?.vitals[1]?.value}}</td>
+                        <td>{{preview?.doctorDetail?.vitals[2]?.value}}</td>
+                        <td>{{preview?.doctorDetail?.vitals[3]?.value}}</td>
+                        <td>{{preview?.doctorDetail?.vitals[4]?.value}}</td>
+                        <td>{{preview?.doctorDetail?.vitals[5]?.value}}</td>
+                    </tr>
+
+                </table> -->
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table align="center" style="width:75%; border-top:3px solid deepskyblue; font-size:10px;">
+                    <tbody>
+                        <tr>
+                            <td><b>Chief Complaints :</b> </td>
+                            <td>{{preview?.doctorDetail?.patientCase?.symptom}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td><b>Examination / Lab :</b> </td>
+                            <td *ngFor="let diagnostic of preview?.diagnostics; let i = index">
+                                {{diagnostic?.getDiagnosticTestName?.name}}</td>
+                        </tr> -->
+                        <tr>
+                            <td><b>Diagnosis and Condition:</b></td>
+                            <td>{{preview?.treatmentDetail?.provisionalDiagnosis}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Advice :</b> </td>
+                            <td>{{preview?.treatmentDetail?.instruction}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Special Instruction :</b> </td>
+                            <td>{{preview?.treatmentDetail?.findings}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <table align="center" style="width:75%; margin-top:10px; font-size:10px;">
+                    <tr style="background: deepskyblue; ">
+                        <th>Examination / Lab findings</th>
+
+                    </tr>
+                    <tr *ngFor="let diagnostic of preview?.diagnostics; let i = index">
+                        <td>{{diagnostic?.getDiagnosticTestName?.name}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <table align="center" style="width:75%; margin-top:10px; font-size:10px;">
+                    <tr style="background: deepskyblue; ">
+                        <th>Generic Name</th>
+                        <th>Quantity/Dose</th>
+                        <th>Frequency</th>
+                        <th>Duration</th>
+                        <th>Timing</th>
+                    </tr>
+                    <tr *ngFor="let med of preview?.referredMedList; let i = index">
+                        <td>{{med.medicineName}}</td>
+                        <td>{{durationCalculation(med)}}</td>
+                        <td>{{med.doseTiming == 'od' ? 'od' : ''}}{{med.doseTiming == 'bd' ? 'bd' : ''}}{{med.doseTiming
+                            == 'td' ? 'td' : ''}}</td>
+                        <td>{{duration}}</td>
+                        <td>{{med.doseDuration == 'emptyStomach' ? 'emptyStomach' : ''}}{{med.doseDuration ==
+                            'afterMeal' ? 'afterMeal' : ''}}</td>
+                    </tr>
+
+
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table align="center" style="width:75%; margin-top:10px; font-size:10px;">
+                    <tr style="background: #d3d2d2;">
+                        <th>Review on : {{reviewDate}}</th>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table align="center" style="width:75%; margin-top:10px; font-size:10px;">
+                    <tr>
+                        <th>
+                            <div style="width:100px; height:80px;">
+                                <img #docSigna style=" height:auto; width:100%;" alt="" />
+                            </div>
+                        </th>
+
+                    </tr>
+
+                    <tr style="border-top:3px solid deepskyblue;">
+                        <th>Note: This prescription is generated on the teleconsultation</th>
+                        <th>{{createdOndateTime}}</th>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+    </table>
+
+</div>

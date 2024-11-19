@@ -1,0 +1,44 @@
+.modal-body{
+    padding: 2rem !important;
+    /* position: absolute; */
+    width:370px;
+    /* top:200px; */
+}
+.patient-registered{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat-SemiBold';
+}
+.patient-registered-success{
+    font-weight: 700;
+    margin-bottom:10px;
+}
+.patient-UID, .start-new-case, .text-purple{
+    margin-bottom:10px;
+}
+.start-new-case-popup{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+}
+.case-title{
+    margin-right:5px;
+}
+.speciality{
+    margin-right:5px;
+}
+.title-c{
+    margin-bottom:10px;
+}
+.option-patient{
+    width: 185px;
+    height: 30px;
+}
+.submit-patient{
+    padding-left:30px;
+    padding-right:30px;
+    margin-top:2rem;
+}

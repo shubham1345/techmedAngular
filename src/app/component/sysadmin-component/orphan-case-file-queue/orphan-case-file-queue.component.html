@@ -1,0 +1,107 @@
+<div class="patient-queue-header">
+    <div class="patient-header">
+        <div class="patient-head">
+            <h3>
+                <div class="d-flex bd-highlight">
+
+                    <div class="p-2 w-100 bd-highlight">
+
+                        <form [formGroup]="orphanCase" autocomplete="off">
+
+                            <!-- Orphan Queue
+                            <input class="searchPhc" type="text" name="" placeholder="Search by PHC" id=""
+                                [(ngModel)]="searchedKeyword" [ngModelOptions]="{standalone: true}"> -->
+                            <label>From</label> :
+                            &nbsp;
+                            <mat-form-field class="">
+                                <input matInput [matDatepicker]="picker" [max]="today" formControlName="fromdate"
+                                    class="form-control searchPhc Datecls" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker" class="fromdatecld">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            &nbsp; &nbsp;
+                            <label>To</label> :
+                            &nbsp;
+                            <mat-form-field class="">
+                                <input matInput [matDatepicker]="pickerto" class="form-control searchPhc Datecls"
+                                    [max]="today" formControlName="todate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="pickerto" class="fromdatecld button">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #pickerto></mat-datepicker>
+                            </mat-form-field>
+                            &nbsp;&nbsp; &nbsp;
+                            <button class="btn bg-purple register-capt"
+                                (click)="getAllPendingPhcPatientQueue(orphanCase.value['fromdate'],orphanCase.value['todate']) ">Search</button>
+                                &nbsp;
+                                <button class="btn bg-purple register-capt"
+                                (click)="click()"> Clear </button>
+
+                        </form>
+                    </div>
+
+                    <div class="p-2 flex-shrink-1 bd-highlight" style="align-self: center;"><img
+                            (click)="refreshButton()"
+                            style="width: 20px; cursor:pointer;align-self: flex-end;display:table-cell; vertical-align:middle; text-align:center"
+                            src="../../../../assets/Images/smaill-icon/refresh-red.png" alt=""></div>
+
+
+                </div>
+
+            </h3>
+
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.No.</th>
+                <th scope="col">Patient Name</th>
+                <th scope="col">Patient ID</th>
+                <th scope="col">Phc Name</th>
+                <th scope="col">Case File Creation Date</th>
+                <th scope="col">Selected Speciality </th>
+                <th scope="col">Update Queue</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th></th>
+                <th><input type="search" [(ngModel)]="searchpatientname" class="searchpatient" id="my-search"></th>
+                <th><input class="searchid" [(ngModel)]="searchregID"></th>
+                <th><input class="searchname" [(ngModel)]="searchphcName"></th>
+                <th><input class="searchcase" [(ngModel)]="searchcurrentDate"></th>
+                <th><input class="searchspeciality" [(ngModel)]="searchspecialization"></th>
+            </tr>
+            <tr
+                *ngFor="let p of getAllPendingPhcPatient | filter: (searchpatientname||searchregID||searchphcName||searchcurrentDate||searchspecialization) let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{p.patient}}</td>
+                <td>{{p.regID}}</td>
+                <td>{{p.phcName}}</td>
+                <td>{{p.createdOn}}</td>
+                <td>{{p.specialization}}</td>
+                <td><button type="button"
+                        style="background-color:#f27474!important;border:unset!important;border-radius:5px; color:#fff;padding-top:10px;padding-bottom:10px;line-height: 1;"
+                        (click)="changeQueue(p.patientCaseID);">Update Queue</button></td>
+            </tr>
+
+            <ng-container *ngIf="(  getAllPendingPhcPatient | filter: (searchpatientname||searchregID||searchphcName||searchcurrentDate||searchspecialization)) as result">
+                <div *ngIf="result.length === 0" class="p-3 mb-2" style="border-radius:5PX; width:100%; font-size:16px;letter-spacing: 1px;
+                  word-spacing: 2px;">Data Not Found</div>
+            
+            </ng-container>
+
+            <!-- <tr *ngIf="getAllPendingPhcPatient | filter: (searchregID||searchphcName||searchcurrentDate||searchspecialization).length==0" >
+                <td  colspan="5">No Data found</td>
+              </tr> -->
+
+        </tbody>
+    </table>
+    <!-- <div *ngIf="!getAllPendingPhcPatient?.length" class="p-3 mb-2" style="border-radius:5PX; width:100%; font-size:16px;letter-spacing: 1px;
+    word-spacing: 2px;">{{getAllphcpError}}</div> -->
+</div>
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'  }"></ngx-loading>

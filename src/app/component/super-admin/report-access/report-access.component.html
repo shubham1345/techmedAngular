@@ -1,0 +1,216 @@
+<div>
+  <form [formGroup]="reportAccess" autocomplete="off">
+    <div class="health-info" style="height: 400px">
+      <div class="clsPlacement">
+        <h2 class="headersize">Report Wise Access</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <label for="" class="lbltextsize"
+            ><span class="text-danger">*</span> User Type:</label
+          >
+        </div>
+
+        <div class="col-md-6">
+          <div>
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="UserType"
+              (change)="checkUserDropdown($event)"
+            >
+              <option
+                class="option"
+                value=""
+                disabled
+                selected
+                hidden
+                style="color: #939699"
+              >
+                User Type
+              </option>
+              <!-- *ngFor="let user of filteredUsers" -->
+              <option *ngFor="let c of UserType; let i = index" [value]="c.id">
+                {{ c.userType }}
+              </option>
+            </select>
+
+            <div
+              *ngIf="
+                reportAccess.controls['UserType'].invalid &&
+                reportAccess.controls['UserType'].touched
+              "
+              class="error text-danger small"
+            >
+              <div *ngIf="reportAccess.controls['UserType'].errors">
+                User Type is Required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <label for="" class="lbltextsize"
+            ><span class="text-danger">*</span> Select User :</label
+          >
+        </div>
+
+        <div class="col-md-6">
+          <div>
+            <input
+              type="text"
+              value=""
+              formControlName="selectUser"
+              [matAutocomplete]="User"
+              #searchUserName
+              class="form-control"
+              [placeholder]="'search User'"
+              (change)="searchUser($event)"
+            />
+
+            <mat-autocomplete
+              #User="matAutocomplete"
+              [displayWith]="displayUser.bind(this)"
+            >
+              <mat-option
+                *ngFor="
+                  let item of selectUserValue | filter : searchUserName.value
+                "
+                [value]="item.id"
+              >
+                {{ item.name + "," + item.email }}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="selectUser"
+              (change)="GetReportAccessDetailsByUserID($event)"
+            >
+              <option
+                class="option"
+                value=""
+                disabled
+                selected
+                hidden
+                style="color: #939699"
+              >
+                Select User Type
+              </option>
+              <option
+                *ngFor="let c of selectUserValue; let i = index"
+                [value]="c.id"
+              >
+                {{ c.name + "," + c.email }}
+              </option>
+            </select> -->
+
+            <div
+              *ngIf="
+                reportAccess.controls['selectUser'].invalid &&
+                reportAccess.controls['selectUser'].touched
+              "
+              class="error text-danger small"
+            >
+              <div *ngIf="reportAccess.controls['selectUser'].errors">
+                Select User is Required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <label for="" class="lbltextsize"
+            ><span class="text-danger">*</span> Access Type:</label
+          >
+        </div>
+
+        <div class="col-md-6">
+          <mat-select
+            formControlName="Reports"
+            #select
+            multiple
+            class="form-control"
+          >
+            <div class="select-all">
+              <mat-checkbox
+                [(ngModel)]="allSelected"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection()"
+                >Select All</mat-checkbox
+              >
+            </div>
+
+            <mat-option
+              *ngFor="let c of checkeddata; let i = index"
+              [value]="c.id"
+              (click)="checkOptionsSelection()"
+            >
+              {{ c.reportName }}
+            </mat-option>
+          </mat-select>
+          <div
+          *ngIf="
+            reportAccess.controls['Reports'].invalid &&
+            reportAccess.controls['Reports'].touched
+          "
+          class="error text-danger small"
+        >
+          <div *ngIf="reportAccess.controls['Reports'].errors">
+            Access Type is Required
+          </div>
+        </div>
+        </div>
+      </div>
+      <!-- <mat-form-field> -->
+      <!-- <mat-label>Select Label</mat-label>
+        <mat-select multiple>
+          <mat-option  *ngFor="let item of checkeddata" [value]="item">
+              <mat-checkbox  [checked]="item.isChecked" (change)="item.isChecked = !item.isChecked">{{ item.reportName }}</mat-checkbox>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+
+       <div *ngFor="let item of checkeddata">
+              <mat-checkbox [checked]="item.isChecked" (change)="item.isChecked = !item.isChecked">{{ item.reportName }}</mat-checkbox>
+            </div> -->
+      <!-- <option *ngFor="let item of checkeddata" [value]="item" [selected]="item.isChecked">
+              {{ item.reportName }}
+            <option> -->
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+          <button
+            type="button"
+            class="btn bg-purple register-capt ml-4"
+            (click)="AddReportAccessDetails()"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900',
+    fullScreenBackdrop: true
+  }"
+></ngx-loading>

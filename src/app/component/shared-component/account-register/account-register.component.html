@@ -1,0 +1,657 @@
+<div
+  class="modal-body"
+  data-mdb-backdrop="static"
+  style="overflow-x: scroll !important; max-height: 90vh !important"
+  data-mdb-keyboard="false"
+>
+  <div>
+    <ngx-loading
+      [show]="loading"
+      [config]="{
+        animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+        backdropBorderRadius: '10px',
+        primaryColour: '#ff9900',
+        secondaryColour: '#ff9900',
+        tertiaryColour: '#009900'
+      }"
+    ></ngx-loading>
+    <form [formGroup]="phcpatientform" autocomplete="off">
+      <div class="row">
+        <div class="col-md-4 registration-input">
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span> First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="firstName"
+              maxlength="50"
+              oninput="this.value = this.value.toUpperCase().replace('  ',' ')"
+              (keypress)="onlyphabetkey($event)"
+              autocomplete="password"
+            />
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['firstName'].invalid &&
+              phcpatientform.controls['firstName'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['firstName'].errors">
+              First Name is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span> Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lastName"
+              oninput="this.value = this.value.toUpperCase().replace('  ',' ')"
+              maxlength="50"
+              (keypress)="onlyphabetkey($event)"
+              autocomplete="password"
+            />
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['lastName'].invalid &&
+              phcpatientform.controls['lastName'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['lastName'].errors">
+              Last Name is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for="text"
+              ><span class="text-danger">*</span> Select Gender</label
+            >
+            <br />
+            <div class="d-flex align-items-center">
+              <div *ngFor="let g of gender[0]" let i="index" class="form-check">
+                <input
+                  type="radio"
+                  name="gender"
+                  formControlName="gender"
+                  value="{{ g.id }}"
+                  class="form-check-input"
+                  (change)="radiochangeHandler($event, g)"
+                  autocomplete="password"
+                />
+                <label class="form-check-label mrt-1" for="flexRadioDefault3">
+                  {{ g.gender }}
+                </label>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                phcpatientform.controls['gender'].invalid &&
+                phcpatientform.controls['gender'].touched
+              "
+              class="error text-danger small"
+            >
+              <div *ngIf="phcpatientform.controls['gender'].errors">
+                Gender is required
+              </div>
+            </div>
+          </div>
+          <div class="register-log">
+            <label for="datePicker" class="form-label"
+              ><span class="text-danger">*</span>Date of
+              Birth(dd-mm-yyyy)</label
+            >
+            <br />
+            <b>{{ age }}</b>
+            <!-- <input type="number" [(ngModel)]="age" id="age" name="age"> -->
+            <mat-form-field class="padding-setcalendar">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [max]="maxDate"
+                formControlName="dateofbirth"
+                class="form-control input-padding"
+                [(ngModel)]="birthdate"
+                id="txtdate"
+                (dateChange)="CalculateAge('dateofbirth')"
+                readonly
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+                class="calendarbtn"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['dateofbirth'].invalid &&
+              phcpatientform.controls['dateofbirth'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['dateofbirth'].errors">
+              date of birth is required
+            </div>
+          </div>
+
+          <div class="register-log">
+            <label for=""><span class="text-danger"></span> Email ID</label>
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              autocomplete="password"
+            />
+          </div>
+
+          <span
+            *ngIf="phcpatientform.controls['email'].hasError('pattern')"
+            class="text-danger"
+          >
+            please enter correct email address
+          </span>
+
+          <div class="register-log">
+            <label for=""
+              ><span class="text-danger"></span> Contact Number</label
+            >
+            <input
+              type="tel"
+              class="form-control"
+              formControlName="mobilenumber"
+              (keypress)="keyPressNumbers1($event)"
+              (keyup)="keyUpphone($event)"
+              maxlength="10"
+              minlength="10"
+              autocomplete="password"
+            />
+          </div>
+          <!-- <div *ngIf="phcpatientform.controls['mobilenumber'].invalid && phcpatientform.controls['mobilenumber'].touched"
+                        class="error text-danger small">
+                        <div *ngIf="phcpatientform.controls['mobilenumber'].errors">
+                            Mobile Number is required
+                        </div>
+                    </div> -->
+
+          <!-- <div *ngIf="phoneLength" class="text-danger">Contact Number is not valid</div> -->
+
+          <div *ngIf="iserrorPhone" class="text-danger">
+            Patient name or mobile number is already in system
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['mobilenumber'].hasError('minlength')
+            "
+            class="text-danger"
+          >
+            Please enter correct contact number
+          </div>
+
+          <div class="register-log">
+            <label for="">Guardian Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="guardianName"
+              oninput="this.value = this.value.toUpperCase().replace('  ',' ')"
+              (keypress)="onlyphabetkey($event)"
+              autocomplete="password"
+            />
+          </div>
+
+          <div class="register-log">
+            <label for=""
+              ><span class="text-danger">*</span>Marital Status</label
+            >
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="maritalStatusID"
+              #maritialstatus
+            >
+              <option
+                *ngFor="let m of maritalstatus[0]; let i = index"
+                [value]="m.id"
+              >
+                {{ m.name }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['maritalStatusID'].invalid &&
+              phcpatientform.controls['maritalStatusID'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['maritalStatusID'].errors">
+              Marital status is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""><span class="text-danger"></span></label>
+            <label for=""
+              ><span class="text-danger"
+                >Fields marked with * are mandatory</span
+              ></label
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4 registration-input">
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span>Address</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="address"
+              oninput="this.value = this.value.replace('  ',' ')"
+              autocomplete="password"
+            />
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['address'].invalid &&
+              phcpatientform.controls['address'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['address'].errors">
+              Address is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span>District</label>
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              #CloseSelectDropdown
+              formControlName="district"
+              (change)="openDropdown($event)"
+            >
+              <option class="option" value="" selected disabled hidden>
+                Select District
+              </option>
+              <option
+                *ngFor="let d of district[0]; let i = index"
+                [value]="d.id"
+              >
+                {{ d.districtName }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                phcpatientform.controls['district'].invalid &&
+                phcpatientform.controls['district'].touched
+              "
+              class="error text-danger small"
+            >
+              <div *ngIf="phcpatientform.controls['district'].errors">
+                District is required
+              </div>
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span>Block</label>
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="city"
+              #blockdropdown
+            >
+              <option class="option" value="" selected disabled hidden>
+                Select Block
+              </option>
+              <option
+                *ngFor="let b of divisionlist; let i = index"
+                [value]="b.id"
+              >
+                {{ b.blockName }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                phcpatientform.controls['city'].invalid &&
+                phcpatientform.controls['city'].touched
+              "
+              class="error text-danger small"
+            >
+              <div *ngIf="phcpatientform.controls['city'].errors">
+                Block is required
+              </div>
+            </div>
+            <!-- <input type="text" class="form-control" formControlName="city"> -->
+          </div>
+          <!-- <div *ngIf="phcpatientform.controls['city'].invalid && phcpatientform.controls['city'].touched"
+                        class="error text-danger small">
+                        <div *ngIf="phcpatientform.controls['city'].errors">
+                            Block is required
+                        </div>
+                    </div> -->
+          <!-- <div class="register-log">
+                        <label for=""><span class="text-danger">*</span>District</label>
+                        <select class="form-control" id="exampleFormControlInput1" formControlName="district">
+                            <option *ngFor="let d of district[0]; let i = index;" [value]="d.id">
+                                {{d.districtName}}
+                            </option>
+                        </select>
+
+                    </div> -->
+          <!-- <div class="register-log">
+                        <label for=""><span class="text-danger">*</span>District</label>
+
+                        <ng-multiselect-dropdown [placeholder]="'Select District'" [settings]="dropdownSettings"
+                            class="form-control singleselect" [data]="districtList" formControlName="district" [(ngModel)]="district"
+                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                        </ng-multiselect-dropdown>
+                        <div *ngIf="phcpatientform.controls['district'].invalid && phcpatientform.controls['district'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="phcpatientform.controls['district'].errors">
+                                District is required
+                            </div>
+                        </div>
+                    </div> -->
+          <div class="register-log">
+            <label for=""><span class="text-danger">*</span>Country</label>
+            <!-- <input type="text" class="form-control" formControlName="country" value="India"  readonly ngModel="India"> -->
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="country"
+              #countrydropdown
+            >
+              <!-- <option  style="color:rgb(11, 11, 11)" value="" disabled selected hidden aria-readonly="true">India</option> -->
+
+              <option
+                *ngFor="let c of country[0]; let i = index"
+                [value]="c.id"
+              >
+                {{ c.countryName }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['country'].invalid &&
+              phcpatientform.controls['country'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['country'].errors">
+              Country is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""><span class="text-danger"></span>Postal Code</label>
+            <input
+              type="tel"
+              class="form-control"
+              formControlName="postalCode"
+              maxlength="6"
+              (keypress)="keyPressNumbers($event)"
+              autocomplete="password"
+            />
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['postalCode'].invalid &&
+              phcpatientform.controls['postalCode'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['postalCode'].errors">
+              Postal Code is required
+            </div>
+          </div>
+          <div class="register-log">
+            <label for=""
+              ><span class="text-danger"></span>Government ID Type
+            </label>
+            <!-- <select class="form-control" id="exampleFormControlSelect1" value="" (change)="chnageGovernmentId($event)"
+                            formControlName="governmentIdtype">
+                            <option value="">Select Government Id Type</option>
+                            <option *ngFor="let gvtID of govermentIdTypes">{{gvtID}}</option>
+                        </select> -->
+            <select
+              class="form-control"
+              id="exampleFormControlInput1"
+              formControlName="governmentIdtype"
+              (change)="chnageGovernmentId($event)"
+              #govtdropdown
+            >
+              <option
+                *ngFor="let gvtID of govermentIdTypes[0]; let i = index"
+                [value]="gvtID.id"
+              >
+                {{ gvtID.idproofType }}
+              </option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              phcpatientform.controls['governmentIdtype'].invalid &&
+              phcpatientform.controls['governmentIdtype'].touched
+            "
+            class="error text-danger small"
+          >
+            <div *ngIf="phcpatientform.controls['governmentIdtype'].errors">
+              Please select Government ID type is required
+            </div>
+          </div>
+          <!-- <div class="register-log" *ngIf="isAdharCard">
+                        <label for=""><span class="text-danger">*</span>Aadhar Number </label>
+                        <input type="text" class="form-control" formControlName="gvtIDNumber" [minlength]="12" [maxlength]="12"
+                            oninput="this.value = this.value.toUpperCase()"
+                            onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));">
+
+                    </div> -->
+          <div class="register-log" *ngIf="isdrivinglicense">
+            <label for=""
+              ><span class="text-danger"></span>Driving License
+            </label>
+            <input
+              type="text"
+              appGovtId
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="18"
+              [maxlength]="18"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+            />
+          </div>
+          <div class="register-log" *ngIf="isPanCard">
+            <label for=""><span class="text-danger"></span>PAN Card </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="10"
+              [maxlength]="10"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+              onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));"
+            />
+          </div>
+          <div class="register-log" *ngIf="isPassport">
+            <label for=""><span class="text-danger"></span>Passport </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="8"
+              [maxlength]="8"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+              onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));"
+            />
+          </div>
+          <div class="register-log" *ngIf="isElectionId">
+            <label for=""><span class="text-danger"></span>Election ID </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="8"
+              [maxlength]="16"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+              onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));"
+            />
+          </div>
+          <div class="register-log" *ngIf="isOthers">
+            <label for=""><span class="text-danger"></span>Others </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="8"
+              [maxlength]="20"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+              onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || event.charCode == 32 || (event.charCode >= 48 && event.charCode <= 57));"
+            />
+          </div>
+          <div class="register-log" *ngIf="isABHAID">
+            <label for=""><span class="text-danger"></span>ABHA ID </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="gvtIDNumber"
+              [minlength]="8"
+              [maxlength]="14"
+              oninput="this.value = this.value.toUpperCase()"
+              autocomplete="password"
+              onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 8 || (event.charCode >= 48 && event.charCode <= 57));"
+            />
+          </div>
+          <!-- <div *ngIf="phcpatientform.controls['gvtIDNumber'].invalid && phcpatientform.controls['gvtIDNumber'].touched"
+                        class="error text-danger small">
+                        <div *ngIf="phcpatientform.controls['gvtIDNumber'].errors">
+                            {{required}} is required
+                        </div>
+                    </div> -->
+          <div *ngIf="gvtIDNumber.errors?.['minlength']">
+            <div class="error text-danger small" *ngIf="allshowmessage">
+              {{ required }} should be {{ lengthcheck }} character
+            </div>
+            <div class="error text-danger small" *ngIf="showmessage">
+              {{ required }} should be {{ minlength }} {{ to }}
+              {{ lengthcheck }} character
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 setwebCamera">
+          <!-- <input  type="text" formControlName="hiddenField"   #hiddenInput> -->
+          <div>
+            <div
+              *ngIf="isCaptureValue"
+              class="text-danger"
+              style="padding-left: 90px"
+            >
+              Image is required
+            </div>
+            <div class="video-container">
+              <div
+                class="drop-divset"
+                *ngIf="openWebcam"
+                style="display: flex; flex-direction: column"
+              >
+                <div
+                  class="d-flex justify-content-center set-web"
+                  (click)="toggleWebcams()"
+                >
+                  Open Webcam
+                </div>
+                <!-- <div *ngIf="isCaptureValue" class="text-danger">Image is required</div> -->
+              </div>
+              <webcam
+                [height]="150"
+                [width]="150"
+                [trigger]="triggerObservable"
+                (imageCapture)="handleImage($event)"
+                *ngIf="!showWebcam"
+                [allowCameraSwitch]="allowCameraSwitch"
+                [switchCamera]="nextWebcamObservable"
+                [videoOptions]="videoOptions"
+                [imageQuality]="1"
+                (cameraSwitched)="cameraWasSwitched($event)"
+                (initError)="handleInitError($event)"
+                (captureImageData)="(false)"
+              >
+              </webcam>
+              <div class="snapshot" *ngIf="webcamImage">
+                <img
+                  style="max-height: 94.49px; max-width: 75.59px"
+                  [src]="webcamImage.imageAsDataUrl"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="snap-container">
+            <button
+              class="btn bg-purple"
+              *ngIf="takeasnap"
+              (click)="triggerSnapshot()"
+            >
+              Capture
+            </button>
+            <button
+              class="btn bg-danger retake-btn text-white actionBtn"
+              *ngIf="retake"
+              (click)="toggleWebcam()"
+            >
+              Take Another
+            </button>
+          </div>
+
+          <h4 *ngIf="errors.length > 0">Messages:</h4>
+          <ul *ngFor="let error of errors">
+            <li>{{ error | json }}</li>
+          </ul>
+          <div class="set-web-service">
+            <button
+              class="btn bg-purple register-capt"
+              (click)="succesOpenModal()"
+            >
+              Register
+            </button>
+
+            <button
+              class="btn register-capt bg-purple"
+              style="
+                position: absolute;
+                background-color: red !important;
+                bottom: 50px;
+                width: 88px;
+              "
+              (click)="close()"
+              data-mdb-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900'
+  }"
+></ngx-loading> -->

@@ -1,0 +1,210 @@
+<app-admin-header></app-admin-header>
+<div>
+    <form [formGroup]="systemReport" autocomplete="off"> 
+        <div class="clsPlacement">
+            <h2 class="headersize">Equipment Uptime Report</h2>
+            <span class="spmheader">Year 2022-2023 (january 2022-April 2023)</span>
+        </div>
+        <div class="health-info">
+            <div class="account-first-section">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>
+                            <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                            <select  class="form-control" id="exampleFormControlInput1" formControlName="selectPHC" (change)="onOptionsSelected($event)">
+                                <!-- <option value="0">Select PHC</option> -->
+                                <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="systemReport.controls['selectPHC'].invalid && systemReport.controls['selectPHC'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['selectPHC'].errors">
+                                PHC Name required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2 lbltextsize" class="mbt-1 lbltextsize"><span class="text-danger">*</span>1.	Otoscope</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="OtoscopeNo" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['OtoscopeNo'].invalid && systemReport.controls['OtoscopeNo'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['OtoscopeNo'].errors">
+                                Otoscope required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div>
+                            <label for="" class="lbltextsize"><span class="text-danger">*</span>Month</label>
+                            <select  class="form-control" id="exampleFormControlInput1" formControlName="month">
+                                <!-- <option value="0">Select Month</option> -->
+                                <option *ngFor="let c of months" [ngValue]="c.id">{{ c.name }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="systemReport.controls['month'].invalid && systemReport.controls['month'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['month'].errors">
+                                Month required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2 " class="mbt-1 lbltextsize"><span class="text-danger">*</span>2. Dermascope</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="DermascopeNum" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['DermascopeNum'].invalid && systemReport.controls['DermascopeNum'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['DermascopeNum'].errors">
+                                Dermascope required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>3. Fetal Doppler</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="FetalDoppler" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['FetalDoppler'].invalid && systemReport.controls['FetalDoppler'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['FetalDoppler'].errors">
+                                Fetal Doppler required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>4.	Headphone</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="Headphone" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['Headphone'].invalid && systemReport.controls['Headphone'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['Headphone'].errors">
+                                PHC is required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>5.	Webcam</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="Webcam" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['Webcam'].invalid && systemReport.controls['Webcam'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['Webcam'].errors">
+                                PHC is required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>6.	Printer</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="Printer" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['Printer'].invalid && systemReport.controls['Printer'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['Printer'].errors">
+                                Printer required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>7.	Inverter</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="Inverter" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['Inverter'].invalid && systemReport.controls['Inverter'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['Inverter'].errors">
+                                Inverter required
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row paddingRow">
+                    <div class="col-md-5">
+                        <div class="set-web-service">
+                            <button class="btn bg-purple register-capt" (click)="savesystemreport()">Save</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>8.	Computer</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter No. of Days" formControlName="Computer" (keypress)="keyPressNumbers($event)">
+                        </div>
+                        <div *ngIf="systemReport.controls['Computer'].invalid && systemReport.controls['Computer'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="systemReport.controls['Computer'].errors">
+                                Computer required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                   
+                    
+                </div>
+                
+               
+            </div>
+        </div>
+    </form>
+</div>

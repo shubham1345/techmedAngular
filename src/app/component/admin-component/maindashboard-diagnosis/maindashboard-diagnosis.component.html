@@ -1,0 +1,142 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="">
+          <div class="example-container">
+            <form [formGroup]="doctorForm" autocomplete="off">
+            <div class="mdMedgnrlMdcnWrp">
+              <span>{{this.ReportName}}</span>
+  
+              <label>From</label> :
+              <mat-form-field class="" >
+                <input matInput [matDatepicker]="picker"  class="Datecls" [max]="today" formControlName="fromdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+              </mat-form-field>
+              <label>To</label> :
+              <mat-form-field class="" >
+                <input matInput [matDatepicker]="pickerto" class="Datecls"  [max]="today" formControlName="todate">
+                <mat-datepicker-toggle matSuffix [for]="pickerto"></mat-datepicker-toggle>
+                <mat-datepicker #pickerto ></mat-datepicker>
+              </mat-form-field>
+                <!-- <label>From</label> : <input type="date" formControlName="fromdate">
+                <label>To</label> : <input type="date" formControlName="todate"> -->
+                <input type="button" value="Search" (click)="submitdetails()" >
+              
+                <div *ngIf="ShowErrorMessage" class='alert alert-danger'>
+                  {{ValidationMessage}}
+                  </div>
+              
+            </div>
+          </form>
+            <div class="mat-elevation-z8 mt-3">
+              <form style="display:inline" class="form-group" [formGroup]="formControl" autocomplete="off">
+               
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="cluster">
+                  <mat-placeholder>Cluster</mat-placeholder>
+                </mat-form-field> 
+                <mat-form-field class="mx-1">
+                  <input matInput class="form-control" formControlName="districtName" type="text">
+                  <mat-placeholder>District</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="blockName">
+                  <mat-placeholder>Block</mat-placeholder>
+                </mat-form-field> 
+                 <mat-form-field class="mx-1">
+                  <input matInput formControlName="phcName">
+                  <mat-placeholder>PHC</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="phase">
+                  <mat-placeholder>Phase</mat-placeholder>
+                </mat-form-field> 
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="disease">
+                  <mat-placeholder>Disease</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput class="form-control" formControlName="occurrence" type="text" min="0">
+                  <mat-placeholder>Occurrence</mat-placeholder>
+                </mat-form-field>
+
+                <div>
+                  <a routerLink="/main-dashboard" class="fa-pull-right"><button class="btn btn-danger pull-right" > <fa-icon [icon]="faClose"></fa-icon></button></a>
+                  <button  type="button" class="fa-pull-right btn btn-secondary" (click)="downloadPdf()"><fa-icon [icon]="faFilePdf"></fa-icon></button>
+                  <button  type="button" class="fa-pull-right btn btn-secondary" (click)="Download('Excel')"><fa-icon [icon]="faFileExcel"></fa-icon></button>
+                </div>
+              </form>
+              <Div id="content" #content> 
+  
+  
+              <!-- <table mat-table [dataSource]="dataSource"> -->
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort   matSortDisableClear
+                 matSortDirection="desc" >
+                <!-- Position Column -->
+                <ng-container matColumnDef="srNo">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> SL No.  </th>
+                  <td  mat-cell *matCellDef="let element"> {{element.srNo}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="cluster">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Cluster </th>
+                  <td mat-cell *matCellDef="let element"> {{element.cluster}} </td>
+                </ng-container>
+  
+                <!-- Name Column -->
+                <ng-container matColumnDef="districtName">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+                  <td mat-cell *matCellDef="let element"> {{element.districtName}} </td>
+                </ng-container>
+  
+                <!-- Weight Column -->
+                <ng-container matColumnDef="blockName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Block </th>
+                  <td mat-cell *matCellDef="let element"> {{element.blockName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="phcName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> PHC </th>
+                  <td mat-cell *matCellDef="let element"> {{element.phcName}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="phase">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Phase </th>
+                  <td mat-cell *matCellDef="let element"> {{element.phase}} </td>
+                </ng-container>
+  
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="disease">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Disease </th>
+                  <td mat-cell *matCellDef="let element"> {{element.disease}} </td>
+                </ng-container>
+  
+  
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="occurrence">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Occurrence </th>
+                  <td mat-cell *matCellDef="let element"> {{element.occurrence}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+              </table>
+              <div *ngIf="dataSource.data?.length === 0" class="text-center mx-2 my-3">No records found</div>
+           
+              <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+            </Div>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+
+  <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+  backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+  primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900',fullScreenBackdrop:true  }"></ngx-loading>

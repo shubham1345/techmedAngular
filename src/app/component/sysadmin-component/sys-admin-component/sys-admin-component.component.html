@@ -1,0 +1,783 @@
+<section class="chc-center-section">
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading"></h3>
+            </div>
+
+            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">PHC Registration</button>
+            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Doctor Registration</button>
+            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Patient queue management</button>
+
+
+                <button class="nav-link" id="v-pills-holiday-tab" data-bs-toggle="pill" data-bs-target="#v-pills-holiday"
+                type="button" role="tab" aria-controls="v-pills-holiday" aria-selected="false">Holiday Calendar</button>
+                <button class="nav-link" id="v-pills-spoke-tab" data-bs-toggle="pill" data-bs-target="#v-pills-spoke"
+                type="button" role="tab" aria-controls="v-pills-spoke" aria-selected="false">Spoke Maintenance</button>
+                <button class="nav-link" id="v-pills-employee-tab" data-bs-toggle="pill" data-bs-target="#v-pills-employee"
+                type="button" role="tab" aria-controls="v-pills-employee" aria-selected="false">Employee training </button>
+                <button class="nav-link" id="v-pills-system-tab" data-bs-toggle="pill" data-bs-target="#v-pills-system"
+                type="button" role="tab" aria-controls="v-pills-system" aria-selected="false">System health</button>
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                        <button class="btn width-btn">logout</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent">
+            <!-- PHC Registration-->
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                     
+                <div>
+                    <form [formGroup]="spokeMaintenance" autocomplete="off"> 
+                        <div class="clsPlacement">
+                            <!-- <h2 class="headersize">Spoke Maintenance</h2> -->
+                        </div>
+                        <div class="health-info">
+                            <div class="account-first-section">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"><span class="text-danger">*</span>District</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="district">
+                                                <!-- <option value="0">Select District</option> -->
+                                                
+                                                <option *ngFor="let c of ListDistrict" [ngValue]="c.id">{{ c.districtName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['district'].invalid && spokeMaintenance.controls['district'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['district'].errors">
+                                                District required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Block</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="Block">
+                                                <!-- <option value="0">Select Block</option> -->
+                                                
+                                                <option *ngFor="let c of ListBlock" [ngValue]="c.id">{{ c.blockName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['Block'].invalid && spokeMaintenance.controls['Block'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['Block'].errors">
+                                                Block required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                            </div>
+                            <!-- <div style="width: 50%;">
+                                <div>this is document content</div>
+                            </div> -->
+                            <div class="row rowgap">
+                                <div class="col-md-6">
+                                    
+                                </div>
+                              
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div></div>
+
+
+            </div>
+            <!--Doctor Registration -->
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div></div>
+            </div>
+
+            <!-- Patient queue management-->
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <div></div>
+            </div>
+             <!-- Holiday Calendar -->
+            <div class="tab-pane fade" id="v-pills-holiday" role="tabpanel" aria-labelledby="v-pills-holiday-tab" style="overflow-x:hidden">
+                <div>
+                    <form [formGroup]="holidaycalendar" autocomplete="off"> 
+                        <div class="clsPlacement">
+                            <h2 class="headersize">Holiday Calendar</h2>
+                        </div>
+                        <div class="health-info">
+                
+                            <div style="width: 40%; height: 100%; float:left; ">
+                               
+                                <label for="" class="lbltextsize "><span class="text-danger">*</span>Holiday calendar</label>
+                                <div class="col-md-7 lblgap">
+                                    
+                                        <input type="date" class="form-control" id="exampleFormControlInput1"
+                                        placeholder="Enter Training Date" formControlName="holidaydate">
+                                    
+                                    <div *ngIf="holidaycalendar.controls['holidaydate'].invalid && holidaycalendar.controls['holidaydate'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="holidaycalendar.controls['holidaydate'].errors">
+                                            District required
+                                        </div>
+                                    </div>
+                
+                                </div>
+                                <div class="col-md-10 areapadding">
+                                    <div>
+                                        <textarea type="text" class="form-control" id="exampleFormControlInput1"
+                                        placeholder="Add Description" formControlName="holidaydiscrip"></textarea>
+                                        
+                                    </div>
+                                    <div *ngIf="holidaycalendar.controls['holidaydiscrip'].invalid && holidaycalendar.controls['Block'].touched"
+                                        class="error text-danger small">
+                                        <div *ngIf="holidaycalendar.controls['holidaydiscrip'].errors">
+                                            Description required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rowgap">
+                                    <div class="col-md-1">
+                                        <div class="set-web-service">
+                                            <button class="btn bg-purple register-capt" (click)="savesholidaycalendar()">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                             
+                            <div  style="width: 60%; float:right;">
+                                <div class="col-md-3 center">
+                                    <select  class="form-control" id="exampleFormControlInput1" #exampleFormControlInput1 formControlName="selectYear" (change)="yearChange(exampleFormControlInput1.value)">
+                                        <option [value]="2022">2022</option>
+                                        <option [value]="2023">2023</option>
+                                        <option [value]="2024">2024</option>
+                                        <option [value]="2025">2025</option>
+                                    </select>
+                                </div>
+                                <table class="table table-striped lblgap">
+                                    <thead>
+                                        <tr>
+                                            <th>Day/Date</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of ApiData">
+                                            <th>{{datepipe.transform(data.holidayDate, 'dd-MMM-yyyy') }}</th>
+                                            <td>{{data.holidayName}}</td>
+                                            
+                                        </tr>
+                                        <!-- <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <th>23-05-2022</th>
+                                            <td>23-05-2022</td>
+                                            
+                                        </tr> -->
+                                        <!-- <tr *ngFor="let item of emlpoyees">
+                                            <th>{{ item.Name }}</th>
+                                            <td>{{ item.Age }}</td>
+                                            <td>{{ item.Location }}</td>
+                                            <td>{{ item.Salary }}</td>
+                                            <td>
+                                                <button type="button" >Delete</button>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                
+                                    
+                           
+                           
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Spoke Maintenance -->
+            <div class="tab-pane fade" id="v-pills-spoke" role="tabpanel" aria-labelledby="v-pills-spoke-tab" style="overflow-x:hidden">
+                <div>
+                    <form [formGroup]="spokeMaintenance" autocomplete="off"> 
+                        <div class="clsPlacement">
+                            <h2 class="headersize">Spoke Maintenance</h2>
+                        </div>
+                        <div class="health-info">
+                            <div class="account-first-section">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize" ><span class="text-danger">*</span>District</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="district">
+                                                <!-- <option value="0">Select District</option> -->
+                                                
+                                                <option *ngFor="let c of ListDistrict" [ngValue]="c.id">{{ c.districtName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['district'].invalid && spokeMaintenance.controls['district'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['district'].errors">
+                                                District required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Block</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="Block">
+                                                <!-- <option value="0">Select Block</option> -->
+                                                
+                                                <option *ngFor="let c of ListBlock" [ngValue]="c.id">{{ c.blockName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['Block'].invalid && spokeMaintenance.controls['Block'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['Block'].errors">
+                                                Block required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="selectPHC" (change)="onOptionSelected($event)">
+                                                <!-- <option value="0">Select PHC</option> -->
+                                                <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['selectPHC'].invalid && spokeMaintenance.controls['selectPHC'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['selectPHC'].errors">
+                                                PHC Name required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"style="float:right;"><span class="text-danger">*</span>Maintenance Date</label>
+                                    </div>
+                                    <div class="col-md-3 calwidth">
+                                        <div>
+                                            <input type="date" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Training Date" formControlName="maitenacedate">
+                                        </div>
+                                        <div *ngIf="spokeMaintenance.controls['maitenacedate'].invalid && spokeMaintenance.controls['maitenacedate'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['maitenacedate'].errors">
+                                                Maintenance Date required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row rowgap">
+                                    <div class="col-md-3">
+                                        <label for="" class="lbltextsize" style="float:right;"><span class="text-danger">*</span>Name Of the M.Q.</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="lbltextsize" formControlName="selectMQ">{{moname}}</label>
+                                    </div>
+                                </div>
+                                <div class="row rowgap">
+                                    <div class="col-md-2">
+                                        <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="" class="lbltextsize" formControlName="selectPHCName">{{selectPHCName}}</label>
+                                    </div>
+                                </div>
+                                <div class="row rowgap">
+                                    <div class="form-group">
+                                        <label for="file-input" style="display: none">
+                                            <!-- <img style="width:160px;" [src]="DoctorImagePath" *ngIf="DoctorImagePath"
+                                                alt=""> -->
+                                            <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="width:160px;;" class="avatar"> -->
+                                        </label>
+                
+                                        <input id="file-input" type="file" accept="document*" (change)="onFileChange($event)"
+                                            #fileInput formControlName="docname" />
+                                    </div>
+                                    <div *ngIf="spokeMaintenance.controls['docname'].invalid && spokeMaintenance.controls['docname'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="spokeMaintenance.controls['docname'].errors">
+                                                Document required
+                                            </div>
+                                        </div>
+                                    <div *ngIf="isShown" class="divarea">
+                
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div style="width: 50%;">
+                                <div>this is document content</div>
+                            </div> -->
+                            <div class="row rowgap">
+                                <div class="col-md-6">
+                                    
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="set-web-service">
+                                        <button class="btn bg-purple register-capt" (click)="savescopemaintenance()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--Employee training  -->
+            <div class="tab-pane fade" id="v-pills-employee" role="tabpanel" aria-labelledby="v-pills-employee-tab" style="overflow-x:hidden">
+                <div>
+                    <form [formGroup]="employeedetail" autocomplete="off">
+                        <div class="clsPlacement">
+                            <h2 class="headersize">Employee Training Feedback</h2> 
+                        </div>
+                        <div class="health-info">
+                            <div class="account-first-section">
+                                <div class="row phc">
+                                    <div class="col-md-4">
+                                                <div>
+                                                    <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                                    <select  class="form-control" id="exampleFormControlInput1" formControlName="PHCsName" (change)="onOptionsSelected($event)">
+                                                        <!-- <option value="0">Select PHC</option> -->
+                                                        <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option>
+                                                    </select>
+                                                </div>
+                                        <div *ngIf="employeedetail.controls['PHCsName'].invalid && employeedetail.controls['PHCsName'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['PHCsName'].errors">
+                                                PHC is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Employee Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Employee Name" formControlName="employeenmame" readonly>
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['employeenmame'].invalid && employeedetail.controls['employeenmame'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['employeenmame'].errors">
+                                                Employee Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training Subject</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Training Subject" formControlName="trainingsubject">
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['trainingsubject'].invalid && employeedetail.controls['trainingsubject'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['trainingsubject'].errors">
+                                                Training suject is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize" ><span class="text-danger">*</span>Training Period</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div>
+                                          <select  class="form-control" id="exampleFormControlInput1" formControlName="Quartername">
+                                              <!-- <option value="0">Select Quarter</option> -->
+                                              <option value="1-Qtr">Jan-Mar</option>
+                                              <option value="2-Qtr">Apr-Jun</option>
+                                              <option value="3-Qtr">Jul-Sep</option>
+                                              <option value="4-Qtr">Oct-Dec</option>
+                                          </select>
+                                      </div>
+                                      <div *ngIf="employeedetail.controls['Quartername'].invalid && employeedetail.controls['Quartername'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['Quartername'].errors">
+                                                Quarter is required
+                                            </div>
+                                        </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div>
+                                        <select  class="form-control" id="exampleFormControlInput1" formControlName="yearname">
+                                            <!-- <option value="0">select Year</option> -->
+                                            <option value="2022">2022</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="employeedetail.controls['yearname'].invalid && employeedetail.controls['yearname'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['yearname'].errors">
+                                                Year is required
+                                            </div>
+                                        </div>
+                                </div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training Date</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            
+                                            <mat-form-field class="padding-setcalendar">
+                                                <input matInput [matDatepicker]="picker" [max]="maxDate"  formControlName="trainingdate" class="form-control input-padding"
+                                                     readonly >
+                                                <mat-datepicker-toggle matSuffix [for]="picker" class="calendarbtn" ></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['trainingdate'].invalid && employeedetail.controls['trainingdate'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['trainingdate'].errors">
+                                                Training date is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Training By</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Trainer's Name" formControlName="trainingby">
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['trainingby'].invalid && employeedetail.controls['trainingby'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['trainingby'].errors">
+                                                Trainingby is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>Employee Feedback</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter Feedback(1-10)" formControlName="employeefeedback" pattern="^[1-9]$|^10$" minlength="1" maxlength="2" (keypress)="keyPressNumber($event)">
+                                        </div>
+                                        <div *ngIf="employeedetail.controls['employeefeedback'].invalid && employeedetail.controls['employeefeedback'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="employeedetail.controls['employeefeedback'].errors">
+                                                Feedback is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-1">
+                                      <div class="set-web-service">
+                                          <button class="btn bg-purple register-capt" (click)="saveemployeetraningt()">Save</button>
+                                      </div>
+                                  </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- System health -->
+            <div class="tab-pane fade" id="v-pills-system" role="tabpanel" aria-labelledby="v-pills-system-tab" style="overflow-x:hidden">
+                <div>
+                    <form [formGroup]="systemReport" autocomplete="off"> 
+                        <div class="clsPlacement">
+                            <h2 class="headersize">Equipment Uptime Report</h2>
+                            <span class="spmheader">Year 2022-2023 (january 2022-April 2023)</span>
+                        </div>
+                        <div class="health-info">
+                            <div class="account-first-section">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="selectPHC" (change)="onOptionsSelectedto($event)">
+                                                <!-- <option value="0">Select PHC</option> -->
+                                                <option *ngFor="let c of ListOfPHC" [ngValue]="c.id">{{ c.phcName }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="systemReport.controls['selectPHC'].invalid && systemReport.controls['selectPHC'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['selectPHC'].errors">
+                                                PHC Name required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2 lbltextsize" class="mbt-1 lbltextsize"><span class="text-danger">*</span>1.	Otoscope</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="OtoscopeNo" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['OtoscopeNo'].invalid && systemReport.controls['OtoscopeNo'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['OtoscopeNo'].errors">
+                                                Otoscope required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label for="" class="lbltextsize"><span class="text-danger">*</span>Month</label>
+                                            <select  class="form-control" id="exampleFormControlInput1" formControlName="month">
+                                                <!-- <option value="0">Select Month</option> -->
+                                                <option *ngFor="let c of months" [ngValue]="c.id">{{ c.name }}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="systemReport.controls['month'].invalid && systemReport.controls['month'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['month'].errors">
+                                                Month required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2 " class="mbt-1 lbltextsize"><span class="text-danger">*</span>2. Dermascope</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="DermascopeNum" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['DermascopeNum'].invalid && systemReport.controls['DermascopeNum'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['DermascopeNum'].errors">
+                                                Dermascope required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>3. Fetal Doppler</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="FetalDoppler" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['FetalDoppler'].invalid && systemReport.controls['FetalDoppler'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['FetalDoppler'].errors">
+                                                Fetal Doppler required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>4.	Headphone</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="Headphone" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['Headphone'].invalid && systemReport.controls['Headphone'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['Headphone'].errors">
+                                                PHC is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>5.	Webcam</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="Webcam" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['Webcam'].invalid && systemReport.controls['Webcam'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['Webcam'].errors">
+                                                PHC is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>6.	Printer</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="Printer" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['Printer'].invalid && systemReport.controls['Printer'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['Printer'].errors">
+                                                Printer required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>7.	Inverter</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="Inverter" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['Inverter'].invalid && systemReport.controls['Inverter'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['Inverter'].errors">
+                                                Inverter required
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row paddingRow">
+                                    <div class="col-md-5">
+                                        <div class="set-web-service">
+                                            <button class="btn bg-purple register-capt" (click)="savesystemreport()">Save</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="exampleFormControlInput1 mb-2" class="mbt-1 lbltextsize"><span class="text-danger">*</span>8.	Computer</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                placeholder="Enter No. of Days" formControlName="Computer" (keypress)="keyPressNumbers($event)">
+                                        </div>
+                                        <div *ngIf="systemReport.controls['Computer'].invalid && systemReport.controls['Computer'].touched"
+                                            class="error text-danger small">
+                                            <div *ngIf="systemReport.controls['Computer'].errors">
+                                                Computer required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                   
+                                    
+                                </div>
+                                
+                               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+   
+</section>
+

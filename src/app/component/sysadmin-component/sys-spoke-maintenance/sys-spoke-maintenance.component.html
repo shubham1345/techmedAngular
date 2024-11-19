@@ -1,0 +1,209 @@
+<!-- <section class="chc-center-section">
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+  
+            <div class="sidebar-heading-div">
+                <h3 class="sidebar-heading"></h3>
+            </div>
+  
+            <button class="nav-link active" [routerLink]="['/PHC-Registration']" id="v-pills-phc-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-phc" type="button" role="tab" aria-controls="v-pills-phc"
+                aria-selected="true">PHC Registration</button>
+            <button class="nav-link" [routerLink]="['/Doctor-Registration']" id="v-pills-Doctor-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Doctor" type="button" role="tab"
+                aria-controls="v-pills-Doctor" aria-selected="false">Doctor
+                Registration</button>
+            <button class="nav-link" [routerLink]="['/Patient-Queue-Management']" id="v-pills-Patient-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-Patient" type="button" role="tab"
+                aria-controls="v-pills-Patient" aria-selected="false">Patient queue
+                management</button>
+  
+  
+            <button class="nav-link" [routerLink]="['/Holiday-Calendar']" id="v-pills-holiday-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-holiday" type="button" role="tab" aria-controls="v-pills-holiday"
+                aria-selected="false">Holiday Calendar</button>
+            <button class="nav-link" [routerLink]="['/Spoke-MAintenance']" id="v-pills-spoke-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-spoke" type="button" role="tab" aria-controls="v-pills-spoke"
+                aria-selected="false">Spoke Maintenance</button>
+            <button class="nav-link" [routerLink]="['/Employee-Training']" id="v-pills-employee-tab"
+                data-bs-toggle="pill" data-bs-target="#v-pills-employee" type="button" role="tab"
+                aria-controls="v-pills-employee" aria-selected="false">Employee training
+            </button>
+            <button class="nav-link" [routerLink]="['/System-Health']" id="v-pills-system-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-system" type="button" role="tab" aria-controls="v-pills-system"
+                aria-selected="false">System health</button>
+            <div class="product-wrapper">
+                <div class="product-card">
+                    <div>
+                        <button class="btn width-btn"  (click)="onSignOut()">logout</button>
+  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content mid-content" id="v-pills-tabContent"> -->
+<div>
+    <form [formGroup]="spokeMaintenance" autocomplete="off">
+        <div class="clsPlacement">
+            <h2 class="headersize">Spoke Maintenance</h2>
+        </div>
+        <div class="health-info">
+            <div class="account-first-section">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>District</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="district"
+                                (change)="openDropdown($event)">
+                                <option value="" selected disabled>Select District</option>
+                                <option *ngFor="let c of ListDistrict" [ngValue]="c.id">{{ c.districtName }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="spokeMaintenance.controls['district'].invalid && spokeMaintenance.controls['district'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="spokeMaintenance.controls['district'].errors">
+                                District is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Block</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="Block"
+                                (change)="openFirstDropdown($event)">
+                                <option value="null" selected disabled>Select Block</option>
+                                <option *ngFor="let c of divisionlist " [ngValue]="c.id">{{ c.blockName }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="spokeMaintenance.controls['Block'].invalid && spokeMaintenance.controls['Block'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="spokeMaintenance.controls['Block'].errors">
+                                Block is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <select class="form-control" id="exampleFormControlInput1" formControlName="selectPHC"
+                                (change)="onOptionsSelected($event)">
+                                <option value=null selected disabled>Select PHC</option>
+                                <option *ngFor="let c of blockList" [ngValue]="c.id">{{ c.phcname }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="spokeMaintenance.controls['selectPHC'].invalid && spokeMaintenance.controls['selectPHC'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="spokeMaintenance.controls['selectPHC'].errors">
+                                PHC Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Maintenance Date</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <!-- <input type="date" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Enter Training Date" formControlName="maitenacedate"> -->
+
+                            <mat-form-field class="padding-setcalendar">
+                                <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="maitenacedate"
+                                    class="form-control input-padding" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="picker"
+                                    class="calendarbtn"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="spokeMaintenance.controls['maitenacedate'].invalid && spokeMaintenance.controls['maitenacedate'].touched"
+                            class="error text-danger small">
+                            <div *ngIf="spokeMaintenance.controls['maitenacedate'].errors">
+                                Maintenance Date is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rowgap">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>Name Of MO</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="lbltextsize"><span></span>{{moname}}</label>
+                    </div>
+                </div>
+                <div class="row rowgap">
+                    <div class="col-md-5">
+                        <label for="" class="lbltextsize"><span class="text-danger">*</span>PHC Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="lbltextsize">{{selectPHCName}}</label>
+                    </div>
+                </div>
+                <div class="row rowgap">
+                    <div class="form-group">
+                        <label for="file-input" style="display: none">
+                            <!-- <img style="width:160px;" [src]="DoctorImagePath" *ngIf="DoctorImagePath"
+                                alt=""> -->
+                            <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="width:160px;;" class="avatar"> -->
+                        </label>
+
+                        <input id="file-input" type="file" accept="document*" (change)="onFileChange($event)"
+                            #fileInput formControlName="docname" />
+                    </div>
+                    <div *ngIf="spokeMaintenance.get('docname').invalid && spokeMaintenance.get('docname').touched"
+                        class="error text-danger small">
+                        <div *ngIf="spokeMaintenance.get('docname').errors">
+                            <div *ngIf="spokeMaintenance.get('docname').errors.required">
+                                Document is Required
+                            </div>
+                            <div *ngIf="spokeMaintenance.get('docname').errors.invalidFileFormat">
+                                Only PDF and XLSX files are allowed
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="spokeMaintenance.controls['docname'].invalid && spokeMaintenance.controls['docname'].touched"
+                        class="error text-danger small">
+                        <div *ngIf="spokeMaintenance.controls['docname'].errors">
+                            Document is Required
+                        </div>
+                    </div> -->
+                    <div *ngIf="isShown" class="divarea">
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div style="width: 50%;">
+                <div>this is document content</div>
+            </div> -->
+            <div class="row rowgap">
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-1">
+                    <div class="set-web-service">
+                        <button class="btn bg-purple register-capt" (click)="savescopemaintenance()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'  }"></ngx-loading>
+<!-- </div>
+</div>
+</section> -->

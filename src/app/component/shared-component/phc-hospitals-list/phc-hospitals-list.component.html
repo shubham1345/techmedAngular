@@ -1,0 +1,38 @@
+<div class="modal-body" *ngIf="show">
+    <table class="table table-striped">
+        <thead>
+             <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">PHC Name</th>
+                <th scope="col">PHC Address</th>
+                <th scope="col">PHC Technician</th>
+                <th scope="col">Phone Number</th>
+            </tr>
+          
+        </thead>
+        <tbody>
+            <tr *ngFor="let col of getListOfPHCHospital[0]; let index=index">
+                <td>
+                    {{index+1}}
+                </td>
+                <td>
+                    {{ col.phcname }}
+                </td>
+                <td>
+                    {{ col.address }}
+                </td>
+                <td>
+                    {{col.moname}}
+                </td>
+                <td>
+                    {{col.phoneNo}}
+                </td>
+              </tr>
+
+        </tbody>
+      </table>
+</div>
+
+<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900',fullScreenBackdrop:true  }"></ngx-loading>

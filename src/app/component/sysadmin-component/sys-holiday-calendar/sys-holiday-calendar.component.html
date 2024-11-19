@@ -1,0 +1,269 @@
+<!-- <section class="chc-center-section">
+  <div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3 sidebar fixed" id="v-pills-tab" role="tablist"
+      aria-orientation="vertical">
+
+      <div class="sidebar-heading-div">
+        <h3 class="sidebar-heading"></h3>
+      </div>
+
+      <button class="nav-link active" [routerLink]="['/PHC-Registration']" id="v-pills-phc-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-phc" type="button" role="tab" aria-controls="v-pills-phc" aria-selected="false">PHC
+        Registration</button>
+      <button class="nav-link" [routerLink]="['/Doctor-Registration']" id="v-pills-Doctor-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-Doctor" type="button" role="tab" aria-controls="v-pills-Doctor"
+        aria-selected="false">Doctor
+        Registration</button>
+      <button class="nav-link" [routerLink]="['/Patient-Queue-Management']" id="v-pills-Patient-tab"
+        data-bs-toggle="pill" data-bs-target="#v-pills-Patient" type="button" role="tab" aria-controls="v-pills-Patient"
+        aria-selected="false">Patient queue
+        management</button>
+
+
+      <button class="nav-link" [routerLink]="['/Holiday-Calendar']" id="v-pills-holiday-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-holiday" type="button" role="tab" aria-controls="v-pills-holiday"
+        aria-selected="false">Holiday Calendar</button>
+      <button class="nav-link" [routerLink]="['/Spoke-MAintenance']" id="v-pills-spoke-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-spoke" type="button" role="tab" aria-controls="v-pills-spoke"
+        aria-selected="false">Spoke Maintenance</button>
+      <button class="nav-link" [routerLink]="['/Employee-Training']" id="v-pills-employee-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-employee" type="button" role="tab" aria-controls="v-pills-employee"
+        aria-selected="false">Employee training
+      </button>
+      <button class="nav-link" [routerLink]="['/System-Health']" id="v-pills-system-tab" data-bs-toggle="pill"
+        data-bs-target="#v-pills-system" type="button" role="tab" aria-controls="v-pills-system"
+        aria-selected="false">System health</button>
+      <div class="product-wrapper">
+        <div class="product-card">
+          <div>
+            <button class="btn width-btn">logout</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content mid-content" id="v-pills-tabContent" style="overflow-x: hidden;"> -->
+
+      <div>
+        <form [formGroup]="holidaycalendar" autocomplete="off">
+          <div class="clsPlacement">
+            <h2 class="headersize">Holiday Calendar</h2>
+          </div>
+          <div class="health-info">
+            <div>
+              <div class="row rowgap">
+                <div class="col-md-3">
+                  <label for="" class="lbltextsize"><b><span class="text-danger">*</span>Calendar Year</b></label>
+                </div>
+                <div class="col-md-3">
+                  <label for="" class="lbltextsize"><b><span class="text-danger">*</span>Calendar Date</b></label>
+
+
+                </div>
+                <div class="col-md-3">
+                  <label for="" class="lbltextsize"><b><span class="text-danger">*</span>Add Description</b></label>
+
+                </div>
+                <div class="col-md-3">
+                  <!-- <label for="" class="lbltextsize"><b><span class="text-danger">*</span>Add Description</b></label> -->
+
+                </div>
+
+
+              </div>
+
+              <div class="row rowgap">
+                <div class="col-md-3">
+
+                  <select class="form-control" id="exampleFormControlInput1" #exampleFormControlInput1
+                    formControlName="selectYear" (change)="yearChange(exampleFormControlInput1.value)">
+                    <option [value]="2022">2022</option>
+                     <option [value]="2023">2023</option>
+                    <option [value]="2024">2024</option>
+                    <!-- <option [value]="2025">2025</option>  -->
+                  </select>
+
+                </div>
+                <div class="col-md-3">
+
+                  <!-- <input type="date" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Enter Training Date" formControlName="holidaydate" /> -->
+                    <mat-form-field class="padding-setcalendar">
+                      <input matInput [matDatepicker]="picker" [min]="minDate"formControlName="holidaydate"
+                          class="form-control input-padding" readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker" class="calendarbtn"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+                  <div *ngIf="
+                holidaycalendar.controls['holidaydate'].invalid &&
+                holidaycalendar.controls['holidaydate'].touched
+              " class="error text-danger small">
+                    <div *ngIf="holidaycalendar.controls['holidaydate'].errors">
+                      Date is Required
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="col-md-4">
+
+                  <div>
+                    <textarea type="text" class="form-control" id="exampleFormControlInput1"
+                      placeholder="Add Description" formControlName="holidaydiscrip"></textarea>
+                  </div>
+                  <div
+                    *ngIf="  holidaycalendar.controls['holidaydiscrip'].invalid &&holidaycalendar.controls['Block'].touched "
+                    class="error text-danger small">
+                    <div *ngIf="holidaycalendar.controls['holidaydiscrip'].errors">
+                      Discription is Required
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="col-md-2">
+                  <div class="set-web-service">
+                    <button class="btn bg-purple register-capt" (click)="savesholidaycalendar()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- <label for="" class="lbltextsize"><span class="text-danger">*</span>Holiday calendar</label> -->
+              <!-- <div class="col-md-7 lblgap">
+                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="Enter Training Date"
+                  formControlName="holidaydate" />
+
+                <div *ngIf="
+                holidaycalendar.controls['holidaydate'].invalid &&
+                holidaycalendar.controls['holidaydate'].touched
+              " class="error text-danger small">
+                  <div *ngIf="holidaycalendar.controls['holidaydate'].errors">
+                    District Required
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-7 areapadding">
+                <div>
+                  <textarea type="text" class="form-control" id="exampleFormControlInput1" placeholder="Add Description"
+                    formControlName="holidaydiscrip"></textarea>
+                </div>
+                <div *ngIf="
+                holidaycalendar.controls['holidaydiscrip'].invalid &&
+                holidaycalendar.controls['Block'].touched
+              " class="error text-danger small">
+                  <div *ngIf="holidaycalendar.controls['holidaydiscrip'].errors">
+                    Discription Required
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="row rowgap">
+
+                <div class="col-md-1">
+                  <div class="set-web-service">
+                    <button class="btn bg-purple register-capt" (click)="savesholidaycalendar()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-3 ">
+                <select class="form-control" id="exampleFormControlInput1" #exampleFormControlInput1
+                  formControlName="selectYear" (change)="yearChange(exampleFormControlInput1.value)">
+                  <option [value]="2022">2022</option>
+                  <option [value]="2023">2023</option>
+                  <option [value]="2024">2024</option>
+                  <option [value]="2025">2025</option>
+                </select>
+              </div> -->
+            </div>
+
+            <div>
+              <!--  style="width: 60%; float: center; padding: 10px;" -->
+              <table class="table table-striped lblgap">
+                <thead>
+                  <tr>
+                    <th>Day/Date</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of ApiData">
+                    <th>{{ datepipe.transform(data.holidayDate, "dd-MMM-yyyy") }}</th>
+                    <td>{{ data.holidayName }}</td>
+                    <td>
+                      <!-- <button class="btn bg-purple register-capt" type="button"
+                        (click)="Editholidaycalendar(datepipe.transform(data.holidayDate, 'yyyy-MM-dd'),data.holidayName)">Edit</button> -->
+                      <!-- | -->
+
+                      <!-- <button class="btn bg-purple register-capt" type="button"
+                        (click)="deleteholidaycalendar(datepipe.transform(data.holidayDate, 'yyyy-MM-dd') )">Delete</button> -->
+                        <img style="width:20px;"
+                        src="../../../../assets/Images/smaill-icon/delete-icon.png" alt=""
+                        (click)="deleteholidaycalendar(datepipe.transform(data.holidayDate, 'yyyy-MM-dd') )" />
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                             
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                              
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                              
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                              
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                             
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                              
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                             
+                          </tr>
+                          <tr>
+                              <th>23-05-2022</th>
+                              <td>23-05-2022</td>
+                              
+                          </tr> -->
+                  <!-- <tr *ngFor="let item of emlpoyees">
+                              <th>{{ item.Name }}</th>
+                              <td>{{ item.Age }}</td>
+                              <td>{{ item.Location }}</td>
+                              <td>{{ item.Salary }}</td>
+                              <td>
+                                  <button type="button" >Delete</button>
+                              </td>
+                          </tr> -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    <!-- </div>
+  </div>
+</section> -->

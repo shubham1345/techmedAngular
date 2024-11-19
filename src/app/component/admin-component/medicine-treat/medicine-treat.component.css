@@ -1,0 +1,39 @@
+.ctscan{
+    padding: 10px;
+    background: #ffff;
+    border: 2px solid #E7E8EF;
+}
+.mat-form-field {
+display: unset;
+}
+
+.case-detial-inerkt .p-2 {
+    min-width: 100%;
+    height: 40px;
+    float: left;
+}
+.case-detial-inerkt label{
+    margin-right:3px;
+}
+.case-detial-inerkt input[type="checkbox"]{
+    margin-right:10px;
+}
+.buttonkt {
+    background: #4A48B9;
+    border-radius: 15px;
+    color: #fff;
+    border: 0px solid #ffffff;
+    padding: 2px 15px;
+}
+.mat-chip.mat-standard-chip{
+    background-color: transparent!important;
+}
+.mat-chip.mat-standard-chip:hover{
+    background-color: #f5f5fa!important;
+}
+.mat-chip-remove{
+    opacity: 1 !important;
+}
+.mat-standard-chip{
+    align-items:baseline;
+}

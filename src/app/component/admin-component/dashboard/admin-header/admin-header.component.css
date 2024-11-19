@@ -1,0 +1,27 @@
+.adminNavWrap {
+    background-color: #004179;
+    font-size: 17px;
+    color: #ffffff;
+}
+
+.adminNavSecWrap .mat-form-field {
+    margin-top: 10px;
+    margin-right: 20px;
+    background-color: #f5f1f1;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 10px;
+
+}
+
+.adminNavSecWrap .text-end .mat-form-field {
+    margin-left: 20px;
+    width: 125px;
+    margin-right: 0;
+    background-color: #ffebd8;
+}
+
+.adminNavSecWrap .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+

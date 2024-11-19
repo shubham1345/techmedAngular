@@ -1,0 +1,27 @@
+.patient-queue-header{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background: #f3f3f3;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+  }
+  .patient-queue-header .patient-header{
+    padding: 10px;
+    background-color: #d4c9c9;
+    border-radius: 5px;
+  }
+  .Datecls{
+    border: 1px solid #d3d9de;
+    padding: 5px 10px; border-radius: 4px;
+    background: #ffffff;
+ display: flex;   
+}
+label {
+  display: inline-block;
+  margin-left: 16px;
+}
+button{
+  margin-left: 16px;
+}

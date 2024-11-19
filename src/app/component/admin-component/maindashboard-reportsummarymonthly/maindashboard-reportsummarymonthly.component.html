@@ -1,0 +1,177 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="">
+         
+
+          <div class="example-container">
+            <form [formGroup]="doctorForm" autocomplete="off">
+            <div class="mdMedgnrlMdcnWrp">
+              <span>{{this.ReportName}}</span>
+              <mat-form-field>
+                <input matInput [matDatepicker]="dp" placeholder="Month and Year" [max]="today" formControlName="date" [formControl]="date">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp
+                                startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, dp)"
+                                panelClass="example-month-picker">
+                </mat-datepicker>
+              </mat-form-field>
+              <!-- <label>Month</label> : <input type="year" formControlName="fromdate">
+              <label>year</label> : <input type="date" formControlName="todate"> -->
+              <input type="button" value="Search" (click)="submitdetails()" >
+            </div>
+           
+          </form>
+            <div class="mat-elevation-z8 mt-3">
+              <form style="display:inline" class="form-group" [formGroup]="formControl" autocomplete="off">
+               
+                <mat-form-field class="mx-1">
+                  <input matInput class="form-control" formControlName="cluster" type="text">
+                  <mat-placeholder>Cluster</mat-placeholder>
+                </mat-form-field>
+                
+                <mat-form-field class="mx-1">
+                  <input matInput class="form-control" formControlName="district" type="text">
+                  <mat-placeholder>District</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="block">
+                  <mat-placeholder>Block</mat-placeholder>
+                </mat-form-field> 
+                 <mat-form-field class="mx-1">
+                  <input matInput formControlName="phc">
+                  <mat-placeholder>PHC</mat-placeholder>
+                </mat-form-field>
+
+                <mat-form-field class="mx-1">
+                  <input matInput class="form-control" formControlName="phase" type="text">
+                  <mat-placeholder>Phase</mat-placeholder>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="mx-1">
+                  <input matInput formControlName="total">
+                  <mat-placeholder>No. of consultation
+                  </mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="generalPractice">
+                  <mat-placeholder>General Medicine</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="obstetricsAndGyne">
+                  <mat-placeholder>Obstetrics And Gyne</mat-placeholder>
+                </mat-form-field>
+                <mat-form-field class="mx-1">
+                  <input matInput formControlName="pediatrics">
+                  <mat-placeholder>Pediatrics</mat-placeholder>
+                </mat-form-field> -->
+                
+                <div>
+                  <a routerLink="/main-dashboard" class="fa-pull-right"><button class="btn btn-danger pull-right" > <fa-icon [icon]="faClose"></fa-icon></button></a>
+                  <button  type="button" class="fa-pull-right btn btn-secondary" (click)="downloadPdf()"><fa-icon [icon]="faFilePdf"></fa-icon></button>
+                  <button  type="button" class="fa-pull-right btn btn-secondary" (click)="Download('Excel')"><fa-icon [icon]="faFileExcel"></fa-icon></button>
+                </div>
+              </form>
+              <Div id="content" #content> 
+  
+  
+              <!-- <table mat-table [dataSource]="dataSource"> -->
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort   matSortDisableClear
+                 matSortDirection="desc" >
+                <!-- Position Column -->
+                <ng-container matColumnDef="slNo">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> SL No.  </th>
+                  <td  mat-cell *matCellDef="let element"> {{element.slNo}} </td>
+                  <td mat-footer-cell *matFooterCellDef>  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="cluster">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> Cluster  </th>
+                  <td  mat-cell *matCellDef="let element"> {{element.cluster}} </td>
+                  <td mat-footer-cell *matFooterCellDef>  </td>
+
+                </ng-container>
+
+  
+                <!-- Name Column -->
+                <ng-container matColumnDef="district">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+                  <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+                  <td mat-footer-cell *matFooterCellDef>  </td>
+
+                </ng-container>
+  
+                <!-- Weight Column -->
+                <ng-container matColumnDef="block">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Block </th>
+                  <td mat-cell *matCellDef="let element"> {{element.block}} </td>
+                  <td mat-footer-cell *matFooterCellDef>  </td>
+
+                </ng-container>
+                <ng-container matColumnDef="phc">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> PHC </th>
+                  <td mat-cell *matCellDef="let element"> {{element.phc}} </td>
+                  <td mat-footer-cell *matFooterCellDef> Total  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="phase">
+                  <th  mat-header-cell *matHeaderCellDef mat-sort-header> Phase  </th>
+                  <td  mat-cell *matCellDef="let element"> {{element.phase}} </td>
+                  <td mat-footer-cell *matFooterCellDef>  </td>
+
+                </ng-container>
+  
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of consultation </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                  <td mat-footer-cell *matFooterCellDef> {{totalConsultation}} </td>
+                </ng-container>
+  
+  
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="generalMedicine">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> General Medicine </th>
+                  <td mat-cell *matCellDef="let element"> {{element.generalMedicine}} </td>
+                  <td mat-footer-cell *matFooterCellDef> {{totalMedicine}} </td>
+
+                </ng-container>
+                <ng-container matColumnDef="obstetricsAndGyne">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>  Obstetrics And Gyne </th>
+                  <td mat-cell *matCellDef="let element"> {{element.obstetricsAndGyne}} </td>
+                  <td mat-footer-cell *matFooterCellDef> {{totalObstetric}} </td>
+
+                </ng-container>
+                <ng-container matColumnDef="pediatrics">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pediatrics </th>
+                  <td mat-cell *matCellDef="let element"> {{element.pediatrics}} </td>
+                  <td mat-footer-cell *matFooterCellDef> {{totalPediatrics}} </td>
+
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+                <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+              </table>
+              <div *ngIf="dataSource.data?.length === 0" class="text-center mx-2 my-3">No records found</div>
+           
+              <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+            </Div>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  
+  </div>
+  <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900'  }"></ngx-loading>

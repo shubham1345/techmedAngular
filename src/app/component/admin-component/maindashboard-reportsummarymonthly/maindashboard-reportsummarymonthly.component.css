@@ -1,0 +1,57 @@
+table {
+    width: 100%;
+}
+
+::ng-deep mat-paginator .mat-paginator-container{
+    justify-content: center !important;
+}
+
+.mdMedgnrlMdcnWrp span{
+    font-weight: bold;
+}
+
+.mdMedgnrlMdcnWrp label{
+    font-weight: 500; margin-left: 20px;
+}
+
+.mdMedgnrlMdcnWrp input[type="button"]{
+    font-weight: 500;
+    margin-left: 20px;
+    background-color: #2196f3;
+    border-radius: 20px;
+    color: #ffffff;
+    padding: 6px 20px;
+}
+
+.mdMedgnrlMdcnWrp .Datecls{
+    border: 1px solid #d3d9de;
+    padding: 5px 10px; border-radius: 4px;
+
+ display: flex;   
+}
+.mdMedgnrlMdcnWrp input{
+    border: 1px solid #d3d9de;
+    padding: 5px 10px; border-radius: 4px;
+}
+
+.mat-cell{
+    font-size:12px;
+    font-family: Verdana,Sans-Serif;
+    display: table-cell;
+    height: 48px;
+    vertical-align: middle;
+    border-bottom: .5px solid rgba(0, 0, 0, 0.12);
+    border-top: .5px solid rgba(0, 0, 0, 0.12);
+    border-left: .5px solid rgba(0, 0, 0, 0.12);
+    border-right:  .5px solid rgba(0, 0, 0, 0.12);
+    }
+
+
+    .example-month-picker .mat-calendar-period-button {
+        pointer-events: none;
+      }
+      
+      .example-month-picker .mat-calendar-arrow {
+        display: none;
+      }
+      

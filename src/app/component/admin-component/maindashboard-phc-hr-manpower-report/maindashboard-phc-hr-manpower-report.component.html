@@ -1,0 +1,147 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-12" >
+
+
+
+<div class="mdMedgnrlMdcnWrp" style="display: flex; align-items: center;">
+    <div>
+    <h3 class="me-2">{{ this.ReportName }}</h3>
+    </div>
+    <div>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="dp" placeholder="Month and Year" [max]="maxdate" [min]="minDate"  [formControl]="monthyear">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp
+                      startView="multi-year"
+                      (yearSelected)="chosenYearHandler($event)"
+                      (monthSelected)="chosenMonthHandler($event, dp)"
+                      panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+
+
+    <input
+    type="button"
+    value="Search"
+    (click)="getHRReport()"
+  />
+    </div>
+</div>
+
+<div style="font-weight: 600;" *ngIf="HRReportArray.length!=0">
+    <label>NoOf Days In Month</label> :
+    <span class="me-2">{{ HeaderData?.noOfDaysInMonth }}</span>
+    <label>Total Working Days</label> :
+    <span class="me-2">{{ HeaderData?.totalWorkingDays }}</span>
+    <label>Total Present Days</label> :
+    <span class="me-2">{{ HeaderData?.totalPresentDays }}</span>
+    <label>Availability Percentage</label> :
+    <span>{{ HeaderData?.availabilityPercentage }}</span>
+  </div>
+
+  <div class="mat-elevation-z8 mt-3">
+
+    <form
+    style="display: inline"
+    class="form-group"
+
+  >
+   
+  <mat-form-field class="mx-1">
+    <input matInput  [formControl]="employeeName" (input)="filter($event)" />
+    <mat-placeholder>District HR Name</mat-placeholder>
+  </mat-form-field>
+   
+
+    <div>
+      <a routerLink="/main-dashboard" class="fa-pull-right"
+        ><button class="btn btn-danger pull-right">
+          <fa-icon [icon]="faClose"></fa-icon></button
+      ></a>
+      <button
+        type="button"
+        class="fa-pull-right btn btn-secondary"
+        (click)="downloadPdfHR()"
+      >
+        <fa-icon [icon]="faFilePdf"></fa-icon>
+      </button>
+      <button
+        type="button"
+        class="fa-pull-right btn btn-secondary"
+        (click)="DownloadExcelHR()"
+      >
+        <fa-icon [icon]="faFileExcel"></fa-icon>
+      </button>
+    </div>
+  </form>
+
+
+            <table mat-table [dataSource]="dataSourceHR" class="mat-elevation-z8" matSort matSortDisableClear
+                matSortDirection="desc">
+   
+
+                <ng-container matColumnDef="srNo">
+                    <th mat-header-cell *matHeaderCellDef> Sr.No </th>
+                    <td mat-cell *matCellDef="let element">{{element.srNo}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="cluster">
+                    <th mat-header-cell *matHeaderCellDef> Cluster</th>
+                    <td mat-cell *matCellDef="let element"> {{element.cluster}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="districtName">
+                    <th mat-header-cell *matHeaderCellDef> District </th>
+                    <td mat-cell *matCellDef="let element"> {{element.districtName}}</td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="HRName">
+                    <th mat-header-cell *matHeaderCellDef> District HR Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.employeeName}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="workingDays">
+                    <th mat-header-cell *matHeaderCellDef> Working Days</th>
+                    <td mat-cell *matCellDef="let element"> {{element.workingDays}}</td>
+                  </ng-container>
+                  <ng-container matColumnDef="daysPresent">
+                    <th mat-header-cell *matHeaderCellDef> Days Present </th>
+                    <td mat-cell *matCellDef="let element">{{element.daysPresent}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="daysAbsent">
+                    <th mat-header-cell *matHeaderCellDef> Days Absent</th>
+                    <td mat-cell *matCellDef="let element">{{element.daysAbsent}} </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div
+                *ngIf="dataSourceHR?.data?.length === 0 || dataSourceHR.length==0"
+                class="text-center mx-2 my-3"
+              >
+                No records found
+              </div>
+              
+              <mat-paginator
+              [pageSizeOptions]="[10]"
+              showFirstLastButtons
+              #Paginator
+            ></mat-paginator>  
+    </div>
+
+</div>
+</div>
+</div>
+
+<ngx-loading
+[show]="loading"
+[config]="{
+  animationType: ngxLoadingAnimationTypes.rectangleBounce,
+  backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+  backdropBorderRadius: '10px',
+  primaryColour: '#ff9900',
+  secondaryColour: '#ff9900',
+  tertiaryColour: '#009900',
+  fullScreenBackdrop: true
+}"
+></ngx-loading>

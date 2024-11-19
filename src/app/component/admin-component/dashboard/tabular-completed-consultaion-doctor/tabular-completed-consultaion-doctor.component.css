@@ -1,0 +1,73 @@
+ 
+.adminMisWrap table{
+    width: 100%;
+}
+
+.adminMisWrap table th{
+    font-size: 14px;
+    background-color: #f5f5fa;
+    color: #333333;
+    padding: 10px !important;
+}
+
+.adminMisWrap table{
+    border: 1px solid #3d596d ;
+}
+
+.adminMisWrap table th{
+    border: 1px solid #3d596d ;
+}
+
+.adminMisWrap table td{
+    color: #004179;
+    border: 1px solid #e0e0e0; padding: 10px !important;
+}
+
+.adminMisWrap p{
+    font-weight: 500;
+}
+
+.adminMisWrap .medtechadmindate{
+    font-size: 14px;
+    color: #004179;
+}
+
+.adminMisWrap .mat-form-field {
+    background-color: #f5f1f1;
+    border-radius: 5px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.adminMisWrap .text-end .mat-form-field {
+    margin-left: 20px;
+    width: 125px;
+    margin-right: 0;
+    background-color: #004279;
+}
+
+.adminMisWrap .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+.adminMisWrap .mat-form-field {
+    background-color: #004279;
+    
+}
+
+.adminMisWrap mat-label{ 
+    color:#ffffff;
+}
+
+.tblrRfrlBttn{
+    background-color: #f5f1f1;
+    height: 30px; min-width: 110px;
+    font-weight: 400;
+    color: #004279;
+}
+
+.mat-raised-button{
+    line-height: 30px;
+}
+
+

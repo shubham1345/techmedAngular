@@ -1,0 +1,66 @@
+<div class="modal-body">
+    <div class="d-flex justify-content-center flex-column">
+        <h6 class="elhr">Electronic Health Record</h6>
+        <!-- <div class="d-flex">
+            <div>Pateint's Name:</div>
+            <div class="ml-auto">{{ehrDetail.patientName}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Patient's Age sex:</div>
+            <div class="ml-auto">{{ehrDetail.age}} {{ehrDetail.sex}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Previous Case Label:</div>
+            <div class="ml-auto">{{ehrDetail.priviousCaseLable}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Previous Case Date:</div>
+            <div class="ml-auto">{{ehrDetail.priviousCaseDate}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Previous Doctor:</div>
+            <div class="ml-auto">{{ehrDetail.priviousDoctor}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Diagnosis:</div>
+            <div class="ml-auto">{{ehrDetail.diagnosis}}</div>
+        </div>
+        <div class="d-flex">
+            <div>Prescription:</div>
+            <div class="ml-auto">{{ehrDetail.medicineVMs}}</div>
+        </div> -->
+        <table class="table" >
+            <tbody>
+              <tr>
+                <td><b>Pateint's Name:</b></td>
+                <td>{{ehrDetail.patientName}}</td>
+              </tr>
+              <tr>
+                <td><b>Patient's Age sex:</b></td>
+                <td>{{ehrDetail.age}} {{ehrDetail.sex}}</td>
+              </tr>
+              <tr>
+                <td><b>Previous l:</b></td>
+                <td>{{ehrDetail.priviousCaseLable}}</td>
+              </tr>
+              <tr>
+                <td><b>Previous Case Date:</b></td>
+                <td>{{latestdate}}</td>
+              </tr>
+              <tr>
+                <td><b>Previous Doctor:</b></td>
+                <td>{{ehrDetail.priviousDoctor}}</td>
+              </tr>
+              <tr>
+                <td><b>Diagnosis:</b></td>
+                <td>{{ehrDetail.diagnosis}}</td>
+              </tr>
+              <tr>
+                <td><b>Prescription:</b></td>
+                <td>{{ehrDetail.medicineVMs[0].medicine}} {{ehrDetail.medicineVMs[0].medicine}}</td>
+                
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

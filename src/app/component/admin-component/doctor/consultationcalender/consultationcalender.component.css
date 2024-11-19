@@ -1,0 +1,71 @@
+.calendar {
+    font-family: Arial, sans-serif;
+  }
+  
+  .controls {
+    margin-bottom: 10px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    margin: 0 5px;
+  }
+  
+
+  .consultation{
+/* background-color: #0C4079; */
+font-size: large;
+color: white;
+text-align: end;
+  }
+
+  .monthyear{
+    font-size: larger;
+    font-weight: 600;
+    margin-right: 10px;
+    margin-left: 10px;
+
+  }
+
+  .patient-queue-header{
+    margin-top: 50px;
+    margin-bottom: 50px;
+  
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+.round{
+    background:#0C4079;
+
+    border-radius: 50%;
+    height: 37px;
+   padding: 7px;
+    text-align: center;
+
+    display: inline-block;
+}
+
+.dot {
+    height: 20px;
+    width: 15px;
+    background-color: #0C4079;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  

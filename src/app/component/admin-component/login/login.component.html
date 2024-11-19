@@ -1,0 +1,96 @@
+<section class="login-section">
+    <div class="login-header">
+
+    </div>
+    <div class="login-main">
+        <div class="login-bg">
+            <div class="login-content">
+                <div class="login-content-container">
+                    <h1>MedTech</h1>
+                    <p>Madhya Pradesh <br> Telemedicine Network</p>
+                    <br>
+                    <h1>मेडटेक</h1>
+                    <p>मध्यप्रदेश टेलीमेडिसिन नेटवर्क</p>
+                </div>
+                <div class="bottom-name">
+                    <p>Pawanshree Medicare</p>
+                </div>
+            </div>
+
+            <div class="login-card">
+                <h1 class="login-heading">Login</h1>
+                <form [formGroup]="loginForm" autocomplete="off">
+
+                    <div class="form-group login-form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" id="username"
+                            formControlName="username" aria-describedby="emailHelp">
+                        <div  *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched"
+                            class="error text-danger small error-show">
+                            <div *ngIf="loginForm.controls['username'].errors">
+                                UserName is required
+                            </div>
+                            
+                        </div>
+                       
+                    </div>
+
+                    <div class="form-group login-form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input  #x type="password" formControlName="password" class="form-control input-lg"
+                            id="exampleInputPassword1">
+                        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                            class="error text-danger small error-show">
+                            <div *ngIf="loginForm.controls['password'].errors">
+                                Password is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group login-form-group">
+                        <input  class="form-check-input" type="checkbox" value="" id="flexCheckDefault"  (click)="x.type=x.type=='password'?'text':'password'">
+                        <label class="form-check-label" for="flexCheckDefault">
+                         Show Password
+                        </label>
+                      </div>
+
+
+                      <div class="inline form-group login-form-group input-icons">
+                            <div class="input-box">
+                              
+                                <input type="text" placeholder="Captcha" formControlName="captcha"/>
+                                <span class="prefix" style="    position: relative;
+                                margin-left: -2rem;" (click)="generateCaptch()">  <img style="width:20px; cursor:pointer"
+                                    src="../../../../assets/Images/smaill-icon/refresh-red.png" alt=""></span>
+                              </div>
+
+                            <canvas  #myCanvas id="myCanvas" width="110" height="30" style="border: 1px solid #d3d3d3; border-bottom-right-radius: 10px; background: lightgoldenrodyellow; border-top-right-radius: 10px;">
+                          
+                            </canvas>                        
+                        </div>
+
+                    <div class="login-btn-div">
+                        <div>
+                            <button type="submit" class="btn btn-primary login-btn" (click)="login()">Login</button>
+                        </div>
+                    </div>
+                    <div *ngIf="errors" class="text-danger error-show error-text pt-3" style="text-align: center; font-size: 14px; font-weight:900;">Please Enter email and password</div>
+
+                    <div *ngIf="error" class="text-danger error-show error-text pt-3" style="text-align: center; font-size: 14px; font-weight:900;">{{errormsg}}</div>
+                    <div class="register-forgot-div">
+                        <div class="register-forgot">
+                            <p><a (click)="register()" >Register</a></p>
+                            <p><a (click)="forgetPassword()" >Forgot password?</a></p>
+                           <div class="text-danger error-show error-text" *ngIf="isShowError"> Please call admin at 98765 43210</div>
+                           <div *ngIf="notMatched" class="text-danger error-show error-text">UserName & Password is not matched</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+            backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+            primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' }"></ngx-loading>
+    </div>
+</section>
+

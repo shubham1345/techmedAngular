@@ -1,0 +1,83 @@
+
+<div class="calendar patient-queue-header">
+    <!-- <div class="row">
+        <div class="col-12 text-center">
+    
+            <button (click)="previousMonth()">Previous</button>
+     
+            <h2> {{months[currentMonth] }} {{ currentYear }}</h2>
+      
+            <button (click)="nextMonth()">Next</button>
+        
+        </div>
+    </div> -->
+
+ 
+        <div class="text-center mb-3">
+            <button (click)="previousMonth()"[disabled]="hasPreviousMonthClicked" class="btn btn-primary" style="width: 10%;">Previous</button>
+     
+           <label class="monthyear mr-2 ml-2" >{{months[currentMonth] }} {{ currentYear }}</label>
+      
+            <button (click)="nextMonth()" class="btn btn-primary" style="width: 10%;" [disabled]="disablenext">Next</button>
+          </div>
+
+      
+            <div class="row w-100 mb-4">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <table style="background-color: aliceblue;">
+                        <thead>
+                          <tr>
+                            <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="font-weight: bold;" *ngFor="let week of calendarDays">
+                            <td *ngFor="let day of week">{{ day > 0 ? day : '' }}
+                           
+                                  <div class="consultation" *ngFor="let event of getEventsForDay(day)" ><b class="round" *ngIf="event.totalConsultation !== 0"> {{ event.totalConsultation }}</b>
+                                    <p  class="round-absent" *ngIf="event.totalAbsent!==0"> {{ event.totalAbsent }}</p></div>
+                                
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="col-2"></div>
+                
+            </div>
+
+  <div class="row w-100">
+    <div class="col-2"></div>
+    <div class="col-10" style="align-items: center;">
+        <div>
+          <b class="round consultation"  > {{totalConsultation }}</b><b > - Total Consultation</b>
+        <!-- <legend class="round" style="color: aliceblue;">{{totalConsultation}}</legend> &nbsp;  -   &nbsp;<b>  Total Consultation</b> -->
+        </div>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div class="col-2"></div>
+    <div class="col-10" style="align-items: center;">
+        <div>
+          <b class="round-absent-count consultation"  > {{totalAbsent }}</b><b> - Patient Absent</b>
+
+        <!-- <legend class=""  style="color: aliceblue;">{{totalAbsent}}</legend> &nbsp;  -   &nbsp;<b> Patient Absent</b> -->
+        </div>
+    </div>
+  </div>
+
+
+  </div>
+   <ngx-loading
+      [show]="loading"
+      [config]="{
+        animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+        backdropBorderRadius: '10px',
+        primaryColour: '#ff9900',
+        secondaryColour: '#ff9900',
+        tertiaryColour: '#009900',
+        fullScreenBackdrop: true
+      }"
+    ></ngx-loading>

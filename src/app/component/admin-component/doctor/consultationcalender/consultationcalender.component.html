@@ -1,0 +1,60 @@
+<div class="calendar patient-queue-header">
+    <!-- <div class="row">
+        <div class="col-12 text-center">
+    
+            <button (click)="previousMonth()">Previous</button>
+     
+            <h2> {{months[currentMonth] }} {{ currentYear }}</h2>
+      
+            <button (click)="nextMonth()">Next</button>
+        
+        </div>
+    </div> -->
+
+ 
+        <div class="text-center mb-3">
+            <button (click)="previousMonth()" class="btn btn-primary" style="width: 10%;">Previous</button>
+     
+           <label class="monthyear mr-2 ml-2" >{{months[currentMonth] }} {{ currentYear }}</label>
+      
+            <button (click)="nextMonth()" class="btn btn-primary" style="width: 10%;" [disabled]="disablenext">Next</button>
+          </div>
+
+      
+
+            <div class="row w-100 mb-4">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <table style="background-color: aliceblue;">
+                        <thead>
+                          <tr>
+                            <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let week of calendarDays">
+                            <td *ngFor="let day of week">{{ day > 0 ? day : '' }}
+                           
+                                  <div class="consultation" *ngFor="let event of getEventsForDay(day)"><b class="round">{{ event }}</b></div>
+                                
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="col-2"></div>
+                
+            </div>
+
+  <div class="row w-100">
+    <div class="col-2"></div>
+    <div class="col-10" style="align-items: center;">
+        <div>
+        <legend class="dot"></legend> &nbsp;  -   &nbsp;<b>  Total Consultation</b>
+        </div>
+    </div>
+  </div>
+
+
+  </div>
+  

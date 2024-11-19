@@ -1,0 +1,107 @@
+<div class="patient-queue-header">
+  <div class="patient-header">
+    <div class="patient-head">
+      <!-- <h2>Doctor Feedback</h2> -->
+      <form [formGroup]="doctorFeedback" autocomplete="off">
+        <label>From</label> :
+        <mat-form-field class="">
+          <input matInput [matDatepicker]="picker" class="Datecls" [max]="today" formControlName="fromdate" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <label>To</label> :
+        <mat-form-field class="">
+          <input matInput [matDatepicker]="pickerto" class="Datecls" [max]="today" formControlName="todate" />
+          <mat-datepicker-toggle matSuffix [for]="pickerto"></mat-datepicker-toggle>
+          <mat-datepicker #pickerto></mat-datepicker>
+        </mat-form-field>
+        <button class="btn bg-purple register-capt" (click)="Search()">
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="ShowErrorMessage" class="alert alert-danger">
+    {{ ValidationMessage }}
+  </div>
+  <div class="mat-elevation-z8 mt-3">
+    <form style="display:inline" class="form-group" [formGroup]="formControl" autocomplete="off">
+
+      <mat-form-field class="mx-1">
+        <input matInput formControlName="phcName">
+        <mat-placeholder>PHC</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field class="mx-1">
+        <input matInput formControlName="doctorName">
+        <mat-placeholder>Doctor</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field class="mx-1">
+        <input matInput formControlName="districtName" type="text">
+        <mat-placeholder>District</mat-placeholder>
+      </mat-form-field>
+      <button type="button" class="fa-pull-right btn btn-secondary" (click)="downloadExcel()"><fa-icon
+          [icon]="faFileExcel"></fa-icon></button>
+
+    </form>
+    <table mat-table class="mat-elevation-z8 w-100" [dataSource]="dataSource">
+      <ng-container matColumnDef="srno" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>SL No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.srNo }}</td>
+      </ng-container>
+      <ng-container matColumnDef="District" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>District</th>
+        <td mat-cell *matCellDef="let element">{{ element.districtName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="Block" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Block</th>
+        <td mat-cell *matCellDef="let element">{{ element.blockName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="PHC" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>PHC</th>
+        <td mat-cell *matCellDef="let element">{{ element.phcName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="DrName" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Doctor Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.doctorName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="PatientName" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Patient Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.patientName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="PatientID" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Patient ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.patientID }}</td>
+      </ng-container>
+      <ng-container matColumnDef="PatientCaseId" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Patient CaseId</th>
+        <td mat-cell *matCellDef="let element">{{ element.patientCaseID }}</td>
+      </ng-container>
+      <ng-container matColumnDef="ConsultTime" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Consult Time</th>
+        <td mat-cell *matCellDef="let element">
+          {{ datepipe.transform(element.consultTime, "h:mm a") }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="doctorFeedback" style="width: 10%">
+        <th mat-header-cell *matHeaderCellDef>Doctor Feedback</th>
+        <td mat-cell *matCellDef="let element">{{ element.doctorFeedback }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- <div *ngIf="dataSource.data?.length === 0" class="text-center mx-2 my-3">No records found</div> -->
+    </table>
+  </div>
+  <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+
+  <ngx-loading [show]="loading" [config]="{
+      animationType: ngxLoadingAnimationTypes.rectangleBounce,
+      backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+      backdropBorderRadius: '10px',
+      primaryColour: '#ff9900',
+      secondaryColour: '#ff9900',
+      tertiaryColour: '#009900',
+      fullScreenBackdrop: true
+    }"></ngx-loading>
+</div>

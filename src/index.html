@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>MedTech - MP Telemedicine Network</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script type="text/javascript">
+      // Broadcast that you're opening a page.
+      var origin = window.location.origin;
+      var url = origin + "/download-prescription";
+
+      localStorage.openpages = Date.now();
+      var onLocalStorageEvent = function (e) {
+        if (window.location.href.includes(url)) {
+          return;
+        }
+
+        if (e.key == "openpages") {
+          if (!e.url.includes(url)) {
+            localStorage.page_available = Date.now();
+          } else {
+            localStorage.removeItem("page_available");
+          }
+        }
+        if (e.key == "page_available") {
+          console.log(window.location, "locaaaaaaaaaaaaaaa");
+
+          // if(window.location.href.includes('http://localhost:4200/download-prescription'))
+          // {
+
+          // }
+          // else{
+          alert("Site is already open on another tab. Please switch to that");
+          var ww = window.open("http://google.com", "_self");
+          ww.close();
+          //}
+        }
+      };
+      window.addEventListener("storage", onLocalStorageEvent, false);
+    </script>
+    <script>
+      if (top != window) {
+        top.location = window.location;
+      }
+    </script>
+  </head>
+
+  <body class="mat-typography">
+    <app-root></app-root>
+    <!-- <script src="https://jitsi.pawanshreemedtech.com/external_api.js"></script> -->
+    <script src="https://meet.jit.si/external_api.js"></script>
+  </body>
+</html>

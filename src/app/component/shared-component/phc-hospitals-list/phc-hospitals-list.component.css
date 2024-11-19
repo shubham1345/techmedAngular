@@ -1,0 +1,13 @@
+.table{
+    text-align: center;
+}
+thead, td{
+    font-size:14px;
+}
+
+.modal-body
+{
+    min-height: 100px !important;
+    max-height: 520px !important;
+    overflow: scroll;
+}

@@ -1,0 +1,35 @@
+<div class="modal-body">
+    <div class="container">
+        <div class="row">
+         <input type="search"  class="nosubmit" [(ngModel)]="searchedKeyword" id="myText" (keyup)="searchinput($event)">
+            <div style="overflow-y:scroll; max-height:500px;">
+                <table class="table" >
+                    <tbody>
+                      <tr *ngFor="let search of searchpatient[0] |  filter:searchedKeyword; let i = index;">
+                        <td style="cursor:pointer" (click)="onclickvideoIcon(search.id)">{{search.patientName}}</td>
+                        <td>{{search.patientID}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div>
+                    <p *ngIf="!searchpatient?.length">No Data Found</p>
+                  </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{
+    animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgba(255,255,255,0.3)',
+    backdropBorderRadius: '10px',
+    primaryColour: '#ff9900',
+    secondaryColour: '#ff9900',
+    tertiaryColour: '#009900',
+    fullScreenBackdrop: true
+  }"
+></ngx-loading>

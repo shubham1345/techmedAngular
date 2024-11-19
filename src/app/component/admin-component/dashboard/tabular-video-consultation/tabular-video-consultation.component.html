@@ -1,0 +1,57 @@
+<app-admin-header></app-admin-header>
+
+<section class="adminMisWrap">
+  <div class="container">
+    <div class="row mt-5">
+
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Select Zone</mat-label>
+          <mat-select>
+            <mat-option> Abc </mat-option>
+            <mat-option> Abc </mat-option>
+            <mat-option> Abc </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 text-center">
+        <p class="mb-0"> MedTech Completed Consultations Progress Chart </p>
+        <p class="medtechadmindate"> 4 October 2021 - 21 March 2022 </p>
+      </div>
+      <div class="col-md-3 text-end">
+          <button class="tblrRfrlBttn" mat-raised-button>Speciality Hospital View</button>
+      </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+      <div class="col-md-3">
+        
+          <p class="mb-0"> Total Patient Consulted </p>
+          <p class="medtechadmindate"> 46,735 </p>
+        
+          <p class="mb-0 mt-4"> Total Video Consultations </p>
+          <p class="medtechadmindate"> 45,000 </p>
+        
+      </div>
+      <div class="col-md-9 text-center">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="position">
+            <th class="text-center" mat-header-cell *matHeaderCellDef> Primary Health Center </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th class="text-center" mat-header-cell *matHeaderCellDef> Number of Video Consultations </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</section>

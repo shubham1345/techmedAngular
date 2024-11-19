@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+      
+            <div class="row">
+                <div class="col-5 m-2 shadow bg-gray" *ngFor="let participant of getParticipants()">
+                    <app-twilio-room-participants [participant]="participant" [isHost]="isHost(participant.identity)"
+                        [localParticipant]="localParticipant" [micOn]="true">
+                    </app-twilio-room-participants>
+                </div>
+                <div *ngIf="getParticipants().length>0" class=" d-flex align-items-center justify-content-center">
+
+                    <!-- <button class="btn btn-danger" *ngIf="!isDoctor" (click)="onEndCallClick(true)">End Call</button> -->
+
+                    <button class="btn btn-warning ms-4" (click)="onEndCallClick(true)">Having Trouble? End Call</button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<ngx-loading [show]="showLoader" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+    backdropBackgroundColour: 'rgb(0 0 0 / 63%)', backdropBorderRadius: '10px',
+    primaryColour: '#ff9900', secondaryColour: '#ff9900', tertiaryColour: '#009900' }"></ngx-loading>

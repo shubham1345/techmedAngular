@@ -1,0 +1,45 @@
+<div class="app">
+    <h1>Video Composition</h1>
+    <div id="statusupdate">
+        <h2>Rooms with Compositions</h2>
+        <table>
+            <tr>
+                <th>Room ID</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let room of compositionRecord[0]">
+                <td>{{room.roomSid}}</td>
+                <td>{{room.dateCreated}}</td>
+                <td>
+                 <li>
+                     <!-- <button onclick="GetComposition(compo.sid)">View</button> -->
+                     <button type="button" class="btn bg-darkblue mnWdth75" (click)="downloadComposition(room.sid)">Download</button>
+                     <button type="button" class="btn bg-darkblue mnWdth75" (click)="deleteComposition(room.sid)">Delete</button>
+                 </li>
+                </td>
+            </tr> 
+        </table>
+    </div>
+    <div id="statusupdate">
+        <h2>Call Record For Composition</h2>
+        <table>
+            <tr>
+                <th>Room ID</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let room of callRecord[0]">
+                <td>{{room.sid}}</td>
+                <td>{{room.dateCreated}}</td>
+                <td>
+                 <li>
+                     <!-- <button onclick="GetComposition(compo.sid)">View</button> -->
+                     <button type="button" class="btn bg-darkblue mnWdth75" (click)="recordComposition($event.target,room.sid)">Compose</button>
+                    
+                 </li>
+                </td>
+            </tr> 
+        </table>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+.bg {
+    width: 50vw;
+    height: 500px; 
+    left: 10px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow:scroll;
+
+  }

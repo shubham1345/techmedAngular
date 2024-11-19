@@ -1,0 +1,27 @@
+.call-popup.notInProg{
+    height: 0px;
+    width: 0px;
+  }
+  .call-popup{
+    width:450px;
+    height: 300px;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    /* border: 1px solid #4D3F3F; */
+    /* padding: 15px; */
+  
+  }
+  
+  .call-popup.full-screen{
+    width: 80%;
+    height: 80%;
+    right:10%;
+    bottom: 10%;
+  }
+
+  .jitsiDiv{
+    height: 100%;
+  }
+  

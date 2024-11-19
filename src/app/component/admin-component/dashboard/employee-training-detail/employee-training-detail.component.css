@@ -1,0 +1,60 @@
+
+  .health-info{
+    background-color: #dee2e6;
+    border-radius:7px;
+    margin:42px;
+    padding: 20px 100px 20px 100px;  
+    font-family: 'Montserrat-regular';
+    font-size: 14px;
+    margin-left: 20%;
+    margin-right: 20%;
+    
+    
+  }
+
+.mbt-1{
+  margin-bottom:0.5rem;
+}
+.mbt-2{
+  margin-bottom: 2rem;
+}
+.mrt-1{
+  margin-right:1rem;
+}
+.mtp-1{
+  margin-top:1rem;
+}
+.mtp-2{
+  margin-top:2rem;
+}
+.phc-technician{
+  margin-bottom:2rem;
+  margin-top:2rem;
+  font-family: 'Montserrat-semibold';
+}
+/* .account-first-section{
+  margin-bottom:1rem;
+} */
+
+/* patient-history */
+.row{
+  padding: 8px;
+}
+.phc{
+    padding: 25px;
+    margin-left: -30px;
+}
+.headersize{
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.clsPlacement{
+  margin-top: 16px;
+  width: 100%;
+  height: 14px;
+  margin-left: 20%; 
+}
+.lbltextsize{
+  font-size: 16px;
+}

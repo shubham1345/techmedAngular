@@ -1,0 +1,32 @@
+<div class="divHeight" [ngClass]="{ 'is-active': showModal }">
+  <div id="jitsi-iframe"></div>
+  <div class="button w-100 d-flex justify-content-center my-1">
+    <button
+    class="btn btn-warning"
+    aria-label="close"
+    (click)="onEndCallClick(true)"
+    >
+    Having Trouble? End Call
+  </button>
+</div>
+</div>
+
+<!-- <div class="modal" [ngClass]="{ 'is-active': showModal }">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div style="display: flex; gap: 1rem">
+      <div id="jitsi-iframe"></div>
+    </div>
+    <div
+      style="display: flex; justify-content: space-between; margin-top: 1rem"
+    >
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        (click)="onEndCallClick(true)"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div> -->

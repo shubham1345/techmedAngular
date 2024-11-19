@@ -1,0 +1,31 @@
+<div class="preview video-camera-box shadow m-1">
+    <div [hidden]="!isPreviewing" #preview fxFill fxLayoutAlign="center center"></div>
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="p-2">
+            {{part?.identity}}
+        </div>
+    </div>
+</div>
+<!-- 
+<section>
+    <div class="my-preview">
+        <div [hidden]="!isPreviewing" #preview fxFill fxLayoutAlign="center center"></div>
+        <div [hidden]="isPreviewing" class="my-preview" fxLayoutAlign="center center">
+            <p class="avatar">{{localInitial}}</p>
+        </div>
+
+        <div class="mic-name" fxLayout="row">
+            <button [disabled]="host === '' && currentIdentity !== part?.identity" mat-icon-button>
+                <mat-icon (click)="mute()" fontSet="material-icons-outlined" fxFlexAlign="center"
+                    [ngClass]="{ 'icon-on': micOn, 'icon-off': !micOn }">
+                    {{micOn ? 'mic_none' : 'mic_off'}}
+                </mat-icon>
+            </button>
+
+            <p ngClass.lt-sm="p-sm">{{part?.identity}}</p>
+            <p ngClass.lt-sm="p-sm">{{host}} - participant</p>
+        </div>
+
+
+    </div>
+</section> -->
